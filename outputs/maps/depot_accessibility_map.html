@@ -1,0 +1,3513 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_9e83363a07217b28c2ae3ad23622820a {
+                    position: relative;
+                    width: 100.0vw;
+                    height: 100.0vh;
+
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>/*
+ * Glyphicons Halflings -- the icon font used by folium's default Awesome Markers
+ * (Icon(prefix="glyphicon")). Extracted from Bootstrap 3's glyphicon rules only.
+ *
+ * folium previously loaded netdna's bootstrap-glyphicons.css, which despite its
+ * name ships a full Bootstrap-3 base stylesheet (normalize reset + global `body`
+ * rules) that leaked onto the host page (GH-1820). This file provides just the
+ * @font-face and .glyphicon/.glyphicon-* rules needed for the markers, with no
+ * page-wide side effects. Font files are served from jsDelivr.
+ */
+@font-face{font-family:'Glyphicons Halflings';src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot');src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.woff') format('woff'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.ttf') format('truetype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');}.glyphicon{position:relative;top:1px;display:inline-block;font-family:'Glyphicons Halflings';font-style:normal;font-weight:normal;line-height:1;-webkit-font-smoothing:antialiased;}
+.glyphicon-asterisk:before{content:"\2a";}
+.glyphicon-plus:before{content:"\2b";}
+.glyphicon-euro:before{content:"\20ac";}
+.glyphicon-minus:before{content:"\2212";}
+.glyphicon-cloud:before{content:"\2601";}
+.glyphicon-envelope:before{content:"\2709";}
+.glyphicon-pencil:before{content:"\270f";}
+.glyphicon-glass:before{content:"\e001";}
+.glyphicon-music:before{content:"\e002";}
+.glyphicon-search:before{content:"\e003";}
+.glyphicon-heart:before{content:"\e005";}
+.glyphicon-star:before{content:"\e006";}
+.glyphicon-star-empty:before{content:"\e007";}
+.glyphicon-user:before{content:"\e008";}
+.glyphicon-film:before{content:"\e009";}
+.glyphicon-th-large:before{content:"\e010";}
+.glyphicon-th:before{content:"\e011";}
+.glyphicon-th-list:before{content:"\e012";}
+.glyphicon-ok:before{content:"\e013";}
+.glyphicon-remove:before{content:"\e014";}
+.glyphicon-zoom-in:before{content:"\e015";}
+.glyphicon-zoom-out:before{content:"\e016";}
+.glyphicon-off:before{content:"\e017";}
+.glyphicon-signal:before{content:"\e018";}
+.glyphicon-cog:before{content:"\e019";}
+.glyphicon-trash:before{content:"\e020";}
+.glyphicon-home:before{content:"\e021";}
+.glyphicon-file:before{content:"\e022";}
+.glyphicon-time:before{content:"\e023";}
+.glyphicon-road:before{content:"\e024";}
+.glyphicon-download-alt:before{content:"\e025";}
+.glyphicon-download:before{content:"\e026";}
+.glyphicon-upload:before{content:"\e027";}
+.glyphicon-inbox:before{content:"\e028";}
+.glyphicon-play-circle:before{content:"\e029";}
+.glyphicon-repeat:before{content:"\e030";}
+.glyphicon-refresh:before{content:"\e031";}
+.glyphicon-list-alt:before{content:"\e032";}
+.glyphicon-flag:before{content:"\e034";}
+.glyphicon-headphones:before{content:"\e035";}
+.glyphicon-volume-off:before{content:"\e036";}
+.glyphicon-volume-down:before{content:"\e037";}
+.glyphicon-volume-up:before{content:"\e038";}
+.glyphicon-qrcode:before{content:"\e039";}
+.glyphicon-barcode:before{content:"\e040";}
+.glyphicon-tag:before{content:"\e041";}
+.glyphicon-tags:before{content:"\e042";}
+.glyphicon-book:before{content:"\e043";}
+.glyphicon-print:before{content:"\e045";}
+.glyphicon-font:before{content:"\e047";}
+.glyphicon-bold:before{content:"\e048";}
+.glyphicon-italic:before{content:"\e049";}
+.glyphicon-text-height:before{content:"\e050";}
+.glyphicon-text-width:before{content:"\e051";}
+.glyphicon-align-left:before{content:"\e052";}
+.glyphicon-align-center:before{content:"\e053";}
+.glyphicon-align-right:before{content:"\e054";}
+.glyphicon-align-justify:before{content:"\e055";}
+.glyphicon-list:before{content:"\e056";}
+.glyphicon-indent-left:before{content:"\e057";}
+.glyphicon-indent-right:before{content:"\e058";}
+.glyphicon-facetime-video:before{content:"\e059";}
+.glyphicon-picture:before{content:"\e060";}
+.glyphicon-map-marker:before{content:"\e062";}
+.glyphicon-adjust:before{content:"\e063";}
+.glyphicon-tint:before{content:"\e064";}
+.glyphicon-edit:before{content:"\e065";}
+.glyphicon-share:before{content:"\e066";}
+.glyphicon-check:before{content:"\e067";}
+.glyphicon-move:before{content:"\e068";}
+.glyphicon-step-backward:before{content:"\e069";}
+.glyphicon-fast-backward:before{content:"\e070";}
+.glyphicon-backward:before{content:"\e071";}
+.glyphicon-play:before{content:"\e072";}
+.glyphicon-pause:before{content:"\e073";}
+.glyphicon-stop:before{content:"\e074";}
+.glyphicon-forward:before{content:"\e075";}
+.glyphicon-fast-forward:before{content:"\e076";}
+.glyphicon-step-forward:before{content:"\e077";}
+.glyphicon-eject:before{content:"\e078";}
+.glyphicon-chevron-left:before{content:"\e079";}
+.glyphicon-chevron-right:before{content:"\e080";}
+.glyphicon-plus-sign:before{content:"\e081";}
+.glyphicon-minus-sign:before{content:"\e082";}
+.glyphicon-remove-sign:before{content:"\e083";}
+.glyphicon-ok-sign:before{content:"\e084";}
+.glyphicon-question-sign:before{content:"\e085";}
+.glyphicon-info-sign:before{content:"\e086";}
+.glyphicon-screenshot:before{content:"\e087";}
+.glyphicon-remove-circle:before{content:"\e088";}
+.glyphicon-ok-circle:before{content:"\e089";}
+.glyphicon-ban-circle:before{content:"\e090";}
+.glyphicon-arrow-left:before{content:"\e091";}
+.glyphicon-arrow-right:before{content:"\e092";}
+.glyphicon-arrow-up:before{content:"\e093";}
+.glyphicon-arrow-down:before{content:"\e094";}
+.glyphicon-share-alt:before{content:"\e095";}
+.glyphicon-resize-full:before{content:"\e096";}
+.glyphicon-resize-small:before{content:"\e097";}
+.glyphicon-exclamation-sign:before{content:"\e101";}
+.glyphicon-gift:before{content:"\e102";}
+.glyphicon-leaf:before{content:"\e103";}
+.glyphicon-eye-open:before{content:"\e105";}
+.glyphicon-eye-close:before{content:"\e106";}
+.glyphicon-warning-sign:before{content:"\e107";}
+.glyphicon-plane:before{content:"\e108";}
+.glyphicon-random:before{content:"\e110";}
+.glyphicon-comment:before{content:"\e111";}
+.glyphicon-magnet:before{content:"\e112";}
+.glyphicon-chevron-up:before{content:"\e113";}
+.glyphicon-chevron-down:before{content:"\e114";}
+.glyphicon-retweet:before{content:"\e115";}
+.glyphicon-shopping-cart:before{content:"\e116";}
+.glyphicon-folder-close:before{content:"\e117";}
+.glyphicon-folder-open:before{content:"\e118";}
+.glyphicon-resize-vertical:before{content:"\e119";}
+.glyphicon-resize-horizontal:before{content:"\e120";}
+.glyphicon-hdd:before{content:"\e121";}
+.glyphicon-bullhorn:before{content:"\e122";}
+.glyphicon-certificate:before{content:"\e124";}
+.glyphicon-thumbs-up:before{content:"\e125";}
+.glyphicon-thumbs-down:before{content:"\e126";}
+.glyphicon-hand-right:before{content:"\e127";}
+.glyphicon-hand-left:before{content:"\e128";}
+.glyphicon-hand-up:before{content:"\e129";}
+.glyphicon-hand-down:before{content:"\e130";}
+.glyphicon-circle-arrow-right:before{content:"\e131";}
+.glyphicon-circle-arrow-left:before{content:"\e132";}
+.glyphicon-circle-arrow-up:before{content:"\e133";}
+.glyphicon-circle-arrow-down:before{content:"\e134";}
+.glyphicon-globe:before{content:"\e135";}
+.glyphicon-tasks:before{content:"\e137";}
+.glyphicon-filter:before{content:"\e138";}
+.glyphicon-fullscreen:before{content:"\e140";}
+.glyphicon-dashboard:before{content:"\e141";}
+.glyphicon-heart-empty:before{content:"\e143";}
+.glyphicon-link:before{content:"\e144";}
+.glyphicon-phone:before{content:"\e145";}
+.glyphicon-usd:before{content:"\e148";}
+.glyphicon-gbp:before{content:"\e149";}
+.glyphicon-sort:before{content:"\e150";}
+.glyphicon-sort-by-alphabet:before{content:"\e151";}
+.glyphicon-sort-by-alphabet-alt:before{content:"\e152";}
+.glyphicon-sort-by-order:before{content:"\e153";}
+.glyphicon-sort-by-order-alt:before{content:"\e154";}
+.glyphicon-sort-by-attributes:before{content:"\e155";}
+.glyphicon-sort-by-attributes-alt:before{content:"\e156";}
+.glyphicon-unchecked:before{content:"\e157";}
+.glyphicon-expand:before{content:"\e158";}
+.glyphicon-collapse-down:before{content:"\e159";}
+.glyphicon-collapse-up:before{content:"\e160";}
+.glyphicon-log-in:before{content:"\e161";}
+.glyphicon-flash:before{content:"\e162";}
+.glyphicon-log-out:before{content:"\e163";}
+.glyphicon-new-window:before{content:"\e164";}
+.glyphicon-record:before{content:"\e165";}
+.glyphicon-save:before{content:"\e166";}
+.glyphicon-open:before{content:"\e167";}
+.glyphicon-saved:before{content:"\e168";}
+.glyphicon-import:before{content:"\e169";}
+.glyphicon-export:before{content:"\e170";}
+.glyphicon-send:before{content:"\e171";}
+.glyphicon-floppy-disk:before{content:"\e172";}
+.glyphicon-floppy-saved:before{content:"\e173";}
+.glyphicon-floppy-remove:before{content:"\e174";}
+.glyphicon-floppy-save:before{content:"\e175";}
+.glyphicon-floppy-open:before{content:"\e176";}
+.glyphicon-credit-card:before{content:"\e177";}
+.glyphicon-transfer:before{content:"\e178";}
+.glyphicon-cutlery:before{content:"\e179";}
+.glyphicon-header:before{content:"\e180";}
+.glyphicon-compressed:before{content:"\e181";}
+.glyphicon-earphone:before{content:"\e182";}
+.glyphicon-phone-alt:before{content:"\e183";}
+.glyphicon-tower:before{content:"\e184";}
+.glyphicon-stats:before{content:"\e185";}
+.glyphicon-sd-video:before{content:"\e186";}
+.glyphicon-hd-video:before{content:"\e187";}
+.glyphicon-subtitles:before{content:"\e188";}
+.glyphicon-sound-stereo:before{content:"\e189";}
+.glyphicon-sound-dolby:before{content:"\e190";}
+.glyphicon-sound-5-1:before{content:"\e191";}
+.glyphicon-sound-6-1:before{content:"\e192";}
+.glyphicon-sound-7-1:before{content:"\e193";}
+.glyphicon-copyright-mark:before{content:"\e194";}
+.glyphicon-registration-mark:before{content:"\e195";}
+.glyphicon-cloud-download:before{content:"\e197";}
+.glyphicon-cloud-upload:before{content:"\e198";}
+.glyphicon-tree-conifer:before{content:"\e199";}
+.glyphicon-tree-deciduous:before{content:"\e200";}
+.glyphicon-briefcase:before{content:"\1f4bc";}
+.glyphicon-calendar:before{content:"\1f4c5";}
+.glyphicon-pushpin:before{content:"\1f4cc";}
+.glyphicon-paperclip:before{content:"\1f4ce";}
+.glyphicon-camera:before{content:"\1f4f7";}
+.glyphicon-lock:before{content:"\1f512";}
+.glyphicon-bell:before{content:"\1f514";}
+.glyphicon-bookmark:before{content:"\1f516";}
+.glyphicon-fire:before{content:"\1f525";}
+.glyphicon-wrench:before{content:"\1f527";}
+</style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.css"/>
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_9e83363a07217b28c2ae3ad23622820a" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_9e83363a07217b28c2ae3ad23622820a = L.map(
+                "map_9e83363a07217b28c2ae3ad23622820a",
+                {
+                    center: [30.4215, -9.5985],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 14,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+            L.control.scale().addTo(map_9e83363a07217b28c2ae3ad23622820a);
+
+            
+
+        
+    
+            var tile_layer_12df268ba4371e7f2dd33dac914001bf = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_12df268ba4371e7f2dd33dac914001bf.addTo(map_9e83363a07217b28c2ae3ad23622820a);
+        
+    
+            var tile_layer_701ec8711e25506a1b232729d1269e7b = L.tileLayer(
+                "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "Esri",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_701ec8711e25506a1b232729d1269e7b.addTo(map_9e83363a07217b28c2ae3ad23622820a);
+        
+    
+            var feature_group_e70a06556223ed763011acf6dfc77a1e = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_6c10fbe2f39046b2cf0206741fe04daa = L.marker(
+                [30.4215, -9.5985],
+                {
+}
+            ).addTo(feature_group_e70a06556223ed763011acf6dfc77a1e);
+        
+    
+            var icon_ae625bfa39252d5702d12bef958fdbf5 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f5236000baafa0dbd56a34200215f3ca = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e445a5cb885a3a7ef214eaea632ffebd = $(`<div id="html_e445a5cb885a3a7ef214eaea632ffebd" style="width: 100.0%; height: 100.0%;"><b>DÉPÔT CENTRAL</b><br>Place Al Amal, Agadir<br>Lat: 30.4215°N | Lon: -9.5985°W</div>`)[0];
+                popup_f5236000baafa0dbd56a34200215f3ca.setContent(html_e445a5cb885a3a7ef214eaea632ffebd);
+            
+        
+
+        marker_6c10fbe2f39046b2cf0206741fe04daa.bindPopup(popup_f5236000baafa0dbd56a34200215f3ca)
+        ;
+
+        
+    
+    
+            marker_6c10fbe2f39046b2cf0206741fe04daa.bindTooltip(
+                `<div>
+                     <b>POINT #0 (DÉPÔT CENTRAL) : Place Al Amal</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_6c10fbe2f39046b2cf0206741fe04daa.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_6c10fbe2f39046b2cf0206741fe04daa.setIcon(icon_ae625bfa39252d5702d12bef958fdbf5);
+            
+    
+            feature_group_e70a06556223ed763011acf6dfc77a1e.addTo(map_9e83363a07217b28c2ae3ad23622820a);
+        
+    
+            var feature_group_e102d1fa90cd41973a49b0fe657be886 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var poly_line_c3f6e83a730fa92034e3424cd7f77663 = L.polyline(
+                [[30.4215, -9.5985], [30.423521, -9.605329]],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#2ca02c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_c3f6e83a730fa92034e3424cd7f77663.bindTooltip(
+                `<div>
+                     Vers #1 : 0.87 km | 1.7 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_a41b387060ac3795c2f9b3ddfc3d80a2 = L.polyline(
+                [[30.4215, -9.5985], [30.423833, -9.584771]],
+                {"bubblingMouseEvents": true, "color": "#ff7f0e", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#ff7f0e", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_a41b387060ac3795c2f9b3ddfc3d80a2.bindTooltip(
+                `<div>
+                     Vers #2 : 1.9 km | 3.3 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_0bf43048011d256cde9e8eb028c398a3 = L.polyline(
+                [[30.4215, -9.5985], [30.427201, -9.592766]],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#2ca02c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_0bf43048011d256cde9e8eb028c398a3.bindTooltip(
+                `<div>
+                     Vers #3 : 1.14 km | 1.8 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_b6afdcf21b5f5a0fc24cfb71f5fd14e1 = L.polyline(
+                [[30.4215, -9.5985], [30.417109, -9.600315]],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#2ca02c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_b6afdcf21b5f5a0fc24cfb71f5fd14e1.bindTooltip(
+                `<div>
+                     Vers #4 : 0.66 km | 1.6 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_9cf87eb16f409a8154a5a793f3557e20 = L.polyline(
+                [[30.4215, -9.5985], [30.41756, -9.596466]],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#2ca02c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_9cf87eb16f409a8154a5a793f3557e20.bindTooltip(
+                `<div>
+                     Vers #5 : 0.74 km | 1.4 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_6352721281bf8274d3252083f1050c8e = L.polyline(
+                [[30.4215, -9.5985], [30.421365, -9.592763]],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#2ca02c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_6352721281bf8274d3252083f1050c8e.bindTooltip(
+                `<div>
+                     Vers #6 : 0.77 km | 1.2 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_28eb72092cbad7713ac70d4b471a30c9 = L.polyline(
+                [[30.4215, -9.5985], [30.425983, -9.592505]],
+                {"bubblingMouseEvents": true, "color": "#ff7f0e", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#ff7f0e", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_28eb72092cbad7713ac70d4b471a30c9.bindTooltip(
+                `<div>
+                     Vers #7 : 1.22 km | 2.3 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_c3de9b40c6895ac17185e09fa90b6b21 = L.polyline(
+                [[30.4215, -9.5985], [30.422241, -9.60656]],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#2ca02c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_c3de9b40c6895ac17185e09fa90b6b21.bindTooltip(
+                `<div>
+                     Vers #8 : 1.16 km | 1.8 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_a37d59236faa12c25b380eeed8738c09 = L.polyline(
+                [[30.4215, -9.5985], [30.426318, -9.592434]],
+                {"bubblingMouseEvents": true, "color": "#ff7f0e", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#ff7f0e", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_a37d59236faa12c25b380eeed8738c09.bindTooltip(
+                `<div>
+                     Vers #9 : 1.19 km | 2.1 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_bd2ad7ef91d7a337a2045fd9506b3159 = L.polyline(
+                [[30.4215, -9.5985], [30.425968, -9.591872]],
+                {"bubblingMouseEvents": true, "color": "#ff7f0e", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#ff7f0e", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_bd2ad7ef91d7a337a2045fd9506b3159.bindTooltip(
+                `<div>
+                     Vers #10 : 1.39 km | 2.2 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_16b7166b993da9e9146c15d021a05d13 = L.polyline(
+                [[30.4215, -9.5985], [30.42592, -9.591852]],
+                {"bubblingMouseEvents": true, "color": "#ff7f0e", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#ff7f0e", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_16b7166b993da9e9146c15d021a05d13.bindTooltip(
+                `<div>
+                     Vers #11 : 1.39 km | 2.2 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_fc4dfc868d31b6456ea592db6219a470 = L.polyline(
+                [[30.4215, -9.5985], [30.417808, -9.595184]],
+                {"bubblingMouseEvents": true, "color": "#ff7f0e", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#ff7f0e", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_fc4dfc868d31b6456ea592db6219a470.bindTooltip(
+                `<div>
+                     Vers #12 : 1.28 km | 2.8 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_653fee696c8fdeeb1470292f75c4131c = L.polyline(
+                [[30.4215, -9.5985], [30.42048, -9.595103]],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#2ca02c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_653fee696c8fdeeb1470292f75c4131c.bindTooltip(
+                `<div>
+                     Vers #13 : 0.43 km | 0.7 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_bb848cdf1ecfeb3957ca1420079858eb = L.polyline(
+                [[30.4215, -9.5985], [30.416228, -9.58937]],
+                {"bubblingMouseEvents": true, "color": "#ff7f0e", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#ff7f0e", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_bb848cdf1ecfeb3957ca1420079858eb.bindTooltip(
+                `<div>
+                     Vers #14 : 1.2 km | 2.2 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_55f8facb7ea13b86e8c1687bc4f8a56d = L.polyline(
+                [[30.4215, -9.5985], [30.421379, -9.599539]],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#2ca02c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_55f8facb7ea13b86e8c1687bc4f8a56d.bindTooltip(
+                `<div>
+                     Vers #15 : 0.5 km | 1.3 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_c88209a1602059b61fdbf5148d35351b = L.polyline(
+                [[30.4215, -9.5985], [30.421525, -9.600491]],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#2ca02c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_c88209a1602059b61fdbf5148d35351b.bindTooltip(
+                `<div>
+                     Vers #16 : 0.42 km | 0.9 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_a3459100d74c962aa9a173c271664a76 = L.polyline(
+                [[30.4215, -9.5985], [30.424452, -9.590298]],
+                {"bubblingMouseEvents": true, "color": "#ff7f0e", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#ff7f0e", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_a3459100d74c962aa9a173c271664a76.bindTooltip(
+                `<div>
+                     Vers #17 : 1.08 km | 2.2 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_8c80d320cf3a695accb4be70ea2da706 = L.polyline(
+                [[30.4215, -9.5985], [30.422604, -9.600317]],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#2ca02c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_8c80d320cf3a695accb4be70ea2da706.bindTooltip(
+                `<div>
+                     Vers #18 : 0.33 km | 0.7 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_1c55f377c30e0428761f63d44b080503 = L.polyline(
+                [[30.4215, -9.5985], [30.422951, -9.604042]],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#2ca02c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_1c55f377c30e0428761f63d44b080503.bindTooltip(
+                `<div>
+                     Vers #19 : 0.79 km | 1.7 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_eaf7d41bbe075149db4a6f877d5a162c = L.polyline(
+                [[30.4215, -9.5985], [30.422224, -9.604897]],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#2ca02c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_eaf7d41bbe075149db4a6f877d5a162c.bindTooltip(
+                `<div>
+                     Vers #20 : 0.92 km | 1.8 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_f42bbfcf46be9942c25f8ce81d6ce7fa = L.polyline(
+                [[30.4215, -9.5985], [30.421659, -9.593499]],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#2ca02c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_f42bbfcf46be9942c25f8ce81d6ce7fa.bindTooltip(
+                `<div>
+                     Vers #21 : 0.65 km | 1.1 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_54a90026a95eee5793d76cd23826158c = L.polyline(
+                [[30.4215, -9.5985], [30.420268, -9.603453]],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#2ca02c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_54a90026a95eee5793d76cd23826158c.bindTooltip(
+                `<div>
+                     Vers #22 : 0.78 km | 1.4 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_c12376a3fc7285b084973cf9076f6a5c = L.polyline(
+                [[30.4215, -9.5985], [30.415039, -9.598995]],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#2ca02c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_c12376a3fc7285b084973cf9076f6a5c.bindTooltip(
+                `<div>
+                     Vers #23 : 1.02 km | 1.9 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_4686b8dd29e4094506dd95cb5830da99 = L.polyline(
+                [[30.4215, -9.5985], [30.422427, -9.607787]],
+                {"bubblingMouseEvents": true, "color": "#ff7f0e", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#ff7f0e", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_4686b8dd29e4094506dd95cb5830da99.bindTooltip(
+                `<div>
+                     Vers #24 : 1.69 km | 2.3 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_00c150b9765c690ad11f39436f6bd061 = L.polyline(
+                [[30.4215, -9.5985], [30.424403, -9.593281]],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#2ca02c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_00c150b9765c690ad11f39436f6bd061.bindTooltip(
+                `<div>
+                     Vers #25 : 0.76 km | 1.9 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_9492c4b6c1a9ed27ad176bcebd8496a5 = L.polyline(
+                [[30.4215, -9.5985], [30.424319, -9.593367]],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#2ca02c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_9492c4b6c1a9ed27ad176bcebd8496a5.bindTooltip(
+                `<div>
+                     Vers #26 : 0.76 km | 1.9 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_f3a220ed007f58c3bd703ff06a8883ed = L.polyline(
+                [[30.4215, -9.5985], [30.424476, -9.593195]],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#2ca02c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_f3a220ed007f58c3bd703ff06a8883ed.bindTooltip(
+                `<div>
+                     Vers #27 : 0.76 km | 1.9 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_7c253708896ff28104d60dfb06e0a034 = L.polyline(
+                [[30.4215, -9.5985], [30.427299, -9.587889]],
+                {"bubblingMouseEvents": true, "color": "#ff7f0e", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#ff7f0e", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_7c253708896ff28104d60dfb06e0a034.bindTooltip(
+                `<div>
+                     Vers #28 : 1.7 km | 3.0 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_0a484addc89d854d1557a3467fdfbb5c = L.polyline(
+                [[30.4215, -9.5985], [30.417386, -9.600135]],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#2ca02c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_0a484addc89d854d1557a3467fdfbb5c.bindTooltip(
+                `<div>
+                     Vers #29 : 0.64 km | 1.5 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_df21a156d2d31edb6bc24926a5f16225 = L.polyline(
+                [[30.4215, -9.5985], [30.4209, -9.59478]],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#2ca02c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_df21a156d2d31edb6bc24926a5f16225.bindTooltip(
+                `<div>
+                     Vers #30 : 0.54 km | 1.1 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_573117bcba2fef99727b1cd627c0a8fb = L.polyline(
+                [[30.4215, -9.5985], [30.41509, -9.59745]],
+                {"bubblingMouseEvents": true, "color": "#ff7f0e", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#ff7f0e", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_573117bcba2fef99727b1cd627c0a8fb.bindTooltip(
+                `<div>
+                     Vers #31 : 2.38 km | 3.4 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_347e5ef53f702af911eba4392d95bab2 = L.polyline(
+                [[30.4215, -9.5985], [30.417994, -9.605967]],
+                {"bubblingMouseEvents": true, "color": "#ff7f0e", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#ff7f0e", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_347e5ef53f702af911eba4392d95bab2.bindTooltip(
+                `<div>
+                     Vers #32 : 1.74 km | 3.0 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_21bb66149776452b51fa234db4c75358 = L.polyline(
+                [[30.4215, -9.5985], [30.423, -9.591]],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#2ca02c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_21bb66149776452b51fa234db4c75358.bindTooltip(
+                `<div>
+                     Vers #33 : 0.97 km | 1.9 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_ec49bb1dba89ae496526bcdd942c8a10 = L.polyline(
+                [[30.4215, -9.5985], [30.425629, -9.599421]],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#2ca02c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_ec49bb1dba89ae496526bcdd942c8a10.bindTooltip(
+                `<div>
+                     Vers #34 : 0.66 km | 1.2 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_52764fff3c4bea9cbc32311d75049b29 = L.polyline(
+                [[30.4215, -9.5985], [30.418171, -9.596571]],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#2ca02c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_52764fff3c4bea9cbc32311d75049b29.bindTooltip(
+                `<div>
+                     Vers #35 : 0.52 km | 1.2 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_759592ef66ad6b12e2bce7bf5db8e469 = L.polyline(
+                [[30.4215, -9.5985], [30.420548, -9.597507]],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#2ca02c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_759592ef66ad6b12e2bce7bf5db8e469.bindTooltip(
+                `<div>
+                     Vers #36 : 0.19 km | 0.4 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_e9c156a139395b95676338e1cb5cdaaa = L.polyline(
+                [[30.4215, -9.5985], [30.427802, -9.587331]],
+                {"bubblingMouseEvents": true, "color": "#ff7f0e", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#ff7f0e", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_e9c156a139395b95676338e1cb5cdaaa.bindTooltip(
+                `<div>
+                     Vers #37 : 1.77 km | 3.4 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_0240bb911b1fbed5932944d9fe3b5dd1 = L.polyline(
+                [[30.4215, -9.5985], [30.426531, -9.593438]],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#2ca02c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_0240bb911b1fbed5932944d9fe3b5dd1.bindTooltip(
+                `<div>
+                     Vers #38 : 1.11 km | 1.8 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_569438c5ba7ace97b178c88e7ed499f2 = L.polyline(
+                [[30.4215, -9.5985], [30.420949, -9.60443]],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#2ca02c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_569438c5ba7ace97b178c88e7ed499f2.bindTooltip(
+                `<div>
+                     Vers #39 : 0.9 km | 1.5 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_144d82e3fa4b204ecff396e38d1886c0 = L.polyline(
+                [[30.4215, -9.5985], [30.423998, -9.615366]],
+                {"bubblingMouseEvents": true, "color": "#d62728", "dashArray": "4, 4", "dashOffset": null, "fill": false, "fillColor": "#d62728", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_e102d1fa90cd41973a49b0fe657be886);
+        
+    
+            poly_line_144d82e3fa4b204ecff396e38d1886c0.bindTooltip(
+                `<div>
+                     Vers #40 : 2.27 km | 4.7 min
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_e102d1fa90cd41973a49b0fe657be886.addTo(map_9e83363a07217b28c2ae3ad23622820a);
+        
+    
+            var feature_group_b850e28a0e94a07a92047e816070a972 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_4204546c9c169af4ede42983618ca7c5 = L.marker(
+                [30.423521, -9.605329],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_450a156e288f79c4aada569bae4f6b0a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ec4e72b045eaed72ff89693e72ab83de = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_fc74a84b96189da98da9752d0c346993 = $(`<div id="html_fc74a84b96189da98da9752d0c346993" style="width: 100.0%; height: 100.0%;"><b>Point #1 — Urbain</b><br><b>Pharmacie Anbary صيدلية عنبري</b><br>Quartier : Talborjt<br>Catégorie : Santé & Pharmacie<br>Distance OSRM : <b>0.87 km</b><br>Durée OSRM : <b>1.7 min</b></div>`)[0];
+                popup_ec4e72b045eaed72ff89693e72ab83de.setContent(html_fc74a84b96189da98da9752d0c346993);
+            
+        
+
+        marker_4204546c9c169af4ede42983618ca7c5.bindPopup(popup_ec4e72b045eaed72ff89693e72ab83de)
+        ;
+
+        
+    
+    
+            marker_4204546c9c169af4ede42983618ca7c5.bindTooltip(
+                `<div>
+                     <b>#1</b> : Pharmacie Anbary صيدلية عنبري (0.87 km, 1.7 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_4204546c9c169af4ede42983618ca7c5.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_4204546c9c169af4ede42983618ca7c5.setIcon(icon_450a156e288f79c4aada569bae4f6b0a);
+            
+    
+            var marker_5388fdb881f21224ac31bebd657189a5 = L.marker(
+                [30.423833, -9.584771],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_56345cef3ae6eddfa13884ef38cfd6b8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_62a1f13288afd79b966f4820b2bb1bf7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8fbc71be530c39ac151e29cdb5d40dfd = $(`<div id="html_8fbc71be530c39ac151e29cdb5d40dfd" style="width: 100.0%; height: 100.0%;"><b>Point #2 — Urbain</b><br><b>Pharmacie Ihchach صيدلية احشاش</b><br>Quartier : Talborjt<br>Catégorie : Santé & Pharmacie<br>Distance OSRM : <b>1.9 km</b><br>Durée OSRM : <b>3.3 min</b></div>`)[0];
+                popup_62a1f13288afd79b966f4820b2bb1bf7.setContent(html_8fbc71be530c39ac151e29cdb5d40dfd);
+            
+        
+
+        marker_5388fdb881f21224ac31bebd657189a5.bindPopup(popup_62a1f13288afd79b966f4820b2bb1bf7)
+        ;
+
+        
+    
+    
+            marker_5388fdb881f21224ac31bebd657189a5.bindTooltip(
+                `<div>
+                     <b>#2</b> : Pharmacie Ihchach صيدلية احشاش (1.9 km, 3.3 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_5388fdb881f21224ac31bebd657189a5.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_5388fdb881f21224ac31bebd657189a5.setIcon(icon_56345cef3ae6eddfa13884ef38cfd6b8);
+            
+    
+            var marker_881b0169ba9043ca3b7a53e27e4014c0 = L.marker(
+                [30.427201, -9.592766],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_bc5945d771391ecb6763f92044e840c3 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_71845550101b7df930870884a4dbe64d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1e879790a3da686b089c76e4ef7b2bb3 = $(`<div id="html_1e879790a3da686b089c76e4ef7b2bb3" style="width: 100.0%; height: 100.0%;"><b>Point #3 — Urbain</b><br><b>Pharmacie Al Menzah صيدلية المنزه</b><br>Quartier : Talborjt<br>Catégorie : Santé & Pharmacie<br>Distance OSRM : <b>1.14 km</b><br>Durée OSRM : <b>1.8 min</b></div>`)[0];
+                popup_71845550101b7df930870884a4dbe64d.setContent(html_1e879790a3da686b089c76e4ef7b2bb3);
+            
+        
+
+        marker_881b0169ba9043ca3b7a53e27e4014c0.bindPopup(popup_71845550101b7df930870884a4dbe64d)
+        ;
+
+        
+    
+    
+            marker_881b0169ba9043ca3b7a53e27e4014c0.bindTooltip(
+                `<div>
+                     <b>#3</b> : Pharmacie Al Menzah صيدلية المنزه (1.14 km, 1.8 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_881b0169ba9043ca3b7a53e27e4014c0.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_881b0169ba9043ca3b7a53e27e4014c0.setIcon(icon_bc5945d771391ecb6763f92044e840c3);
+            
+    
+            var marker_cd43b10eb0063bfa2add028bea0334d9 = L.marker(
+                [30.417109, -9.600315],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_9e63090d0f1b8c2d2150fbbe7bb3aa26 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_8dd56969e2d1de38b48dfac37a26005e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3515fcffe24925c327b6dac0de7c328d = $(`<div id="html_3515fcffe24925c327b6dac0de7c328d" style="width: 100.0%; height: 100.0%;"><b>Point #4 — Urbain</b><br><b>Pharmacie Anezi صيدلية أنزي</b><br>Quartier : Centre-Ville<br>Catégorie : Santé & Pharmacie<br>Distance OSRM : <b>0.66 km</b><br>Durée OSRM : <b>1.6 min</b></div>`)[0];
+                popup_8dd56969e2d1de38b48dfac37a26005e.setContent(html_3515fcffe24925c327b6dac0de7c328d);
+            
+        
+
+        marker_cd43b10eb0063bfa2add028bea0334d9.bindPopup(popup_8dd56969e2d1de38b48dfac37a26005e)
+        ;
+
+        
+    
+    
+            marker_cd43b10eb0063bfa2add028bea0334d9.bindTooltip(
+                `<div>
+                     <b>#4</b> : Pharmacie Anezi صيدلية أنزي (0.66 km, 1.6 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_cd43b10eb0063bfa2add028bea0334d9.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_cd43b10eb0063bfa2add028bea0334d9.setIcon(icon_9e63090d0f1b8c2d2150fbbe7bb3aa26);
+            
+    
+            var marker_fbc2071e99e27f0183be5f1ed3933ab8 = L.marker(
+                [30.41756, -9.596466],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_2a235e3ca657981329e3c6d5c206f4f2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_862433a53955a9f34cbdd9b5b8247092 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bc8fc3ef9690d1d827a37539fe1f0996 = $(`<div id="html_bc8fc3ef9690d1d827a37539fe1f0996" style="width: 100.0%; height: 100.0%;"><b>Point #5 — Urbain</b><br><b>Pharmacie Du Founty صيدلية فونتي</b><br>Quartier : Centre-Ville<br>Catégorie : Santé & Pharmacie<br>Distance OSRM : <b>0.74 km</b><br>Durée OSRM : <b>1.4 min</b></div>`)[0];
+                popup_862433a53955a9f34cbdd9b5b8247092.setContent(html_bc8fc3ef9690d1d827a37539fe1f0996);
+            
+        
+
+        marker_fbc2071e99e27f0183be5f1ed3933ab8.bindPopup(popup_862433a53955a9f34cbdd9b5b8247092)
+        ;
+
+        
+    
+    
+            marker_fbc2071e99e27f0183be5f1ed3933ab8.bindTooltip(
+                `<div>
+                     <b>#5</b> : Pharmacie Du Founty صيدلية فونتي (0.74 km, 1.4 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_fbc2071e99e27f0183be5f1ed3933ab8.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_fbc2071e99e27f0183be5f1ed3933ab8.setIcon(icon_2a235e3ca657981329e3c6d5c206f4f2);
+            
+    
+            var marker_0985bdef6e7b5db9dc5f5548ae934034 = L.marker(
+                [30.421365, -9.592763],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_2d4a00770201e13ecf45777457507e80 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_de8a8f30c06e52db86b1ff151941aa5a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_cc41363addd09449805bf9a2c95d0133 = $(`<div id="html_cc41363addd09449805bf9a2c95d0133" style="width: 100.0%; height: 100.0%;"><b>Point #6 — Urbain</b><br><b>Pharmacie Du Soleil صيدلية الشمس</b><br>Quartier : Centre-Ville<br>Catégorie : Santé & Pharmacie<br>Distance OSRM : <b>0.77 km</b><br>Durée OSRM : <b>1.2 min</b></div>`)[0];
+                popup_de8a8f30c06e52db86b1ff151941aa5a.setContent(html_cc41363addd09449805bf9a2c95d0133);
+            
+        
+
+        marker_0985bdef6e7b5db9dc5f5548ae934034.bindPopup(popup_de8a8f30c06e52db86b1ff151941aa5a)
+        ;
+
+        
+    
+    
+            marker_0985bdef6e7b5db9dc5f5548ae934034.bindTooltip(
+                `<div>
+                     <b>#6</b> : Pharmacie Du Soleil صيدلية الشمس (0.77 km, 1.2 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_0985bdef6e7b5db9dc5f5548ae934034.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_0985bdef6e7b5db9dc5f5548ae934034.setIcon(icon_2d4a00770201e13ecf45777457507e80);
+            
+    
+            var marker_70bdc13840faa3aed24dee7cd508ba04 = L.marker(
+                [30.425983, -9.592505],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_f43f05dec04d51474155fe3c7d2bb677 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4a6b1fb13fc9582b0480116c21331c56 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3b5de2e8f5392c6b0768ae7e079108e0 = $(`<div id="html_3b5de2e8f5392c6b0768ae7e079108e0" style="width: 100.0%; height: 100.0%;"><b>Point #7 — Urbain</b><br><b>Carrefour market Label'vie</b><br>Quartier : Talborjt<br>Catégorie : Commerce & Magasin<br>Distance OSRM : <b>1.22 km</b><br>Durée OSRM : <b>2.3 min</b></div>`)[0];
+                popup_4a6b1fb13fc9582b0480116c21331c56.setContent(html_3b5de2e8f5392c6b0768ae7e079108e0);
+            
+        
+
+        marker_70bdc13840faa3aed24dee7cd508ba04.bindPopup(popup_4a6b1fb13fc9582b0480116c21331c56)
+        ;
+
+        
+    
+    
+            marker_70bdc13840faa3aed24dee7cd508ba04.bindTooltip(
+                `<div>
+                     <b>#7</b> : Carrefour market Label'vie (1.22 km, 2.3 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_70bdc13840faa3aed24dee7cd508ba04.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_70bdc13840faa3aed24dee7cd508ba04.setIcon(icon_f43f05dec04d51474155fe3c7d2bb677);
+            
+    
+            var marker_aaff7304eb7006a4d34f9b2aa05f1f39 = L.marker(
+                [30.422241, -9.60656],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_418720e0c6455db49e2e9dd33ba5dee8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_537b1636e3a18fc754211c2cf6fbda88 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_db1460c223b1420da42f830494c6b2e1 = $(`<div id="html_db1460c223b1420da42f830494c6b2e1" style="width: 100.0%; height: 100.0%;"><b>Point #8 — Urbain</b><br><b>Kiosk</b><br>Quartier : Talborjt<br>Catégorie : Commerce & Magasin<br>Distance OSRM : <b>1.16 km</b><br>Durée OSRM : <b>1.8 min</b></div>`)[0];
+                popup_537b1636e3a18fc754211c2cf6fbda88.setContent(html_db1460c223b1420da42f830494c6b2e1);
+            
+        
+
+        marker_aaff7304eb7006a4d34f9b2aa05f1f39.bindPopup(popup_537b1636e3a18fc754211c2cf6fbda88)
+        ;
+
+        
+    
+    
+            marker_aaff7304eb7006a4d34f9b2aa05f1f39.bindTooltip(
+                `<div>
+                     <b>#8</b> : Kiosk (1.16 km, 1.8 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_aaff7304eb7006a4d34f9b2aa05f1f39.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_aaff7304eb7006a4d34f9b2aa05f1f39.setIcon(icon_418720e0c6455db49e2e9dd33ba5dee8);
+            
+    
+            var marker_dd4e63fa7f0ab49eaa41e6ea71423700 = L.marker(
+                [30.426318, -9.592434],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_1338d46b15a84214ee97b092931ca57e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2db495ddcd5ae1047fec1d62d56f9312 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f58afd81bd7ee22e6884e6c8d67deef9 = $(`<div id="html_f58afd81bd7ee22e6884e6c8d67deef9" style="width: 100.0%; height: 100.0%;"><b>Point #9 — Urbain</b><br><b>Aswak Assalam</b><br>Quartier : Talborjt<br>Catégorie : Commerce & Magasin<br>Distance OSRM : <b>1.19 km</b><br>Durée OSRM : <b>2.1 min</b></div>`)[0];
+                popup_2db495ddcd5ae1047fec1d62d56f9312.setContent(html_f58afd81bd7ee22e6884e6c8d67deef9);
+            
+        
+
+        marker_dd4e63fa7f0ab49eaa41e6ea71423700.bindPopup(popup_2db495ddcd5ae1047fec1d62d56f9312)
+        ;
+
+        
+    
+    
+            marker_dd4e63fa7f0ab49eaa41e6ea71423700.bindTooltip(
+                `<div>
+                     <b>#9</b> : Aswak Assalam (1.19 km, 2.1 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_dd4e63fa7f0ab49eaa41e6ea71423700.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_dd4e63fa7f0ab49eaa41e6ea71423700.setIcon(icon_1338d46b15a84214ee97b092931ca57e);
+            
+    
+            var marker_46c937986e8d0a721dad8aaaaa3a4be1 = L.marker(
+                [30.425968, -9.591872],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_cdbe83e47fae28ccc277aed365216206 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_1660fedb462896f6114d6ffe0b50c1b6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bbe375a58c98304951ee7243aa92304f = $(`<div id="html_bbe375a58c98304951ee7243aa92304f" style="width: 100.0%; height: 100.0%;"><b>Point #10 — Urbain</b><br><b>Lynx</b><br>Quartier : Talborjt<br>Catégorie : Commerce & Magasin<br>Distance OSRM : <b>1.39 km</b><br>Durée OSRM : <b>2.2 min</b></div>`)[0];
+                popup_1660fedb462896f6114d6ffe0b50c1b6.setContent(html_bbe375a58c98304951ee7243aa92304f);
+            
+        
+
+        marker_46c937986e8d0a721dad8aaaaa3a4be1.bindPopup(popup_1660fedb462896f6114d6ffe0b50c1b6)
+        ;
+
+        
+    
+    
+            marker_46c937986e8d0a721dad8aaaaa3a4be1.bindTooltip(
+                `<div>
+                     <b>#10</b> : Lynx (1.39 km, 2.2 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_46c937986e8d0a721dad8aaaaa3a4be1.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_46c937986e8d0a721dad8aaaaa3a4be1.setIcon(icon_cdbe83e47fae28ccc277aed365216206);
+            
+    
+            var marker_94053543d3924d6541ebf49f0569d587 = L.marker(
+                [30.42592, -9.591852],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_978c4a7a8bce38e0a242cb9071e5f783 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_bdff131bc5dbc869401f1dc27ceeb8a3 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2a0aa72cc349e033ece844a1d788132e = $(`<div id="html_2a0aa72cc349e033ece844a1d788132e" style="width: 100.0%; height: 100.0%;"><b>Point #11 — Urbain</b><br><b>La Grande Récré</b><br>Quartier : Talborjt<br>Catégorie : Commerce & Magasin<br>Distance OSRM : <b>1.39 km</b><br>Durée OSRM : <b>2.2 min</b></div>`)[0];
+                popup_bdff131bc5dbc869401f1dc27ceeb8a3.setContent(html_2a0aa72cc349e033ece844a1d788132e);
+            
+        
+
+        marker_94053543d3924d6541ebf49f0569d587.bindPopup(popup_bdff131bc5dbc869401f1dc27ceeb8a3)
+        ;
+
+        
+    
+    
+            marker_94053543d3924d6541ebf49f0569d587.bindTooltip(
+                `<div>
+                     <b>#11</b> : La Grande Récré (1.39 km, 2.2 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_94053543d3924d6541ebf49f0569d587.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_94053543d3924d6541ebf49f0569d587.setIcon(icon_978c4a7a8bce38e0a242cb9071e5f783);
+            
+    
+            var marker_e05f9badd7f3ed44957f9f4c2c4ec0d4 = L.marker(
+                [30.417808, -9.595184],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_3cd1ad789ab0617a6009f215d9348c1d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3743622188973c615cdb3e64db45421f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1e3a1e8abd191dae16ca1f7fe1b174e7 = $(`<div id="html_1e3a1e8abd191dae16ca1f7fe1b174e7" style="width: 100.0%; height: 100.0%;"><b>Point #12 — Urbain</b><br><b>Alimentation Generale</b><br>Quartier : Centre-Ville<br>Catégorie : Commerce & Magasin<br>Distance OSRM : <b>1.28 km</b><br>Durée OSRM : <b>2.8 min</b></div>`)[0];
+                popup_3743622188973c615cdb3e64db45421f.setContent(html_1e3a1e8abd191dae16ca1f7fe1b174e7);
+            
+        
+
+        marker_e05f9badd7f3ed44957f9f4c2c4ec0d4.bindPopup(popup_3743622188973c615cdb3e64db45421f)
+        ;
+
+        
+    
+    
+            marker_e05f9badd7f3ed44957f9f4c2c4ec0d4.bindTooltip(
+                `<div>
+                     <b>#12</b> : Alimentation Generale (1.28 km, 2.8 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_e05f9badd7f3ed44957f9f4c2c4ec0d4.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_e05f9badd7f3ed44957f9f4c2c4ec0d4.setIcon(icon_3cd1ad789ab0617a6009f215d9348c1d);
+            
+    
+            var marker_c25f8279ab2856ffae5c31e5998dedaa = L.marker(
+                [30.42048, -9.595103],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_6e9a05e00f9de0e64dbd2e7824138284 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_55f321cde4326f1b7cd659a0af742067 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5c270d49e304f488db6c18720f739495 = $(`<div id="html_5c270d49e304f488db6c18720f739495" style="width: 100.0%; height: 100.0%;"><b>Point #13 — Urbain</b><br><b>Alimentation Generale</b><br>Quartier : Centre-Ville<br>Catégorie : Commerce & Magasin<br>Distance OSRM : <b>0.43 km</b><br>Durée OSRM : <b>0.7 min</b></div>`)[0];
+                popup_55f321cde4326f1b7cd659a0af742067.setContent(html_5c270d49e304f488db6c18720f739495);
+            
+        
+
+        marker_c25f8279ab2856ffae5c31e5998dedaa.bindPopup(popup_55f321cde4326f1b7cd659a0af742067)
+        ;
+
+        
+    
+    
+            marker_c25f8279ab2856ffae5c31e5998dedaa.bindTooltip(
+                `<div>
+                     <b>#13</b> : Alimentation Generale (0.43 km, 0.7 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_c25f8279ab2856ffae5c31e5998dedaa.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_c25f8279ab2856ffae5c31e5998dedaa.setIcon(icon_6e9a05e00f9de0e64dbd2e7824138284);
+            
+    
+            var marker_9e364925ea433bb180621c72dbc6e303 = L.marker(
+                [30.416228, -9.58937],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_4d5c9af71e5aed3e39e771b5105cbeec = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fef797878e740bc99064071b1a0d1b2f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0a501cc8a5ef8a69800e1856149352ea = $(`<div id="html_0a501cc8a5ef8a69800e1856149352ea" style="width: 100.0%; height: 100.0%;"><b>Point #14 — Urbain</b><br><b>Out-Phone</b><br>Quartier : Centre-Ville<br>Catégorie : Commerce & Magasin<br>Distance OSRM : <b>1.2 km</b><br>Durée OSRM : <b>2.2 min</b></div>`)[0];
+                popup_fef797878e740bc99064071b1a0d1b2f.setContent(html_0a501cc8a5ef8a69800e1856149352ea);
+            
+        
+
+        marker_9e364925ea433bb180621c72dbc6e303.bindPopup(popup_fef797878e740bc99064071b1a0d1b2f)
+        ;
+
+        
+    
+    
+            marker_9e364925ea433bb180621c72dbc6e303.bindTooltip(
+                `<div>
+                     <b>#14</b> : Out-Phone (1.2 km, 2.2 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_9e364925ea433bb180621c72dbc6e303.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_9e364925ea433bb180621c72dbc6e303.setIcon(icon_4d5c9af71e5aed3e39e771b5105cbeec);
+            
+    
+            var marker_d1755c7df6c51704ce7e4e491d939a94 = L.marker(
+                [30.421379, -9.599539],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_454bbc1e1039006cc27a7874aad0e767 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_165f47c684e576ca7618a316dfb36a20 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c5aa9a9a5c4a29894b10e7517c3b9854 = $(`<div id="html_c5aa9a9a5c4a29894b10e7517c3b9854" style="width: 100.0%; height: 100.0%;"><b>Point #15 — Urbain</b><br><b>Epicerie du marché</b><br>Quartier : Centre-Ville<br>Catégorie : Commerce & Magasin<br>Distance OSRM : <b>0.5 km</b><br>Durée OSRM : <b>1.3 min</b></div>`)[0];
+                popup_165f47c684e576ca7618a316dfb36a20.setContent(html_c5aa9a9a5c4a29894b10e7517c3b9854);
+            
+        
+
+        marker_d1755c7df6c51704ce7e4e491d939a94.bindPopup(popup_165f47c684e576ca7618a316dfb36a20)
+        ;
+
+        
+    
+    
+            marker_d1755c7df6c51704ce7e4e491d939a94.bindTooltip(
+                `<div>
+                     <b>#15</b> : Epicerie du marché (0.5 km, 1.3 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_d1755c7df6c51704ce7e4e491d939a94.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_d1755c7df6c51704ce7e4e491d939a94.setIcon(icon_454bbc1e1039006cc27a7874aad0e767);
+            
+    
+            var marker_78b36c7e7663d33f6d84c17a28814df6 = L.marker(
+                [30.421525, -9.600491],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_9eadbecfddd3ae469bca317705c9b610 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d12ae8673d57aa22d7e3d2b877a91b4c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_714476bf6e57abd06a3117ac9a3f267d = $(`<div id="html_714476bf6e57abd06a3117ac9a3f267d" style="width: 100.0%; height: 100.0%;"><b>Point #16 — Urbain</b><br><b>Maroc Telecom اتصالات المغرب</b><br>Quartier : Centre-Ville<br>Catégorie : Commerce & Magasin<br>Distance OSRM : <b>0.42 km</b><br>Durée OSRM : <b>0.9 min</b></div>`)[0];
+                popup_d12ae8673d57aa22d7e3d2b877a91b4c.setContent(html_714476bf6e57abd06a3117ac9a3f267d);
+            
+        
+
+        marker_78b36c7e7663d33f6d84c17a28814df6.bindPopup(popup_d12ae8673d57aa22d7e3d2b877a91b4c)
+        ;
+
+        
+    
+    
+            marker_78b36c7e7663d33f6d84c17a28814df6.bindTooltip(
+                `<div>
+                     <b>#16</b> : Maroc Telecom اتصالات المغرب (0.42 km, 0.9 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_78b36c7e7663d33f6d84c17a28814df6.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_78b36c7e7663d33f6d84c17a28814df6.setIcon(icon_9eadbecfddd3ae469bca317705c9b610);
+            
+    
+            var marker_581013548b7fe743e7ec933e0e2f5de0 = L.marker(
+                [30.424452, -9.590298],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_cafd07ef001ec5105a6c9f9660c8a3c2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_73e6e3283b4d27b81d0b770cc40a9f7c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_64a4ee824f9e721358e78fb9070776cd = $(`<div id="html_64a4ee824f9e721358e78fb9070776cd" style="width: 100.0%; height: 100.0%;"><b>Point #17 — Urbain</b><br><b>Crédit du Maroc</b><br>Quartier : Talborjt<br>Catégorie : Banque & Finance<br>Distance OSRM : <b>1.08 km</b><br>Durée OSRM : <b>2.2 min</b></div>`)[0];
+                popup_73e6e3283b4d27b81d0b770cc40a9f7c.setContent(html_64a4ee824f9e721358e78fb9070776cd);
+            
+        
+
+        marker_581013548b7fe743e7ec933e0e2f5de0.bindPopup(popup_73e6e3283b4d27b81d0b770cc40a9f7c)
+        ;
+
+        
+    
+    
+            marker_581013548b7fe743e7ec933e0e2f5de0.bindTooltip(
+                `<div>
+                     <b>#17</b> : Crédit du Maroc (1.08 km, 2.2 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_581013548b7fe743e7ec933e0e2f5de0.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_581013548b7fe743e7ec933e0e2f5de0.setIcon(icon_cafd07ef001ec5105a6c9f9660c8a3c2);
+            
+    
+            var marker_4a6f94359eb0f838047aefd8e9a2e33f = L.marker(
+                [30.422604, -9.600317],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_e29ddbd5f02fbb84b7fca491f4874376 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_52b45aa71dd09e8f8627304bc5ef3cc4 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_86bda8a685ca6610d776355799f452c1 = $(`<div id="html_86bda8a685ca6610d776355799f452c1" style="width: 100.0%; height: 100.0%;"><b>Point #18 — Urbain</b><br><b>Credit Du Maroc</b><br>Quartier : Talborjt<br>Catégorie : Banque & Finance<br>Distance OSRM : <b>0.33 km</b><br>Durée OSRM : <b>0.7 min</b></div>`)[0];
+                popup_52b45aa71dd09e8f8627304bc5ef3cc4.setContent(html_86bda8a685ca6610d776355799f452c1);
+            
+        
+
+        marker_4a6f94359eb0f838047aefd8e9a2e33f.bindPopup(popup_52b45aa71dd09e8f8627304bc5ef3cc4)
+        ;
+
+        
+    
+    
+            marker_4a6f94359eb0f838047aefd8e9a2e33f.bindTooltip(
+                `<div>
+                     <b>#18</b> : Credit Du Maroc (0.33 km, 0.7 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_4a6f94359eb0f838047aefd8e9a2e33f.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_4a6f94359eb0f838047aefd8e9a2e33f.setIcon(icon_e29ddbd5f02fbb84b7fca491f4874376);
+            
+    
+            var marker_6bd773df8b53754dd28fcf9b64d24673 = L.marker(
+                [30.422951, -9.604042],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_c93a0b968aefbe5f6e2a4bb04ec94a2d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_1e5d2a5e7e74858dd58288470cb12bb9 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d46d4caafce443adc5e6ef2f7bbe919a = $(`<div id="html_d46d4caafce443adc5e6ef2f7bbe919a" style="width: 100.0%; height: 100.0%;"><b>Point #19 — Urbain</b><br><b>Crédit Agricole du Maroc القرض الفلاحي للمغرب</b><br>Quartier : Talborjt<br>Catégorie : Banque & Finance<br>Distance OSRM : <b>0.79 km</b><br>Durée OSRM : <b>1.7 min</b></div>`)[0];
+                popup_1e5d2a5e7e74858dd58288470cb12bb9.setContent(html_d46d4caafce443adc5e6ef2f7bbe919a);
+            
+        
+
+        marker_6bd773df8b53754dd28fcf9b64d24673.bindPopup(popup_1e5d2a5e7e74858dd58288470cb12bb9)
+        ;
+
+        
+    
+    
+            marker_6bd773df8b53754dd28fcf9b64d24673.bindTooltip(
+                `<div>
+                     <b>#19</b> : Crédit Agricole du Maroc القرض الفلاحي للمغرب (0.79 km, 1.7 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_6bd773df8b53754dd28fcf9b64d24673.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_6bd773df8b53754dd28fcf9b64d24673.setIcon(icon_c93a0b968aefbe5f6e2a4bb04ec94a2d);
+            
+    
+            var marker_aedba95bcc09e4c73d0861101b99877c = L.marker(
+                [30.422224, -9.604897],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_d71860873aeac0a824a7a5025d628083 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2e0cba836f39560b4a889509d03d966d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4f7ed3e9a65e5b3d00b70cc18ece50a8 = $(`<div id="html_4f7ed3e9a65e5b3d00b70cc18ece50a8" style="width: 100.0%; height: 100.0%;"><b>Point #20 — Urbain</b><br><b>Bank of Africa ⵍⴱⴰⵏⴽ ⵏ ⴰⴼⵔⵉⵇⵢⴰ بنك أفريقيا</b><br>Quartier : Talborjt<br>Catégorie : Banque & Finance<br>Distance OSRM : <b>0.92 km</b><br>Durée OSRM : <b>1.8 min</b></div>`)[0];
+                popup_2e0cba836f39560b4a889509d03d966d.setContent(html_4f7ed3e9a65e5b3d00b70cc18ece50a8);
+            
+        
+
+        marker_aedba95bcc09e4c73d0861101b99877c.bindPopup(popup_2e0cba836f39560b4a889509d03d966d)
+        ;
+
+        
+    
+    
+            marker_aedba95bcc09e4c73d0861101b99877c.bindTooltip(
+                `<div>
+                     <b>#20</b> : Bank of Africa ⵍⴱⴰⵏⴽ ⵏ ⴰⴼⵔⵉⵇⵢⴰ بنك أفريقيا (0.92 km, 1.8 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_aedba95bcc09e4c73d0861101b99877c.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_aedba95bcc09e4c73d0861101b99877c.setIcon(icon_d71860873aeac0a824a7a5025d628083);
+            
+    
+            var marker_b9f77323e415fafa17251365e26d59b6 = L.marker(
+                [30.421659, -9.593499],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_72f16bd00e67f7a8140b2110f227c53b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_991693a7eb4ed4a152f88c058d968580 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f595532175eb35bf3ee4d76ec5208b7a = $(`<div id="html_f595532175eb35bf3ee4d76ec5208b7a" style="width: 100.0%; height: 100.0%;"><b>Point #21 — Urbain</b><br><b>Attijariwafa</b><br>Quartier : Centre-Ville<br>Catégorie : Banque & Finance<br>Distance OSRM : <b>0.65 km</b><br>Durée OSRM : <b>1.1 min</b></div>`)[0];
+                popup_991693a7eb4ed4a152f88c058d968580.setContent(html_f595532175eb35bf3ee4d76ec5208b7a);
+            
+        
+
+        marker_b9f77323e415fafa17251365e26d59b6.bindPopup(popup_991693a7eb4ed4a152f88c058d968580)
+        ;
+
+        
+    
+    
+            marker_b9f77323e415fafa17251365e26d59b6.bindTooltip(
+                `<div>
+                     <b>#21</b> : Attijariwafa (0.65 km, 1.1 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_b9f77323e415fafa17251365e26d59b6.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_b9f77323e415fafa17251365e26d59b6.setIcon(icon_72f16bd00e67f7a8140b2110f227c53b);
+            
+    
+            var marker_b9b9c12726f811cf59dd3addc3d405e2 = L.marker(
+                [30.420268, -9.603453],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_be7cc327c0da0b592411a7235eb83ebd = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_537eedbf4085dafa125bc4dc026c9f4a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a68cafaf08e19ca3e84ff57083ba19da = $(`<div id="html_a68cafaf08e19ca3e84ff57083ba19da" style="width: 100.0%; height: 100.0%;"><b>Point #22 — Urbain</b><br><b>Bank Al-Maghrib بنك المغرب</b><br>Quartier : Centre-Ville<br>Catégorie : Banque & Finance<br>Distance OSRM : <b>0.78 km</b><br>Durée OSRM : <b>1.4 min</b></div>`)[0];
+                popup_537eedbf4085dafa125bc4dc026c9f4a.setContent(html_a68cafaf08e19ca3e84ff57083ba19da);
+            
+        
+
+        marker_b9b9c12726f811cf59dd3addc3d405e2.bindPopup(popup_537eedbf4085dafa125bc4dc026c9f4a)
+        ;
+
+        
+    
+    
+            marker_b9b9c12726f811cf59dd3addc3d405e2.bindTooltip(
+                `<div>
+                     <b>#22</b> : Bank Al-Maghrib بنك المغرب (0.78 km, 1.4 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_b9b9c12726f811cf59dd3addc3d405e2.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_b9b9c12726f811cf59dd3addc3d405e2.setIcon(icon_be7cc327c0da0b592411a7235eb83ebd);
+            
+    
+            var marker_da75a5dc095c0e3fbb3dd32e32529a18 = L.marker(
+                [30.415039, -9.598995],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_100dee8e1794e125add028ee0dc0713b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fdcb12ae3b506b81a1a880e568e4c745 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ab68fdda0fb8fad11d44c8fd549824a3 = $(`<div id="html_ab68fdda0fb8fad11d44c8fd549824a3" style="width: 100.0%; height: 100.0%;"><b>Point #23 — Urbain</b><br><b>CIH Bank القرض العقاري والسياحي</b><br>Quartier : Centre-Ville<br>Catégorie : Banque & Finance<br>Distance OSRM : <b>1.02 km</b><br>Durée OSRM : <b>1.9 min</b></div>`)[0];
+                popup_fdcb12ae3b506b81a1a880e568e4c745.setContent(html_ab68fdda0fb8fad11d44c8fd549824a3);
+            
+        
+
+        marker_da75a5dc095c0e3fbb3dd32e32529a18.bindPopup(popup_fdcb12ae3b506b81a1a880e568e4c745)
+        ;
+
+        
+    
+    
+            marker_da75a5dc095c0e3fbb3dd32e32529a18.bindTooltip(
+                `<div>
+                     <b>#23</b> : CIH Bank القرض العقاري والسياحي (1.02 km, 1.9 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_da75a5dc095c0e3fbb3dd32e32529a18.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_da75a5dc095c0e3fbb3dd32e32529a18.setIcon(icon_100dee8e1794e125add028ee0dc0713b);
+            
+    
+            var marker_d56baf7a9cd66f38cc8179482b5d17de = L.marker(
+                [30.422427, -9.607787],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_1eabe3b30c327402fb64c3331e18b21a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9bc1e624d7464346d1f67030ad0b6434 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9d1456777f6a0cc9069ac8377f61f9bf = $(`<div id="html_9d1456777f6a0cc9069ac8377f61f9bf" style="width: 100.0%; height: 100.0%;"><b>Point #24 — Urbain</b><br><b>Etoile Du Sud</b><br>Quartier : Talborjt<br>Catégorie : Restauration & Cafés<br>Distance OSRM : <b>1.69 km</b><br>Durée OSRM : <b>2.3 min</b></div>`)[0];
+                popup_9bc1e624d7464346d1f67030ad0b6434.setContent(html_9d1456777f6a0cc9069ac8377f61f9bf);
+            
+        
+
+        marker_d56baf7a9cd66f38cc8179482b5d17de.bindPopup(popup_9bc1e624d7464346d1f67030ad0b6434)
+        ;
+
+        
+    
+    
+            marker_d56baf7a9cd66f38cc8179482b5d17de.bindTooltip(
+                `<div>
+                     <b>#24</b> : Etoile Du Sud (1.69 km, 2.3 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_d56baf7a9cd66f38cc8179482b5d17de.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_d56baf7a9cd66f38cc8179482b5d17de.setIcon(icon_1eabe3b30c327402fb64c3331e18b21a);
+            
+    
+            var marker_7b9014b07c69a49e772321d9094e58c3 = L.marker(
+                [30.424403, -9.593281],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_92d15145be367a4bf7f3a147b8233ef8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c8513e80df02fc82c9852d178bfb9e3c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d7b7feb9db255e7931bc2945a38f22ff = $(`<div id="html_d7b7feb9db255e7931bc2945a38f22ff" style="width: 100.0%; height: 100.0%;"><b>Point #25 — Urbain</b><br><b>Etoile d'Agadir</b><br>Quartier : Talborjt<br>Catégorie : Restauration & Cafés<br>Distance OSRM : <b>0.76 km</b><br>Durée OSRM : <b>1.9 min</b></div>`)[0];
+                popup_c8513e80df02fc82c9852d178bfb9e3c.setContent(html_d7b7feb9db255e7931bc2945a38f22ff);
+            
+        
+
+        marker_7b9014b07c69a49e772321d9094e58c3.bindPopup(popup_c8513e80df02fc82c9852d178bfb9e3c)
+        ;
+
+        
+    
+    
+            marker_7b9014b07c69a49e772321d9094e58c3.bindTooltip(
+                `<div>
+                     <b>#25</b> : Etoile d'Agadir (0.76 km, 1.9 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_7b9014b07c69a49e772321d9094e58c3.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_7b9014b07c69a49e772321d9094e58c3.setIcon(icon_92d15145be367a4bf7f3a147b8233ef8);
+            
+    
+            var marker_5f253e16a1e6018a646bbb417f3e6fe8 = L.marker(
+                [30.424319, -9.593367],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_579c86eed5ae23d534fc950d487ff309 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c230b7f0ec0e3904b3fa8c9c40c22c36 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d555270546f6a084e794f0f1a1b5d7c1 = $(`<div id="html_d555270546f6a084e794f0f1a1b5d7c1" style="width: 100.0%; height: 100.0%;"><b>Point #26 — Urbain</b><br><b>Cremerie du sud</b><br>Quartier : Talborjt<br>Catégorie : Restauration & Cafés<br>Distance OSRM : <b>0.76 km</b><br>Durée OSRM : <b>1.9 min</b></div>`)[0];
+                popup_c230b7f0ec0e3904b3fa8c9c40c22c36.setContent(html_d555270546f6a084e794f0f1a1b5d7c1);
+            
+        
+
+        marker_5f253e16a1e6018a646bbb417f3e6fe8.bindPopup(popup_c230b7f0ec0e3904b3fa8c9c40c22c36)
+        ;
+
+        
+    
+    
+            marker_5f253e16a1e6018a646bbb417f3e6fe8.bindTooltip(
+                `<div>
+                     <b>#26</b> : Cremerie du sud (0.76 km, 1.9 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_5f253e16a1e6018a646bbb417f3e6fe8.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_5f253e16a1e6018a646bbb417f3e6fe8.setIcon(icon_579c86eed5ae23d534fc950d487ff309);
+            
+    
+            var marker_f5b8e7579f24faffc8b1ca5db3a8b3db = L.marker(
+                [30.424476, -9.593195],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_82f3e1bf1c47b72d8d8422555f553018 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4bd7bda0e4ba2a9eff952bc375dfc868 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_cdbe8669613beea1889bd26d387eec7d = $(`<div id="html_cdbe8669613beea1889bd26d387eec7d" style="width: 100.0%; height: 100.0%;"><b>Point #27 — Urbain</b><br><b>Cafe Restaurant Ibtissam</b><br>Quartier : Talborjt<br>Catégorie : Restauration & Cafés<br>Distance OSRM : <b>0.76 km</b><br>Durée OSRM : <b>1.9 min</b></div>`)[0];
+                popup_4bd7bda0e4ba2a9eff952bc375dfc868.setContent(html_cdbe8669613beea1889bd26d387eec7d);
+            
+        
+
+        marker_f5b8e7579f24faffc8b1ca5db3a8b3db.bindPopup(popup_4bd7bda0e4ba2a9eff952bc375dfc868)
+        ;
+
+        
+    
+    
+            marker_f5b8e7579f24faffc8b1ca5db3a8b3db.bindTooltip(
+                `<div>
+                     <b>#27</b> : Cafe Restaurant Ibtissam (0.76 km, 1.9 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_f5b8e7579f24faffc8b1ca5db3a8b3db.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_f5b8e7579f24faffc8b1ca5db3a8b3db.setIcon(icon_82f3e1bf1c47b72d8d8422555f553018);
+            
+    
+            var marker_8e68da0bfeb35b30c1f5469959691f9d = L.marker(
+                [30.427299, -9.587889],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_31593c044c411e6fd35f0dfb60c75109 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6efed974c49f30280a3b749efcc18f59 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_af8c065930fbffe9d48207286ac38594 = $(`<div id="html_af8c065930fbffe9d48207286ac38594" style="width: 100.0%; height: 100.0%;"><b>Point #28 — Urbain</b><br><b>شواية النهضة</b><br>Quartier : Talborjt<br>Catégorie : Restauration & Cafés<br>Distance OSRM : <b>1.7 km</b><br>Durée OSRM : <b>3.0 min</b></div>`)[0];
+                popup_6efed974c49f30280a3b749efcc18f59.setContent(html_af8c065930fbffe9d48207286ac38594);
+            
+        
+
+        marker_8e68da0bfeb35b30c1f5469959691f9d.bindPopup(popup_6efed974c49f30280a3b749efcc18f59)
+        ;
+
+        
+    
+    
+            marker_8e68da0bfeb35b30c1f5469959691f9d.bindTooltip(
+                `<div>
+                     <b>#28</b> : شواية النهضة (1.7 km, 3.0 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_8e68da0bfeb35b30c1f5469959691f9d.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_8e68da0bfeb35b30c1f5469959691f9d.setIcon(icon_31593c044c411e6fd35f0dfb60c75109);
+            
+    
+            var marker_6811b207d8d9659c9663b08aaeb1c0cc = L.marker(
+                [30.417386, -9.600135],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_dd952bc82f7babb048484312e29e4a04 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_99d04dfb665a5804503c3debc8c5665d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_00e63fea2b43fbf85b4703c4362cc11d = $(`<div id="html_00e63fea2b43fbf85b4703c4362cc11d" style="width: 100.0%; height: 100.0%;"><b>Point #29 — Urbain</b><br><b>InBarbecue</b><br>Quartier : Centre-Ville<br>Catégorie : Restauration & Cafés<br>Distance OSRM : <b>0.64 km</b><br>Durée OSRM : <b>1.5 min</b></div>`)[0];
+                popup_99d04dfb665a5804503c3debc8c5665d.setContent(html_00e63fea2b43fbf85b4703c4362cc11d);
+            
+        
+
+        marker_6811b207d8d9659c9663b08aaeb1c0cc.bindPopup(popup_99d04dfb665a5804503c3debc8c5665d)
+        ;
+
+        
+    
+    
+            marker_6811b207d8d9659c9663b08aaeb1c0cc.bindTooltip(
+                `<div>
+                     <b>#29</b> : InBarbecue (0.64 km, 1.5 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_6811b207d8d9659c9663b08aaeb1c0cc.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_6811b207d8d9659c9663b08aaeb1c0cc.setIcon(icon_dd952bc82f7babb048484312e29e4a04);
+            
+    
+            var marker_1bd0b1c950986901513955781745faf0 = L.marker(
+                [30.4209, -9.59478],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_a7d0b21fa457e7dc7b2425e1ac8ae614 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b26f27542d8b3ec689d4fe0184d3b420 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_af6ee7cf4db7bfd8f831f67b21b97de4 = $(`<div id="html_af6ee7cf4db7bfd8f831f67b21b97de4" style="width: 100.0%; height: 100.0%;"><b>Point #30 — Urbain</b><br><b>Yacout</b><br>Quartier : Centre-Ville<br>Catégorie : Restauration & Cafés<br>Distance OSRM : <b>0.54 km</b><br>Durée OSRM : <b>1.1 min</b></div>`)[0];
+                popup_b26f27542d8b3ec689d4fe0184d3b420.setContent(html_af6ee7cf4db7bfd8f831f67b21b97de4);
+            
+        
+
+        marker_1bd0b1c950986901513955781745faf0.bindPopup(popup_b26f27542d8b3ec689d4fe0184d3b420)
+        ;
+
+        
+    
+    
+            marker_1bd0b1c950986901513955781745faf0.bindTooltip(
+                `<div>
+                     <b>#30</b> : Yacout (0.54 km, 1.1 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_1bd0b1c950986901513955781745faf0.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_1bd0b1c950986901513955781745faf0.setIcon(icon_a7d0b21fa457e7dc7b2425e1ac8ae614);
+            
+    
+            var marker_fd3763da0fc2540ab2350596e6019755 = L.marker(
+                [30.41509, -9.59745],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_ca626fe784b8f30795e7e57843b2bd73 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_df96c10939fe3ea97526b08787c7fb3e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e49257ff4dd2459acb736458d44fe1f2 = $(`<div id="html_e49257ff4dd2459acb736458d44fe1f2" style="width: 100.0%; height: 100.0%;"><b>Point #31 — Urbain</b><br><b>Pizza Hut</b><br>Quartier : Centre-Ville<br>Catégorie : Restauration & Cafés<br>Distance OSRM : <b>2.38 km</b><br>Durée OSRM : <b>3.4 min</b></div>`)[0];
+                popup_df96c10939fe3ea97526b08787c7fb3e.setContent(html_e49257ff4dd2459acb736458d44fe1f2);
+            
+        
+
+        marker_fd3763da0fc2540ab2350596e6019755.bindPopup(popup_df96c10939fe3ea97526b08787c7fb3e)
+        ;
+
+        
+    
+    
+            marker_fd3763da0fc2540ab2350596e6019755.bindTooltip(
+                `<div>
+                     <b>#31</b> : Pizza Hut (2.38 km, 3.4 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_fd3763da0fc2540ab2350596e6019755.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_fd3763da0fc2540ab2350596e6019755.setIcon(icon_ca626fe784b8f30795e7e57843b2bd73);
+            
+    
+            var marker_355799267ba7f1658284e21d61457ada = L.marker(
+                [30.417994, -9.605967],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_e620f46c9d66b0ac1099166f34473be7 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_916d2b23a04bbc6b0daf1642b4d2b141 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8426fed08e78c48bda8b9ac6a79cf021 = $(`<div id="html_8426fed08e78c48bda8b9ac6a79cf021" style="width: 100.0%; height: 100.0%;"><b>Point #32 — Urbain</b><br><b>Le Nil</b><br>Quartier : Centre-Ville<br>Catégorie : Restauration & Cafés<br>Distance OSRM : <b>1.74 km</b><br>Durée OSRM : <b>3.0 min</b></div>`)[0];
+                popup_916d2b23a04bbc6b0daf1642b4d2b141.setContent(html_8426fed08e78c48bda8b9ac6a79cf021);
+            
+        
+
+        marker_355799267ba7f1658284e21d61457ada.bindPopup(popup_916d2b23a04bbc6b0daf1642b4d2b141)
+        ;
+
+        
+    
+    
+            marker_355799267ba7f1658284e21d61457ada.bindTooltip(
+                `<div>
+                     <b>#32</b> : Le Nil (1.74 km, 3.0 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_355799267ba7f1658284e21d61457ada.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_355799267ba7f1658284e21d61457ada.setIcon(icon_e620f46c9d66b0ac1099166f34473be7);
+            
+    
+            var marker_4fb43697036000ce33f7ce8f7cfbb769 = L.marker(
+                [30.423, -9.591],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_5d1b931c48eee3699bd3f62c1b7c3778 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_09fff3bf31a0f0091b474a2dbde02a82 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0e3661291dae500f693e6ae0bd32a802 = $(`<div id="html_0e3661291dae500f693e6ae0bd32a802" style="width: 100.0%; height: 100.0%;"><b>Point #33 — Urbain</b><br><b>Agadir Talborjt</b><br>Quartier : Talborjt<br>Catégorie : Services & Logistique<br>Distance OSRM : <b>0.97 km</b><br>Durée OSRM : <b>1.9 min</b></div>`)[0];
+                popup_09fff3bf31a0f0091b474a2dbde02a82.setContent(html_0e3661291dae500f693e6ae0bd32a802);
+            
+        
+
+        marker_4fb43697036000ce33f7ce8f7cfbb769.bindPopup(popup_09fff3bf31a0f0091b474a2dbde02a82)
+        ;
+
+        
+    
+    
+            marker_4fb43697036000ce33f7ce8f7cfbb769.bindTooltip(
+                `<div>
+                     <b>#33</b> : Agadir Talborjt (0.97 km, 1.9 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_4fb43697036000ce33f7ce8f7cfbb769.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_4fb43697036000ce33f7ce8f7cfbb769.setIcon(icon_5d1b931c48eee3699bd3f62c1b7c3778);
+            
+    
+            var marker_f1f71cefc909b811ad4dd8b732712265 = L.marker(
+                [30.425629, -9.599421],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_ce52dedc75cef2368f13bc121ec262ae = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c6c3d9451e7755bc39f1af5c8756b3c0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_44495710faad3180ce732dbc1c5e2fec = $(`<div id="html_44495710faad3180ce732dbc1c5e2fec" style="width: 100.0%; height: 100.0%;"><b>Point #34 — Urbain</b><br><b>Winxo</b><br>Quartier : Talborjt<br>Catégorie : Services & Logistique<br>Distance OSRM : <b>0.66 km</b><br>Durée OSRM : <b>1.2 min</b></div>`)[0];
+                popup_c6c3d9451e7755bc39f1af5c8756b3c0.setContent(html_44495710faad3180ce732dbc1c5e2fec);
+            
+        
+
+        marker_f1f71cefc909b811ad4dd8b732712265.bindPopup(popup_c6c3d9451e7755bc39f1af5c8756b3c0)
+        ;
+
+        
+    
+    
+            marker_f1f71cefc909b811ad4dd8b732712265.bindTooltip(
+                `<div>
+                     <b>#34</b> : Winxo (0.66 km, 1.2 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_f1f71cefc909b811ad4dd8b732712265.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_f1f71cefc909b811ad4dd8b732712265.setIcon(icon_ce52dedc75cef2368f13bc121ec262ae);
+            
+    
+            var marker_51199f6b08b8889b5e33569a0ad4c478 = L.marker(
+                [30.418171, -9.596571],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_b832b85b12ffcc0065aaba64da6dd108 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9ada54cf64e777aa50fc720796d13855 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_35a023bf4c2f1b37d231b896882608d9 = $(`<div id="html_35a023bf4c2f1b37d231b896882608d9" style="width: 100.0%; height: 100.0%;"><b>Point #35 — Urbain</b><br><b>TotalEnergies</b><br>Quartier : Centre-Ville<br>Catégorie : Services & Logistique<br>Distance OSRM : <b>0.52 km</b><br>Durée OSRM : <b>1.2 min</b></div>`)[0];
+                popup_9ada54cf64e777aa50fc720796d13855.setContent(html_35a023bf4c2f1b37d231b896882608d9);
+            
+        
+
+        marker_51199f6b08b8889b5e33569a0ad4c478.bindPopup(popup_9ada54cf64e777aa50fc720796d13855)
+        ;
+
+        
+    
+    
+            marker_51199f6b08b8889b5e33569a0ad4c478.bindTooltip(
+                `<div>
+                     <b>#35</b> : TotalEnergies (0.52 km, 1.2 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_51199f6b08b8889b5e33569a0ad4c478.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_51199f6b08b8889b5e33569a0ad4c478.setIcon(icon_b832b85b12ffcc0065aaba64da6dd108);
+            
+    
+            var marker_f775a8daf9cc00176fc98d240d57e33b = L.marker(
+                [30.420548, -9.597507],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_677a20f7edcb1f0902958cea4e0307aa = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a7baaedde0f2e5b78f43c697b66e231d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f630c5be01434b84743c88511f865875 = $(`<div id="html_f630c5be01434b84743c88511f865875" style="width: 100.0%; height: 100.0%;"><b>Point #36 — Urbain</b><br><b>Barid Pro - Poste Maroc</b><br>Quartier : Centre-Ville<br>Catégorie : Services & Logistique<br>Distance OSRM : <b>0.19 km</b><br>Durée OSRM : <b>0.4 min</b></div>`)[0];
+                popup_a7baaedde0f2e5b78f43c697b66e231d.setContent(html_f630c5be01434b84743c88511f865875);
+            
+        
+
+        marker_f775a8daf9cc00176fc98d240d57e33b.bindPopup(popup_a7baaedde0f2e5b78f43c697b66e231d)
+        ;
+
+        
+    
+    
+            marker_f775a8daf9cc00176fc98d240d57e33b.bindTooltip(
+                `<div>
+                     <b>#36</b> : Barid Pro - Poste Maroc (0.19 km, 0.4 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_f775a8daf9cc00176fc98d240d57e33b.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_f775a8daf9cc00176fc98d240d57e33b.setIcon(icon_677a20f7edcb1f0902958cea4e0307aa);
+            
+    
+            var marker_08084c27e9c61e4ff4e6cbcb4d7efe06 = L.marker(
+                [30.427802, -9.587331],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_dec37abc69c168ee56d4e34d20bca81f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d8cc0be07c0f026760fceed965b00ff0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d11e93c49654361dc4f235833ba6b05c = $(`<div id="html_d11e93c49654361dc4f235833ba6b05c" style="width: 100.0%; height: 100.0%;"><b>Point #37 — Urbain</b><br><b>الأكاديمية الجهوية للتربية والتكوين لجهة سوس ماسة</b><br>Quartier : Talborjt<br>Catégorie : Bureaux & Tertiaire<br>Distance OSRM : <b>1.77 km</b><br>Durée OSRM : <b>3.4 min</b></div>`)[0];
+                popup_d8cc0be07c0f026760fceed965b00ff0.setContent(html_d11e93c49654361dc4f235833ba6b05c);
+            
+        
+
+        marker_08084c27e9c61e4ff4e6cbcb4d7efe06.bindPopup(popup_d8cc0be07c0f026760fceed965b00ff0)
+        ;
+
+        
+    
+    
+            marker_08084c27e9c61e4ff4e6cbcb4d7efe06.bindTooltip(
+                `<div>
+                     <b>#37</b> : الأكاديمية الجهوية للتربية والتكوين لجهة سوس ماسة (1.77 km, 3.4 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_08084c27e9c61e4ff4e6cbcb4d7efe06.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_08084c27e9c61e4ff4e6cbcb4d7efe06.setIcon(icon_dec37abc69c168ee56d4e34d20bca81f);
+            
+    
+            var marker_d31f2db59183c52e7b79fb275dc487fd = L.marker(
+                [30.426531, -9.593438],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_82ff260b5f8eb2b1ddeac46d6b911a9f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a93d379875c4dd27c94c74d23887eca0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8b0b35527d4694f8b7b325d3c538b9b3 = $(`<div id="html_8b0b35527d4694f8b7b325d3c538b9b3" style="width: 100.0%; height: 100.0%;"><b>Point #38 — Urbain</b><br><b>Sophia Imbert Architecte</b><br>Quartier : Talborjt<br>Catégorie : Bureaux & Tertiaire<br>Distance OSRM : <b>1.11 km</b><br>Durée OSRM : <b>1.8 min</b></div>`)[0];
+                popup_a93d379875c4dd27c94c74d23887eca0.setContent(html_8b0b35527d4694f8b7b325d3c538b9b3);
+            
+        
+
+        marker_d31f2db59183c52e7b79fb275dc487fd.bindPopup(popup_a93d379875c4dd27c94c74d23887eca0)
+        ;
+
+        
+    
+    
+            marker_d31f2db59183c52e7b79fb275dc487fd.bindTooltip(
+                `<div>
+                     <b>#38</b> : Sophia Imbert Architecte (1.11 km, 1.8 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_d31f2db59183c52e7b79fb275dc487fd.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_d31f2db59183c52e7b79fb275dc487fd.setIcon(icon_82ff260b5f8eb2b1ddeac46d6b911a9f);
+            
+    
+            var marker_a2d0c19c13bb05267b2e7e1da8e93ba8 = L.marker(
+                [30.420949, -9.60443],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_054564d7dfefeebde7e20c51561861f8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_11acad129a354e400082648e95cb79aa = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2533a1bfd5e52e001b3471484090b96a = $(`<div id="html_2533a1bfd5e52e001b3471484090b96a" style="width: 100.0%; height: 100.0%;"><b>Point #39 — Urbain</b><br><b>Wilaya de la région Souss Massa / Préfecture d'Agadir - Ida ou Tanane</b><br>Quartier : Centre-Ville<br>Catégorie : Bureaux & Tertiaire<br>Distance OSRM : <b>0.9 km</b><br>Durée OSRM : <b>1.5 min</b></div>`)[0];
+                popup_11acad129a354e400082648e95cb79aa.setContent(html_2533a1bfd5e52e001b3471484090b96a);
+            
+        
+
+        marker_a2d0c19c13bb05267b2e7e1da8e93ba8.bindPopup(popup_11acad129a354e400082648e95cb79aa)
+        ;
+
+        
+    
+    
+            marker_a2d0c19c13bb05267b2e7e1da8e93ba8.bindTooltip(
+                `<div>
+                     <b>#39</b> : Wilaya de la région Souss Massa / Préfecture d'Agadir - Ida ou Tanane (0.9 km, 1.5 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_a2d0c19c13bb05267b2e7e1da8e93ba8.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_a2d0c19c13bb05267b2e7e1da8e93ba8.setIcon(icon_054564d7dfefeebde7e20c51561861f8);
+            
+    
+            var marker_da491fcb4357b4ba5fb882873ce2acb4 = L.marker(
+                [30.423998, -9.615366],
+                {
+}
+            ).addTo(feature_group_b850e28a0e94a07a92047e816070a972);
+        
+    
+            var icon_4ce28956430913003ecf1b8a5a17ee7c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkblue",
+  "iconColor": "white",
+  "icon": "anchor",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c640edf15e230c7363bae04668af93a9 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_626d0954d079df2403280ec27a1f8a06 = $(`<div id="html_626d0954d079df2403280ec27a1f8a06" style="width: 100.0%; height: 100.0%;"><b>Point #40 — Littoral</b><br><b>Restaurant Les Blancs — Corniche / Marina</b><br>Quartier : Corniche / Marina<br>Catégorie : Destination Littorale<br>Distance OSRM : <b>2.27 km</b><br>Durée OSRM : <b>4.7 min</b></div>`)[0];
+                popup_c640edf15e230c7363bae04668af93a9.setContent(html_626d0954d079df2403280ec27a1f8a06);
+            
+        
+
+        marker_da491fcb4357b4ba5fb882873ce2acb4.bindPopup(popup_c640edf15e230c7363bae04668af93a9)
+        ;
+
+        
+    
+    
+            marker_da491fcb4357b4ba5fb882873ce2acb4.bindTooltip(
+                `<div>
+                     <b>#40</b> : Restaurant Les Blancs — Corniche / Marina (2.27 km, 4.7 min)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_da491fcb4357b4ba5fb882873ce2acb4.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_da491fcb4357b4ba5fb882873ce2acb4.setIcon(icon_4ce28956430913003ecf1b8a5a17ee7c);
+            
+    
+            feature_group_b850e28a0e94a07a92047e816070a972.addTo(map_9e83363a07217b28c2ae3ad23622820a);
+        
+    
+            var layer_control_c37594fb77f2b1403f68b16c46250f38_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_12df268ba4371e7f2dd33dac914001bf,
+                    "Vue Satellite (Esri)" : tile_layer_701ec8711e25506a1b232729d1269e7b,
+                },
+                overlays :  {
+                    "D\u00e9p\u00f4t Central (Place Al Amal)" : feature_group_e70a06556223ed763011acf6dfc77a1e,
+                    "Rayons de desserte depuis le D\u00e9p\u00f4t" : feature_group_e102d1fa90cd41973a49b0fe657be886,
+                    "Les 40 Destinations" : feature_group_b850e28a0e94a07a92047e816070a972,
+                },
+            };
+            let layer_control_c37594fb77f2b1403f68b16c46250f38 = L.control.layers(
+                layer_control_c37594fb77f2b1403f68b16c46250f38_layers.base_layers,
+                layer_control_c37594fb77f2b1403f68b16c46250f38_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": false,
+  "autoZIndex": true,
+}
+            ).addTo(map_9e83363a07217b28c2ae3ad23622820a);
+
+        
+    
+            var tile_layer_97f85c31f8ee12fdc0a90a14ac5a97e8 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detect_retina": false, "max_native_zoom": 19, "max_zoom": 19, "min_zoom": 0, "no_wrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+            var mini_map_ff5edde38aa661608afa90c4927998b7 = new L.Control.MiniMap(
+                tile_layer_97f85c31f8ee12fdc0a90a14ac5a97e8,
+                {
+  "position": "bottomright",
+  "width": 150,
+  "height": 150,
+  "collapsedWidth": 25,
+  "collapsedHeight": 25,
+  "zoomLevelOffset": -5,
+  "centerFixed": false,
+  "zoomAnimation": false,
+  "toggleDisplay": true,
+  "autoToggleDisplay": false,
+  "minimized": false,
+}
+            );
+            map_9e83363a07217b28c2ae3ad23622820a.addControl(mini_map_ff5edde38aa661608afa90c4927998b7);
+        
+    
+            L.control.fullscreen(
+                {
+  "position": "topleft",
+  "title": "Full Screen",
+  "titleCancel": "Exit Full Screen",
+  "forceSeparateButton": false,
+}
+            ).addTo(map_9e83363a07217b28c2ae3ad23622820a);
+        
+</script>
+</html>

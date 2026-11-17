@@ -1,0 +1,8 @@
+{
+  "AGADIR_MAPPING_PILOT_001": {
+    "closed_at_utc": "2026-11-17T00:02:03.518153+00:00",
+    "final_event_hash": "cd368bf4e7efbfe93e2a31eeed5a1c6d766b37750f6c604d743f51e881c9ff39",
+    "jsonl_path": "/Users/ouaarab/Documents/AGADIR MAPPING/outputs/audit/AGADIR_MAPPING_PILOT_001.jsonl",
+    "total_events": 11
+  }
+}

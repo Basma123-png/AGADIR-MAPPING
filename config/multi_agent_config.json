@@ -1,0 +1,82 @@
+{
+  "system_version": "6.2.0",
+  "project_name": "AGADIR MAPPING — Multi-Agent System",
+  "environment": "development",
+  "llm_provider": {
+    "type": "google_genai",
+    "api_key_env_var": "GEMINI_API_KEY",
+    "default_timeout_seconds": 30.0,
+    "max_retries": 3
+  },
+  "models": {
+    "default_fast": "gemini-3.8-flash",
+    "advanced_reasoning": "gemini-4-carbon",
+    "fallback": "gemini-3.8-flash"
+  },
+  "pricing_per_million_tokens": {
+    "gemini-3.8-flash": {
+      "input": 0.75,
+      "output": 3.75,
+      "cached": 0.075,
+      "storage_per_hour": 0.0010
+    },
+    "gemini-3.5-flash-lite": {
+      "input": 0.30,
+      "output": 2.50,
+      "cached": 0.030,
+      "storage_per_hour": 0.0005
+    },
+    "gemini-4-carbon": {
+      "input": 2.00,
+      "output": 10.00,
+      "cached": 0.100,
+      "storage_per_hour": 0.0020
+    },
+    "gemini-4-argon": {
+      "input": 2.00,
+      "output": 10.00,
+      "cached": 0.100,
+      "storage_per_hour": 0.0020
+    },
+    "mock-test-model": {
+      "input": 0.50,
+      "output": 2.00,
+      "cached": 0.050,
+      "storage_per_hour": 0.0010
+    }
+  },
+  "semantic_scholar": {
+    "api_endpoint": "https://api.semanticscholar.org/graph/v1",
+    "api_key_env_var": "SEMANTIC_SCHOLAR_API_KEY",
+    "max_retries": 3,
+    "backoff_base_seconds": 2.0,
+    "rate_limit_delay_seconds": 1.1,
+    "batch_size_limit": 500,
+    "cache_ttl_days": 30
+  },
+  "web_research": {
+    "engine": "duckduckgo_lite",
+    "timeout_seconds": 15.0,
+    "max_queries_per_mission": 5,
+    "delay_between_queries_seconds": 2.0,
+    "cache_ttl_days": 7
+  },
+  "budget_guardrails": {
+    "warning_threshold_usd": 0.10,
+    "kill_switch_usd": 0.50,
+    "pre_allocation_check": true,
+    "fail_closed_if_unverified": true,
+    "max_output_tokens_default": 2048
+  },
+  "security": {
+    "audit_trail_dir": "outputs/audit",
+    "audit_sqlite_db": "outputs/audit/orchestrator_audit.db",
+    "fingerprints_file": "outputs/audit/mission_fingerprints.json",
+    "protected_files": [
+      "data/processed/delivery_points_40.csv",
+      "data/processed/distance_matrix.csv",
+      "data/processed/duration_matrix.csv",
+      "data/results/tsp_optimized_route.json"
+    ]
+  }
+}

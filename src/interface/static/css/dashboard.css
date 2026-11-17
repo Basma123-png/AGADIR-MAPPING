@@ -1,0 +1,1058 @@
+/* ==============================================================================
+   AGADIR MAPPING — DASHBOARD À QUATRE CADRANS (PHASE 7)
+   Feuille de styles principale — Palette Thème Clair & Visualisations Scientifiques
+   Palette officielle : #F4F7FA, #FFFFFF, #263445, #1E3A5F, #2878B5, #20A6A6, #32936F
+   ============================================================================== */
+
+:root {
+  /* Fond et Panneaux — Thème Clair Professionnel */
+  --bg-primary: #F4F7FA;
+  --bg-secondary: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #F8FAFC;
+  --bg-input: #F8FAFC;
+  --bg-subtle: #F1F5F9;
+  
+  /* Bordures et Séparateurs */
+  --border-color: #E2E8F0;
+  --border-hover: #CBD5E1;
+  --border-focus: #2878B5;
+  
+  /* Typographie & Contraste Élevé */
+  --text-primary: #263445;
+  --text-secondary: #475569;
+  --text-muted: #64748B;
+  
+  /* Palette Urbaine Spécifiée */
+  --accent-blue: #1E3A5F;        /* Bleu urbain principal */
+  --accent-secondary: #2878B5;   /* Bleu secondaire d'action */
+  --accent-turquoise: #20A6A6;   /* Turquoise océan / littoral */
+  --accent-emerald: #32936F;     /* Vert émeraude validation & gains */
+  --accent-amber: #D97706;       /* Ambre / Dépôt central */
+  --accent-rose: #DC2626;        /* Rouge alerte / baseline */
+  --accent-purple: #7C3AED;      /* Violet indicateurs */
+  --accent-indigo: #4F46E5;      /* Indigo */
+
+  /* Rôles Métier */
+  --depot-color: #D97706;        /* Place Al Amal */
+  --coastal-color: #20A6A6;      /* Point littoral #40 Les Blancs */
+  --tour-color: #2878B5;         /* Tracé officiel OSRM */
+  
+  /* Ombres Douces et Lisibles */
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.06), 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.10), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-glow: 0 0 12px rgba(40, 120, 181, 0.20);
+  
+  /* Rayons de Courbure */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  
+  --header-height: 64px;
+  --footer-height: 42px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ------------------------------------------------------------------------------
+   1. EN-TÊTE PRINCIPAL (HEADER)
+   ------------------------------------------------------------------------------ */
+.dashboard-header {
+  height: var(--header-height);
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: var(--shadow-sm);
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-logo {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-secondary));
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 18px;
+  color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(30, 58, 95, 0.25);
+}
+
+.brand-info h1 {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: var(--accent-blue);
+}
+
+.brand-info .brand-subtitle {
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.header-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.status-pill.active {
+  background-color: rgba(50, 147, 111, 0.12);
+  color: var(--accent-emerald);
+  border: 1px solid rgba(50, 147, 111, 0.35);
+}
+
+.status-pill.readonly {
+  background-color: rgba(40, 120, 181, 0.12);
+  color: var(--accent-secondary);
+  border: 1px solid rgba(40, 120, 181, 0.35);
+}
+
+.pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: currentColor;
+  box-shadow: 0 0 6px currentColor;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-hover);
+  color: var(--text-primary);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  background-color: var(--bg-card-hover);
+  border-color: var(--accent-secondary);
+  color: var(--accent-blue);
+}
+
+.btn-primary {
+  background-color: var(--accent-blue);
+  border-color: var(--accent-blue);
+  color: #FFFFFF;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-secondary);
+  border-color: var(--accent-secondary);
+  color: #FFFFFF;
+}
+
+/* ------------------------------------------------------------------------------
+   2. GRILLE À QUATRE CADRANS (2 × 2)
+   ------------------------------------------------------------------------------ */
+.dashboard-container {
+  padding: 16px;
+  min-height: calc(100vh - var(--header-height) - var(--footer-height));
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, minmax(480px, auto));
+  gap: 16px;
+}
+
+/* Plein écran d'un cadran */
+.dashboard-grid.maximized-1 > .quadrant:not(#quadrant-1),
+.dashboard-grid.maximized-2 > .quadrant:not(#quadrant-2),
+.dashboard-grid.maximized-3 > .quadrant:not(#quadrant-3),
+.dashboard-grid.maximized-4 > .quadrant:not(#quadrant-4) {
+  display: none !important;
+}
+
+.dashboard-grid.maximized-1,
+.dashboard-grid.maximized-2,
+.dashboard-grid.maximized-3,
+.dashboard-grid.maximized-4 {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+/* ------------------------------------------------------------------------------
+   3. STYLE GÉNÉRIQUE D'UN CADRAN
+   ------------------------------------------------------------------------------ */
+.quadrant {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.quadrant:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-md);
+}
+
+.quadrant-header {
+  padding: 12px 16px;
+  background-color: var(--bg-subtle);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.quadrant-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quadrant-badge {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background-color: rgba(30, 58, 95, 0.08);
+  color: var(--accent-blue);
+  border: 1px solid rgba(30, 58, 95, 0.2);
+  letter-spacing: 0.5px;
+}
+
+.quadrant-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent-blue);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.quadrant-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.quadrant-body {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-secondary);
+}
+
+/* ------------------------------------------------------------------------------
+   4. CADRAN 1 — CARTOGRAPHIE GÉOGRAPHIQUE
+   ------------------------------------------------------------------------------ */
+.map-filter-bar {
+  padding: 8px 12px;
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.map-search-input {
+  flex: 1;
+  min-width: 150px;
+  padding: 6px 10px;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-hover);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 12px;
+  transition: border-color 0.15s ease;
+}
+
+.map-search-input:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  background-color: #FFFFFF;
+}
+
+.map-select {
+  padding: 6px 10px;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-hover);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 12px;
+}
+
+.map-select:focus {
+  outline: none;
+  border-color: var(--border-focus);
+}
+
+#leaflet-map {
+  width: 100%;
+  height: 100%;
+  min-height: 380px;
+  background-color: #E2E8F0;
+  z-index: 1;
+}
+
+.map-point-card {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  background-color: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--accent-secondary);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-lg);
+  animation: slideUp 0.2s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Marqueurs Cartographiques Personnalisés */
+.custom-map-pin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #FFFFFF;
+  font-weight: 800;
+  font-size: 11px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  border: 2px solid #FFFFFF;
+}
+
+.custom-map-pin.depot-pin {
+  background-color: var(--depot-color);
+  border-color: #FEF08A;
+  box-shadow: 0 0 10px rgba(217, 119, 6, 0.6);
+  font-size: 13px;
+}
+
+.custom-map-pin.coastal-pin {
+  background-color: var(--coastal-color);
+  border-color: #A5F3FC;
+  box-shadow: 0 0 10px rgba(32, 166, 166, 0.6);
+  border-radius: 20%;
+}
+
+.custom-map-pin.client-pin {
+  background-color: var(--accent-secondary);
+}
+
+.custom-map-pin.highlighted-pin {
+  transform: scale(1.35);
+  border-color: var(--accent-rose);
+  box-shadow: 0 0 14px rgba(220, 38, 38, 0.8);
+  z-index: 9999 !important;
+}
+
+/* ------------------------------------------------------------------------------
+   5. CADRAN 2 — VISUALISATION DE LA TOURNÉE OPTIMISÉE
+   ------------------------------------------------------------------------------ */
+.tour-control-bar {
+  padding: 8px 12px;
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tour-summary-stats {
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+}
+
+.stat-item {
+  color: var(--text-secondary);
+}
+
+.stat-item strong {
+  color: var(--accent-blue);
+}
+
+.tour-steps-scrollable {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background-color: var(--bg-primary);
+}
+
+.tour-step-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.tour-step-card:hover {
+  background-color: var(--bg-card-hover);
+  border-color: var(--accent-secondary);
+  transform: translateX(3px);
+}
+
+.tour-step-card.active {
+  background-color: rgba(40, 120, 181, 0.08);
+  border-color: var(--accent-secondary);
+  box-shadow: 0 0 0 1px var(--accent-secondary);
+}
+
+.step-number {
+  font-weight: 800;
+  font-size: 12px;
+  color: var(--accent-blue);
+  min-width: 28px;
+  height: 28px;
+  background-color: var(--bg-subtle);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-color);
+}
+
+.step-details {
+  flex: 1;
+  margin: 0 10px;
+}
+
+.step-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.step-meta {
+  font-size: 11px;
+  color: var(--text-secondary);
+  display: flex;
+  gap: 8px;
+}
+
+.step-distance {
+  text-align: right;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent-emerald);
+  min-width: 75px;
+}
+
+.step-cumul {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-weight: normal;
+}
+
+/* ------------------------------------------------------------------------------
+   6. CADRAN 3 — INTELLIGENCE ARTIFICIELLE & MULTI-AGENTS
+   ------------------------------------------------------------------------------ */
+.pipeline-flow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  overflow-x: auto;
+  gap: 6px;
+}
+
+.pipeline-node {
+  padding: 6px 10px;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  color: var(--text-secondary);
+}
+
+.pipeline-node.success {
+  border-color: rgba(50, 147, 111, 0.4);
+  color: var(--accent-emerald);
+  background-color: rgba(50, 147, 111, 0.05);
+}
+
+.pipeline-node.active, .pipeline-node:hover {
+  background-color: var(--bg-card-hover);
+  border-color: var(--accent-secondary);
+  color: var(--accent-blue);
+}
+
+.pipeline-arrow {
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.agent-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--bg-subtle);
+}
+
+.agent-tab-btn {
+  padding: 8px 14px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.agent-tab-btn:hover {
+  color: var(--accent-blue);
+}
+
+.agent-tab-btn.active {
+  color: var(--accent-blue);
+  border-bottom-color: var(--accent-blue);
+  background-color: var(--bg-secondary);
+}
+
+.agent-panel-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px;
+  background-color: var(--bg-primary);
+}
+
+.judge-score-card {
+  background: linear-gradient(135deg, #FFFFFF, var(--bg-subtle));
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+}
+
+.score-display {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.score-big {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--accent-emerald);
+}
+
+.score-total {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.criterion-bar-group {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.criterion-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+}
+
+.progress-bar-bg {
+  flex: 1;
+  height: 6px;
+  background-color: var(--border-color);
+  border-radius: 9999px;
+  margin: 0 10px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-secondary), var(--accent-emerald));
+  border-radius: 9999px;
+}
+
+/* ------------------------------------------------------------------------------
+   7. STYLES DES LIENS EXTERNES & BADGES DE STATUT (CORRECTION N°3)
+   ------------------------------------------------------------------------------ */
+.external-web-link,
+.external-doi-link {
+  color: var(--accent-secondary) !important;
+  text-decoration: underline !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 10;
+  word-break: break-all;
+  transition: color 0.15s ease;
+}
+
+.external-web-link:hover,
+.external-doi-link:hover {
+  color: var(--accent-blue) !important;
+  text-decoration: underline !important;
+}
+
+.external-icon {
+  font-size: 10px;
+  margin-left: 2px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.link-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  vertical-align: middle;
+  letter-spacing: 0.2px;
+}
+
+.link-badge.warning {
+  background-color: #FEF3C7;
+  color: #92400E;
+  border: 1px solid #FCD34D;
+}
+
+.link-badge.success {
+  background-color: #DEF7EC;
+  color: #03543F;
+  border: 1px solid #84E1BC;
+}
+
+.link-badge.info {
+  background-color: #E1EFFE;
+  color: #1E429F;
+  border: 1px solid #A4CAFE;
+}
+
+/* ------------------------------------------------------------------------------
+   8. CADRAN 4 — INDICATEURS SCIENTIFIQUES & GRAPHIQUES (CORRECTION N°2)
+   ------------------------------------------------------------------------------ */
+.metrics-scrollable {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background-color: var(--bg-primary);
+}
+
+.metrics-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.metric-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-secondary);
+  box-shadow: var(--shadow-md);
+}
+
+.metric-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.metric-val {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--accent-blue);
+  margin: 4px 0;
+}
+
+.metric-val.gain {
+  color: var(--accent-emerald);
+}
+
+.metric-sub {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* Barre de Navigation des Graphiques */
+.charts-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  gap: 10px;
+  flex-wrap: wrap;
+  box-shadow: var(--shadow-sm);
+}
+
+.charts-nav-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent-blue);
+}
+
+.charts-filter-pills {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.chart-pill {
+  padding: 4px 10px;
+  border-radius: 9999px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-input);
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.chart-pill:hover {
+  background-color: var(--bg-subtle);
+  color: var(--accent-blue);
+  border-color: var(--accent-secondary);
+}
+
+.chart-pill.active {
+  background-color: var(--accent-blue);
+  color: #FFFFFF;
+  border-color: var(--accent-blue);
+}
+
+/* Grille des 6 Graphiques Scientifiques */
+.scientific-charts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.chart-box {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: box-shadow 0.2s ease;
+}
+
+.chart-box:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-hover);
+}
+
+.chart-box-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.chart-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--accent-blue);
+  margin-bottom: 2px;
+}
+
+.chart-subtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.chart-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background-color: var(--bg-subtle);
+  color: var(--accent-blue);
+  border: 1px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.chart-badge.gain-badge {
+  background-color: rgba(50, 147, 111, 0.12);
+  color: var(--accent-emerald);
+  border-color: rgba(50, 147, 111, 0.35);
+}
+
+.chart-badge.judge-badge {
+  background-color: rgba(40, 120, 181, 0.12);
+  color: var(--accent-secondary);
+  border-color: rgba(40, 120, 181, 0.35);
+}
+
+.chart-badge.success-badge {
+  background-color: rgba(50, 147, 111, 0.12);
+  color: var(--accent-emerald);
+  border-color: rgba(50, 147, 111, 0.35);
+}
+
+.chart-badge.budget-badge {
+  background-color: rgba(217, 119, 6, 0.12);
+  color: var(--accent-amber);
+  border-color: rgba(217, 119, 6, 0.35);
+}
+
+.chart-canvas-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 210px;
+  max-height: 230px;
+  margin: 6px 0;
+}
+
+.chart-footer-caption {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-color);
+  font-size: 11px;
+  color: var(--text-secondary);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+/* Registre de Provenance SHA-256 */
+.provenance-container {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  box-shadow: var(--shadow-sm);
+}
+
+.comparison-header {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent-blue);
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.provenance-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  font-size: 11px;
+}
+
+.provenance-item {
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+}
+
+.provenance-file {
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.provenance-hash {
+  color: var(--text-muted);
+  font-family: monospace;
+  font-size: 10px;
+  word-break: break-all;
+}
+
+/* ------------------------------------------------------------------------------
+   9. PIED DE PAGE (FOOTER)
+   ------------------------------------------------------------------------------ */
+.dashboard-footer {
+  height: var(--footer-height);
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-muted);
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.footer-hashes {
+  display: flex;
+  gap: 14px;
+}
+
+.hash-badge {
+  color: var(--accent-emerald);
+  font-family: monospace;
+  font-weight: 700;
+}
+
+/* ------------------------------------------------------------------------------
+   10. RESPONSIVE DESIGN (TABLETTES ET MOBILES)
+   ------------------------------------------------------------------------------ */
+@media (max-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  
+  .quadrant {
+    min-height: 480px;
+  }
+  
+  .metrics-summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .scientific-charts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .provenance-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard-header {
+    flex-direction: column;
+    height: auto;
+    padding: 10px;
+    gap: 8px;
+  }
+  
+  .metrics-summary-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .dashboard-footer {
+    flex-direction: column;
+    height: auto;
+    padding: 10px;
+    gap: 6px;
+    text-align: center;
+  }
+}

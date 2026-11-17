@@ -1,0 +1,174 @@
+{
+  "study_name": "agadir_tsp_optuna_phase5",
+  "best_trial_number": 2,
+  "best_objective_value": 18933.1,
+  "best_params": {
+    "population_size": 50,
+    "max_generations": 200,
+    "crossover_rate": 0.8,
+    "mutation_rate": 0.05811231446814168,
+    "elite_size": 1,
+    "selection_method": "tournament",
+    "tournament_size": 6,
+    "crossover_operator": "ox",
+    "mutation_operator": "inversion",
+    "seeding_strategy": "hybrid_nn",
+    "use_memetic_2opt": true,
+    "memetic_frequency": 100,
+    "memetic_max_passes": 10,
+    "local_search_operator": "combined"
+  },
+  "user_attrs": {
+    "max_distance_m": 18933.1,
+    "mean_distance_m": 18933.1,
+    "mean_time_s": 0.461,
+    "min_distance_m": 18933.1,
+    "stability_ratio_pct": 0.0,
+    "std_distance_m": 0.0
+  },
+  "validation_statistics": {
+    "best_params": {
+      "population_size": 50,
+      "max_generations": 200,
+      "crossover_rate": 0.8,
+      "mutation_rate": 0.05811231446814168,
+      "elite_size": 1,
+      "selection_method": "tournament",
+      "tournament_size": 6,
+      "crossover_operator": "ox",
+      "mutation_operator": "inversion",
+      "seeding_strategy": "hybrid_nn",
+      "use_memetic_2opt": true,
+      "memetic_frequency": 100,
+      "memetic_max_passes": 10,
+      "local_search_operator": "combined"
+    },
+    "seeds_evaluated": 10,
+    "min_distance_m": 18933.1,
+    "min_distance_km": 18.933,
+    "mean_distance_m": 18933.1,
+    "mean_distance_km": 18.933,
+    "max_distance_m": 18933.1,
+    "max_distance_km": 18.933,
+    "std_distance_m": 0.0,
+    "stability_ratio_pct": 0.0,
+    "mean_execution_time_seconds": 0.456,
+    "mean_convergence_generation": 1.0,
+    "runs": [
+      {
+        "seed": 42,
+        "distance_m": 18933.1,
+        "distance_km": 18.933,
+        "computation_time_seconds": 0.461,
+        "convergence_generation": 1
+      },
+      {
+        "seed": 101,
+        "distance_m": 18933.1,
+        "distance_km": 18.933,
+        "computation_time_seconds": 0.455,
+        "convergence_generation": 1
+      },
+      {
+        "seed": 777,
+        "distance_m": 18933.1,
+        "distance_km": 18.933,
+        "computation_time_seconds": 0.452,
+        "convergence_generation": 1
+      },
+      {
+        "seed": 1234,
+        "distance_m": 18933.1,
+        "distance_km": 18.933,
+        "computation_time_seconds": 0.454,
+        "convergence_generation": 1
+      },
+      {
+        "seed": 9999,
+        "distance_m": 18933.1,
+        "distance_km": 18.933,
+        "computation_time_seconds": 0.458,
+        "convergence_generation": 1
+      },
+      {
+        "seed": 2024,
+        "distance_m": 18933.1,
+        "distance_km": 18.933,
+        "computation_time_seconds": 0.452,
+        "convergence_generation": 1
+      },
+      {
+        "seed": 31415,
+        "distance_m": 18933.1,
+        "distance_km": 18.933,
+        "computation_time_seconds": 0.462,
+        "convergence_generation": 1
+      },
+      {
+        "seed": 27182,
+        "distance_m": 18933.1,
+        "distance_km": 18.933,
+        "computation_time_seconds": 0.462,
+        "convergence_generation": 1
+      },
+      {
+        "seed": 1337,
+        "distance_m": 18933.1,
+        "distance_km": 18.933,
+        "computation_time_seconds": 0.454,
+        "convergence_generation": 1
+      },
+      {
+        "seed": 4242,
+        "distance_m": 18933.1,
+        "distance_km": 18.933,
+        "computation_time_seconds": 0.454,
+        "convergence_generation": 1
+      }
+    ],
+    "best_tour": [
+      0,
+      36,
+      13,
+      30,
+      21,
+      6,
+      33,
+      27,
+      25,
+      26,
+      7,
+      9,
+      38,
+      3,
+      10,
+      11,
+      17,
+      28,
+      37,
+      2,
+      14,
+      12,
+      5,
+      35,
+      16,
+      22,
+      39,
+      8,
+      1,
+      19,
+      20,
+      32,
+      40,
+      24,
+      29,
+      4,
+      23,
+      31,
+      15,
+      18,
+      34,
+      0
+    ]
+  }
+}

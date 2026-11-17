@@ -1,0 +1,8 @@
+Méthode,Distance (m),Distance (km),Gain vs NN (%),Temps CPU (s),Graines / Paramètres
+Nearest Neighbor (Glouton),22722.8,22.723,0.0,0.0002,Déterministe (Glouton)
+2-opt Local Search (sur NN),21014.3,21.014,7.52,0.0266,Max passes = 25
+"Algorithme Génétique (Pop=50, Gen=500, Seed=42)",24045.1,24.045,-5.82,0.6,"Seed=42, OX, Inversion"
+"Algorithme Génétique (Pop=50, Gen=500, Seed=101)",30355.5,30.355,-33.59,0.594,"Seed=101, OX, Inversion"
+"Algorithme Génétique (Pop=50, Gen=500, Seed=777)",29233.9,29.234,-28.65,0.616,"Seed=777, OX, Inversion"
+"Algorithme Génétique (Pop=100, Gen=500, Seed=42)",25027.0,25.027,-10.14,1.248,"Pop=100, Gen=500, Seed=42"
+Algorithme Génétique Memétique (Hybride GA + Amorçage NN + 2-opt),21014.3,21.014,7.52,0.667,GA + 2-opt Local Search périodique

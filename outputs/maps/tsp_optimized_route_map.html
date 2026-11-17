@@ -1,0 +1,1863 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_ef42010d7267a66ec72e8c166ebf584f {
+                    position: relative;
+                    width: 100.0vw;
+                    height: 100.0vh;
+
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>/*
+ * Glyphicons Halflings -- the icon font used by folium's default Awesome Markers
+ * (Icon(prefix="glyphicon")). Extracted from Bootstrap 3's glyphicon rules only.
+ *
+ * folium previously loaded netdna's bootstrap-glyphicons.css, which despite its
+ * name ships a full Bootstrap-3 base stylesheet (normalize reset + global `body`
+ * rules) that leaked onto the host page (GH-1820). This file provides just the
+ * @font-face and .glyphicon/.glyphicon-* rules needed for the markers, with no
+ * page-wide side effects. Font files are served from jsDelivr.
+ */
+@font-face{font-family:'Glyphicons Halflings';src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot');src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.woff') format('woff'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.ttf') format('truetype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');}.glyphicon{position:relative;top:1px;display:inline-block;font-family:'Glyphicons Halflings';font-style:normal;font-weight:normal;line-height:1;-webkit-font-smoothing:antialiased;}
+.glyphicon-asterisk:before{content:"\2a";}
+.glyphicon-plus:before{content:"\2b";}
+.glyphicon-euro:before{content:"\20ac";}
+.glyphicon-minus:before{content:"\2212";}
+.glyphicon-cloud:before{content:"\2601";}
+.glyphicon-envelope:before{content:"\2709";}
+.glyphicon-pencil:before{content:"\270f";}
+.glyphicon-glass:before{content:"\e001";}
+.glyphicon-music:before{content:"\e002";}
+.glyphicon-search:before{content:"\e003";}
+.glyphicon-heart:before{content:"\e005";}
+.glyphicon-star:before{content:"\e006";}
+.glyphicon-star-empty:before{content:"\e007";}
+.glyphicon-user:before{content:"\e008";}
+.glyphicon-film:before{content:"\e009";}
+.glyphicon-th-large:before{content:"\e010";}
+.glyphicon-th:before{content:"\e011";}
+.glyphicon-th-list:before{content:"\e012";}
+.glyphicon-ok:before{content:"\e013";}
+.glyphicon-remove:before{content:"\e014";}
+.glyphicon-zoom-in:before{content:"\e015";}
+.glyphicon-zoom-out:before{content:"\e016";}
+.glyphicon-off:before{content:"\e017";}
+.glyphicon-signal:before{content:"\e018";}
+.glyphicon-cog:before{content:"\e019";}
+.glyphicon-trash:before{content:"\e020";}
+.glyphicon-home:before{content:"\e021";}
+.glyphicon-file:before{content:"\e022";}
+.glyphicon-time:before{content:"\e023";}
+.glyphicon-road:before{content:"\e024";}
+.glyphicon-download-alt:before{content:"\e025";}
+.glyphicon-download:before{content:"\e026";}
+.glyphicon-upload:before{content:"\e027";}
+.glyphicon-inbox:before{content:"\e028";}
+.glyphicon-play-circle:before{content:"\e029";}
+.glyphicon-repeat:before{content:"\e030";}
+.glyphicon-refresh:before{content:"\e031";}
+.glyphicon-list-alt:before{content:"\e032";}
+.glyphicon-flag:before{content:"\e034";}
+.glyphicon-headphones:before{content:"\e035";}
+.glyphicon-volume-off:before{content:"\e036";}
+.glyphicon-volume-down:before{content:"\e037";}
+.glyphicon-volume-up:before{content:"\e038";}
+.glyphicon-qrcode:before{content:"\e039";}
+.glyphicon-barcode:before{content:"\e040";}
+.glyphicon-tag:before{content:"\e041";}
+.glyphicon-tags:before{content:"\e042";}
+.glyphicon-book:before{content:"\e043";}
+.glyphicon-print:before{content:"\e045";}
+.glyphicon-font:before{content:"\e047";}
+.glyphicon-bold:before{content:"\e048";}
+.glyphicon-italic:before{content:"\e049";}
+.glyphicon-text-height:before{content:"\e050";}
+.glyphicon-text-width:before{content:"\e051";}
+.glyphicon-align-left:before{content:"\e052";}
+.glyphicon-align-center:before{content:"\e053";}
+.glyphicon-align-right:before{content:"\e054";}
+.glyphicon-align-justify:before{content:"\e055";}
+.glyphicon-list:before{content:"\e056";}
+.glyphicon-indent-left:before{content:"\e057";}
+.glyphicon-indent-right:before{content:"\e058";}
+.glyphicon-facetime-video:before{content:"\e059";}
+.glyphicon-picture:before{content:"\e060";}
+.glyphicon-map-marker:before{content:"\e062";}
+.glyphicon-adjust:before{content:"\e063";}
+.glyphicon-tint:before{content:"\e064";}
+.glyphicon-edit:before{content:"\e065";}
+.glyphicon-share:before{content:"\e066";}
+.glyphicon-check:before{content:"\e067";}
+.glyphicon-move:before{content:"\e068";}
+.glyphicon-step-backward:before{content:"\e069";}
+.glyphicon-fast-backward:before{content:"\e070";}
+.glyphicon-backward:before{content:"\e071";}
+.glyphicon-play:before{content:"\e072";}
+.glyphicon-pause:before{content:"\e073";}
+.glyphicon-stop:before{content:"\e074";}
+.glyphicon-forward:before{content:"\e075";}
+.glyphicon-fast-forward:before{content:"\e076";}
+.glyphicon-step-forward:before{content:"\e077";}
+.glyphicon-eject:before{content:"\e078";}
+.glyphicon-chevron-left:before{content:"\e079";}
+.glyphicon-chevron-right:before{content:"\e080";}
+.glyphicon-plus-sign:before{content:"\e081";}
+.glyphicon-minus-sign:before{content:"\e082";}
+.glyphicon-remove-sign:before{content:"\e083";}
+.glyphicon-ok-sign:before{content:"\e084";}
+.glyphicon-question-sign:before{content:"\e085";}
+.glyphicon-info-sign:before{content:"\e086";}
+.glyphicon-screenshot:before{content:"\e087";}
+.glyphicon-remove-circle:before{content:"\e088";}
+.glyphicon-ok-circle:before{content:"\e089";}
+.glyphicon-ban-circle:before{content:"\e090";}
+.glyphicon-arrow-left:before{content:"\e091";}
+.glyphicon-arrow-right:before{content:"\e092";}
+.glyphicon-arrow-up:before{content:"\e093";}
+.glyphicon-arrow-down:before{content:"\e094";}
+.glyphicon-share-alt:before{content:"\e095";}
+.glyphicon-resize-full:before{content:"\e096";}
+.glyphicon-resize-small:before{content:"\e097";}
+.glyphicon-exclamation-sign:before{content:"\e101";}
+.glyphicon-gift:before{content:"\e102";}
+.glyphicon-leaf:before{content:"\e103";}
+.glyphicon-eye-open:before{content:"\e105";}
+.glyphicon-eye-close:before{content:"\e106";}
+.glyphicon-warning-sign:before{content:"\e107";}
+.glyphicon-plane:before{content:"\e108";}
+.glyphicon-random:before{content:"\e110";}
+.glyphicon-comment:before{content:"\e111";}
+.glyphicon-magnet:before{content:"\e112";}
+.glyphicon-chevron-up:before{content:"\e113";}
+.glyphicon-chevron-down:before{content:"\e114";}
+.glyphicon-retweet:before{content:"\e115";}
+.glyphicon-shopping-cart:before{content:"\e116";}
+.glyphicon-folder-close:before{content:"\e117";}
+.glyphicon-folder-open:before{content:"\e118";}
+.glyphicon-resize-vertical:before{content:"\e119";}
+.glyphicon-resize-horizontal:before{content:"\e120";}
+.glyphicon-hdd:before{content:"\e121";}
+.glyphicon-bullhorn:before{content:"\e122";}
+.glyphicon-certificate:before{content:"\e124";}
+.glyphicon-thumbs-up:before{content:"\e125";}
+.glyphicon-thumbs-down:before{content:"\e126";}
+.glyphicon-hand-right:before{content:"\e127";}
+.glyphicon-hand-left:before{content:"\e128";}
+.glyphicon-hand-up:before{content:"\e129";}
+.glyphicon-hand-down:before{content:"\e130";}
+.glyphicon-circle-arrow-right:before{content:"\e131";}
+.glyphicon-circle-arrow-left:before{content:"\e132";}
+.glyphicon-circle-arrow-up:before{content:"\e133";}
+.glyphicon-circle-arrow-down:before{content:"\e134";}
+.glyphicon-globe:before{content:"\e135";}
+.glyphicon-tasks:before{content:"\e137";}
+.glyphicon-filter:before{content:"\e138";}
+.glyphicon-fullscreen:before{content:"\e140";}
+.glyphicon-dashboard:before{content:"\e141";}
+.glyphicon-heart-empty:before{content:"\e143";}
+.glyphicon-link:before{content:"\e144";}
+.glyphicon-phone:before{content:"\e145";}
+.glyphicon-usd:before{content:"\e148";}
+.glyphicon-gbp:before{content:"\e149";}
+.glyphicon-sort:before{content:"\e150";}
+.glyphicon-sort-by-alphabet:before{content:"\e151";}
+.glyphicon-sort-by-alphabet-alt:before{content:"\e152";}
+.glyphicon-sort-by-order:before{content:"\e153";}
+.glyphicon-sort-by-order-alt:before{content:"\e154";}
+.glyphicon-sort-by-attributes:before{content:"\e155";}
+.glyphicon-sort-by-attributes-alt:before{content:"\e156";}
+.glyphicon-unchecked:before{content:"\e157";}
+.glyphicon-expand:before{content:"\e158";}
+.glyphicon-collapse-down:before{content:"\e159";}
+.glyphicon-collapse-up:before{content:"\e160";}
+.glyphicon-log-in:before{content:"\e161";}
+.glyphicon-flash:before{content:"\e162";}
+.glyphicon-log-out:before{content:"\e163";}
+.glyphicon-new-window:before{content:"\e164";}
+.glyphicon-record:before{content:"\e165";}
+.glyphicon-save:before{content:"\e166";}
+.glyphicon-open:before{content:"\e167";}
+.glyphicon-saved:before{content:"\e168";}
+.glyphicon-import:before{content:"\e169";}
+.glyphicon-export:before{content:"\e170";}
+.glyphicon-send:before{content:"\e171";}
+.glyphicon-floppy-disk:before{content:"\e172";}
+.glyphicon-floppy-saved:before{content:"\e173";}
+.glyphicon-floppy-remove:before{content:"\e174";}
+.glyphicon-floppy-save:before{content:"\e175";}
+.glyphicon-floppy-open:before{content:"\e176";}
+.glyphicon-credit-card:before{content:"\e177";}
+.glyphicon-transfer:before{content:"\e178";}
+.glyphicon-cutlery:before{content:"\e179";}
+.glyphicon-header:before{content:"\e180";}
+.glyphicon-compressed:before{content:"\e181";}
+.glyphicon-earphone:before{content:"\e182";}
+.glyphicon-phone-alt:before{content:"\e183";}
+.glyphicon-tower:before{content:"\e184";}
+.glyphicon-stats:before{content:"\e185";}
+.glyphicon-sd-video:before{content:"\e186";}
+.glyphicon-hd-video:before{content:"\e187";}
+.glyphicon-subtitles:before{content:"\e188";}
+.glyphicon-sound-stereo:before{content:"\e189";}
+.glyphicon-sound-dolby:before{content:"\e190";}
+.glyphicon-sound-5-1:before{content:"\e191";}
+.glyphicon-sound-6-1:before{content:"\e192";}
+.glyphicon-sound-7-1:before{content:"\e193";}
+.glyphicon-copyright-mark:before{content:"\e194";}
+.glyphicon-registration-mark:before{content:"\e195";}
+.glyphicon-cloud-download:before{content:"\e197";}
+.glyphicon-cloud-upload:before{content:"\e198";}
+.glyphicon-tree-conifer:before{content:"\e199";}
+.glyphicon-tree-deciduous:before{content:"\e200";}
+.glyphicon-briefcase:before{content:"\1f4bc";}
+.glyphicon-calendar:before{content:"\1f4c5";}
+.glyphicon-pushpin:before{content:"\1f4cc";}
+.glyphicon-paperclip:before{content:"\1f4ce";}
+.glyphicon-camera:before{content:"\1f4f7";}
+.glyphicon-lock:before{content:"\1f512";}
+.glyphicon-bell:before{content:"\1f514";}
+.glyphicon-bookmark:before{content:"\1f516";}
+.glyphicon-fire:before{content:"\1f525";}
+.glyphicon-wrench:before{content:"\1f527";}
+</style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-ant-path@1.1.2/dist/leaflet-ant-path.min.js"></script>
+    
+            
+        
+    
+            
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.css"/>
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_ef42010d7267a66ec72e8c166ebf584f" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_ef42010d7267a66ec72e8c166ebf584f = L.map(
+                "map_ef42010d7267a66ec72e8c166ebf584f",
+                {
+                    center: [30.422084714285717, -9.597112761904762],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 14,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+            L.control.scale().addTo(map_ef42010d7267a66ec72e8c166ebf584f);
+
+            
+
+        
+    
+            var tile_layer_925565192a2a97f4f30842239f4a85b7 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_925565192a2a97f4f30842239f4a85b7.addTo(map_ef42010d7267a66ec72e8c166ebf584f);
+        
+    
+            var tile_layer_50ab8197628ae42f615f137ed39cd707 = L.tileLayer(
+                "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "Esri",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_50ab8197628ae42f615f137ed39cd707.addTo(map_ef42010d7267a66ec72e8c166ebf584f);
+        
+    
+            var feature_group_b244c027a8237944bbdebcd01d87f065 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var poly_line_9f05defe1507f36d7e2144de1e9b17db = L.polyline(
+                [[30.4215, -9.5985], [30.420548, -9.597507], [30.42048, -9.595103], [30.4209, -9.59478], [30.421659, -9.593499], [30.421365, -9.592763], [30.423, -9.591], [30.424476, -9.593195], [30.424403, -9.593281], [30.424319, -9.593367], [30.425983, -9.592505], [30.426318, -9.592434], [30.426531, -9.593438], [30.427201, -9.592766], [30.425968, -9.591872], [30.42592, -9.591852], [30.424452, -9.590298], [30.427299, -9.587889], [30.427802, -9.587331], [30.423833, -9.584771], [30.416228, -9.58937], [30.417808, -9.595184], [30.41756, -9.596466], [30.418171, -9.596571], [30.421525, -9.600491], [30.420268, -9.603453], [30.420949, -9.60443], [30.422241, -9.60656], [30.423521, -9.605329], [30.422951, -9.604042], [30.422224, -9.604897], [30.417994, -9.605967], [30.423998, -9.615366], [30.422427, -9.607787], [30.417386, -9.600135], [30.417109, -9.600315], [30.415039, -9.598995], [30.41509, -9.59745], [30.421379, -9.599539], [30.422604, -9.600317], [30.425629, -9.599421], [30.4215, -9.5985]],
+                {"bubblingMouseEvents": true, "color": "#0055aa", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#0055aa", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.85, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(feature_group_b244c027a8237944bbdebcd01d87f065);
+        
+    
+            poly_line_9f05defe1507f36d7e2144de1e9b17db.bindTooltip(
+                `<div>
+                     Itinéraire de livraison TSP optimisé
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            ant_path_dd175da7f885040a428ce81bdbbce150 = L.polyline.antPath(
+              [[30.4215, -9.5985], [30.420548, -9.597507], [30.42048, -9.595103], [30.4209, -9.59478], [30.421659, -9.593499], [30.421365, -9.592763], [30.423, -9.591], [30.424476, -9.593195], [30.424403, -9.593281], [30.424319, -9.593367], [30.425983, -9.592505], [30.426318, -9.592434], [30.426531, -9.593438], [30.427201, -9.592766], [30.425968, -9.591872], [30.42592, -9.591852], [30.424452, -9.590298], [30.427299, -9.587889], [30.427802, -9.587331], [30.423833, -9.584771], [30.416228, -9.58937], [30.417808, -9.595184], [30.41756, -9.596466], [30.418171, -9.596571], [30.421525, -9.600491], [30.420268, -9.603453], [30.420949, -9.60443], [30.422241, -9.60656], [30.423521, -9.605329], [30.422951, -9.604042], [30.422224, -9.604897], [30.417994, -9.605967], [30.423998, -9.615366], [30.422427, -9.607787], [30.417386, -9.600135], [30.417109, -9.600315], [30.415039, -9.598995], [30.41509, -9.59745], [30.421379, -9.599539], [30.422604, -9.600317], [30.425629, -9.599421], [30.4215, -9.5985]],
+              {
+  "stroke": true,
+  "color": "#0055aa",
+  "weight": 3,
+  "opacity": 0.7,
+  "lineCap": "round",
+  "lineJoin": "round",
+  "dashArray": [
+10,
+20,
+],
+  "dashOffset": null,
+  "fill": false,
+  "fillColor": "#0055aa",
+  "fillOpacity": 0.2,
+  "fillRule": "evenodd",
+  "bubblingMouseEvents": true,
+  "smoothFactor": 1.0,
+  "noClip": false,
+  "pulseColor": "#ffffff",
+  "delay": 1000,
+  "paused": false,
+  "reverse": false,
+  "hardwareAcceleration": false,
+}
+        ).addTo(feature_group_b244c027a8237944bbdebcd01d87f065);
+        
+    
+            feature_group_b244c027a8237944bbdebcd01d87f065.addTo(map_ef42010d7267a66ec72e8c166ebf584f);
+        
+    
+            var feature_group_0a8a2a6c2a164746f3c7fc979e420da3 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_a175d9d38f37d82a847b7e2d016de9fa = L.marker(
+                [30.4215, -9.5985],
+                {
+}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+            var icon_33c3a6dbb5ba5e6b203d5725f04f88fe = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e83d0a3e0b16fbce7d8d11203849ca2e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3a31a03ecf4f52e58abff88647583816 = $(`<div id="html_3a31a03ecf4f52e58abff88647583816" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #d9534f; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #0 (DÉPÔT)                 </div>                 <h4 style="margin: 6px 0 3px 0;">Dépôt Central — Place Al Amal</h4>                 <b>Point ID :</b> #0<br>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Dépôt Central<br>                 <b>Étape précédente :</b> 0 m (0.00 km)<br>                 <b>Distance cumulée :</b> <b>0.00 km</b>             </div>             </div>`)[0];
+                popup_e83d0a3e0b16fbce7d8d11203849ca2e.setContent(html_3a31a03ecf4f52e58abff88647583816);
+            
+        
+
+        marker_a175d9d38f37d82a847b7e2d016de9fa.bindPopup(popup_e83d0a3e0b16fbce7d8d11203849ca2e)
+        ;
+
+        
+    
+    
+            marker_a175d9d38f37d82a847b7e2d016de9fa.bindTooltip(
+                `<div>
+                     <b>DÉPÔT CENTRAL (DÉPART & RETOUR)</b> : Dépôt Central — Place Al Amal
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_a175d9d38f37d82a847b7e2d016de9fa.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_a175d9d38f37d82a847b7e2d016de9fa.setIcon(icon_33c3a6dbb5ba5e6b203d5725f04f88fe);
+            
+    
+            var circle_marker_cb12adb3ffc64bd1a2e3321f5c87c64f = L.circleMarker(
+                [30.420548, -9.597507],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_823daa9b8665d2284d2fd640d5f77b59 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_bf079ed5bd98cdd653d04d20d24d1d35 = $(`<div id="html_bf079ed5bd98cdd653d04d20d24d1d35" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #1                  </div>                 <h4 style="margin: 6px 0 3px 0;">Barid Pro - Poste Maroc</h4>                 <b>Point ID :</b> #36<br>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Services & Logistique<br>                 <b>Étape précédente :</b> 190 m (0.19 km)<br>                 <b>Distance cumulée :</b> <b>0.19 km</b>             </div>             </div>`)[0];
+                popup_823daa9b8665d2284d2fd640d5f77b59.setContent(html_bf079ed5bd98cdd653d04d20d24d1d35);
+            
+        
+
+        circle_marker_cb12adb3ffc64bd1a2e3321f5c87c64f.bindPopup(popup_823daa9b8665d2284d2fd640d5f77b59)
+        ;
+
+        
+    
+    
+            circle_marker_cb12adb3ffc64bd1a2e3321f5c87c64f.bindTooltip(
+                `<div>
+                     <b>Arrêt #1</b> : Barid Pro - Poste Maroc
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_628f8613a9c53054ce3638a3ffe5729f = L.circleMarker(
+                [30.42048, -9.595103],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_8befb6e490bea5b61bfcc0f65b1091fd = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7c17c16eecb805e815221e882f86a7c6 = $(`<div id="html_7c17c16eecb805e815221e882f86a7c6" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #2                  </div>                 <h4 style="margin: 6px 0 3px 0;">Alimentation Generale</h4>                 <b>Point ID :</b> #13<br>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Commerce & Magasin<br>                 <b>Étape précédente :</b> 406 m (0.41 km)<br>                 <b>Distance cumulée :</b> <b>0.60 km</b>             </div>             </div>`)[0];
+                popup_8befb6e490bea5b61bfcc0f65b1091fd.setContent(html_7c17c16eecb805e815221e882f86a7c6);
+            
+        
+
+        circle_marker_628f8613a9c53054ce3638a3ffe5729f.bindPopup(popup_8befb6e490bea5b61bfcc0f65b1091fd)
+        ;
+
+        
+    
+    
+            circle_marker_628f8613a9c53054ce3638a3ffe5729f.bindTooltip(
+                `<div>
+                     <b>Arrêt #2</b> : Alimentation Generale
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_94dc139bfc7a6bb5c4ca0688747b5089 = L.circleMarker(
+                [30.4209, -9.59478],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_f4e22a10c8cb5664110b37609a0edcf4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d3cdd920945af017c3866e8a753d616a = $(`<div id="html_d3cdd920945af017c3866e8a753d616a" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #3                  </div>                 <h4 style="margin: 6px 0 3px 0;">Yacout</h4>                 <b>Point ID :</b> #30<br>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Restauration & Cafés<br>                 <b>Étape précédente :</b> 108 m (0.11 km)<br>                 <b>Distance cumulée :</b> <b>0.70 km</b>             </div>             </div>`)[0];
+                popup_f4e22a10c8cb5664110b37609a0edcf4.setContent(html_d3cdd920945af017c3866e8a753d616a);
+            
+        
+
+        circle_marker_94dc139bfc7a6bb5c4ca0688747b5089.bindPopup(popup_f4e22a10c8cb5664110b37609a0edcf4)
+        ;
+
+        
+    
+    
+            circle_marker_94dc139bfc7a6bb5c4ca0688747b5089.bindTooltip(
+                `<div>
+                     <b>Arrêt #3</b> : Yacout
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_48db07d422994bf9bef2ec296362bf8f = L.circleMarker(
+                [30.421659, -9.593499],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_2078a5595f36bd69c99ed93435664354 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d239bf043fcd971bfd9cebc327f3820e = $(`<div id="html_d239bf043fcd971bfd9cebc327f3820e" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #4                  </div>                 <h4 style="margin: 6px 0 3px 0;">Attijariwafa</h4>                 <b>Point ID :</b> #21<br>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Banque & Finance<br>                 <b>Étape précédente :</b> 184 m (0.18 km)<br>                 <b>Distance cumulée :</b> <b>0.89 km</b>             </div>             </div>`)[0];
+                popup_2078a5595f36bd69c99ed93435664354.setContent(html_d239bf043fcd971bfd9cebc327f3820e);
+            
+        
+
+        circle_marker_48db07d422994bf9bef2ec296362bf8f.bindPopup(popup_2078a5595f36bd69c99ed93435664354)
+        ;
+
+        
+    
+    
+            circle_marker_48db07d422994bf9bef2ec296362bf8f.bindTooltip(
+                `<div>
+                     <b>Arrêt #4</b> : Attijariwafa
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3da69dedcea2e185f63aa8971c854211 = L.circleMarker(
+                [30.421365, -9.592763],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_d950f6bf82f3fcbedf572072fb8ec1d2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_69b3c001f4f6fb7e8db289bc67ebf3d6 = $(`<div id="html_69b3c001f4f6fb7e8db289bc67ebf3d6" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #5                  </div>                 <h4 style="margin: 6px 0 3px 0;">Pharmacie Du Soleil صيدلية الشمس</h4>                 <b>Point ID :</b> #6<br>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Santé & Pharmacie<br>                 <b>Étape précédente :</b> 151 m (0.15 km)<br>                 <b>Distance cumulée :</b> <b>1.04 km</b>             </div>             </div>`)[0];
+                popup_d950f6bf82f3fcbedf572072fb8ec1d2.setContent(html_69b3c001f4f6fb7e8db289bc67ebf3d6);
+            
+        
+
+        circle_marker_3da69dedcea2e185f63aa8971c854211.bindPopup(popup_d950f6bf82f3fcbedf572072fb8ec1d2)
+        ;
+
+        
+    
+    
+            circle_marker_3da69dedcea2e185f63aa8971c854211.bindTooltip(
+                `<div>
+                     <b>Arrêt #5</b> : Pharmacie Du Soleil صيدلية الشمس
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_dabe729098f543678fcf1e9636b2597b = L.circleMarker(
+                [30.423, -9.591],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_8aba0f26894158af133e6c69cc22c854 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ce83aacd79bdea5d1ab2a12a1e5ea8a5 = $(`<div id="html_ce83aacd79bdea5d1ab2a12a1e5ea8a5" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #6                  </div>                 <h4 style="margin: 6px 0 3px 0;">Agadir Talborjt</h4>                 <b>Point ID :</b> #33<br>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Services & Logistique<br>                 <b>Étape précédente :</b> 390 m (0.39 km)<br>                 <b>Distance cumulée :</b> <b>1.43 km</b>             </div>             </div>`)[0];
+                popup_8aba0f26894158af133e6c69cc22c854.setContent(html_ce83aacd79bdea5d1ab2a12a1e5ea8a5);
+            
+        
+
+        circle_marker_dabe729098f543678fcf1e9636b2597b.bindPopup(popup_8aba0f26894158af133e6c69cc22c854)
+        ;
+
+        
+    
+    
+            circle_marker_dabe729098f543678fcf1e9636b2597b.bindTooltip(
+                `<div>
+                     <b>Arrêt #6</b> : Agadir Talborjt
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3b47168584c1293b14c3ed197915d24b = L.circleMarker(
+                [30.424476, -9.593195],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_bda6495cf00a7e4804dc0582cc4486ba = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6ee79727217cbdae7c0e5793f19022a1 = $(`<div id="html_6ee79727217cbdae7c0e5793f19022a1" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #7                  </div>                 <h4 style="margin: 6px 0 3px 0;">Cafe Restaurant Ibtissam</h4>                 <b>Point ID :</b> #27<br>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Restauration & Cafés<br>                 <b>Étape précédente :</b> 292 m (0.29 km)<br>                 <b>Distance cumulée :</b> <b>1.72 km</b>             </div>             </div>`)[0];
+                popup_bda6495cf00a7e4804dc0582cc4486ba.setContent(html_6ee79727217cbdae7c0e5793f19022a1);
+            
+        
+
+        circle_marker_3b47168584c1293b14c3ed197915d24b.bindPopup(popup_bda6495cf00a7e4804dc0582cc4486ba)
+        ;
+
+        
+    
+    
+            circle_marker_3b47168584c1293b14c3ed197915d24b.bindTooltip(
+                `<div>
+                     <b>Arrêt #7</b> : Cafe Restaurant Ibtissam
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fdf0e813de85716bdfd12a39ada01f78 = L.circleMarker(
+                [30.424403, -9.593281],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_830dc5791870048e8361cf9d902cce45 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9c900a1b9d4b78037b70a5f561c3441b = $(`<div id="html_9c900a1b9d4b78037b70a5f561c3441b" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #8                  </div>                 <h4 style="margin: 6px 0 3px 0;">Etoile d'Agadir</h4>                 <b>Point ID :</b> #25<br>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Restauration & Cafés<br>                 <b>Étape précédente :</b> 1 m (0.00 km)<br>                 <b>Distance cumulée :</b> <b>1.72 km</b>             </div>             </div>`)[0];
+                popup_830dc5791870048e8361cf9d902cce45.setContent(html_9c900a1b9d4b78037b70a5f561c3441b);
+            
+        
+
+        circle_marker_fdf0e813de85716bdfd12a39ada01f78.bindPopup(popup_830dc5791870048e8361cf9d902cce45)
+        ;
+
+        
+    
+    
+            circle_marker_fdf0e813de85716bdfd12a39ada01f78.bindTooltip(
+                `<div>
+                     <b>Arrêt #8</b> : Etoile d'Agadir
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f170c9a2cae68f9cc25ec47a542ac3de = L.circleMarker(
+                [30.424319, -9.593367],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_9cb2d5f5c2d3f772fedfc4cc13b3cb23 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_16e072eca914e2cbc37bc55feec929ff = $(`<div id="html_16e072eca914e2cbc37bc55feec929ff" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #9                  </div>                 <h4 style="margin: 6px 0 3px 0;">Cremerie du sud</h4>                 <b>Point ID :</b> #26<br>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Restauration & Cafés<br>                 <b>Étape précédente :</b> 0 m (0.00 km)<br>                 <b>Distance cumulée :</b> <b>1.72 km</b>             </div>             </div>`)[0];
+                popup_9cb2d5f5c2d3f772fedfc4cc13b3cb23.setContent(html_16e072eca914e2cbc37bc55feec929ff);
+            
+        
+
+        circle_marker_f170c9a2cae68f9cc25ec47a542ac3de.bindPopup(popup_9cb2d5f5c2d3f772fedfc4cc13b3cb23)
+        ;
+
+        
+    
+    
+            circle_marker_f170c9a2cae68f9cc25ec47a542ac3de.bindTooltip(
+                `<div>
+                     <b>Arrêt #9</b> : Cremerie du sud
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_77b34d32ed70aae91ae8dc7135fd49a0 = L.circleMarker(
+                [30.425983, -9.592505],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_cdad3b1fd75090b9d26ba1721e9a0900 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0e79457b68b6f1f98bd038717175404f = $(`<div id="html_0e79457b68b6f1f98bd038717175404f" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #10                  </div>                 <h4 style="margin: 6px 0 3px 0;">Carrefour market Label'vie</h4>                 <b>Point ID :</b> #7<br>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Commerce & Magasin<br>                 <b>Étape précédente :</b> 261 m (0.26 km)<br>                 <b>Distance cumulée :</b> <b>1.98 km</b>             </div>             </div>`)[0];
+                popup_cdad3b1fd75090b9d26ba1721e9a0900.setContent(html_0e79457b68b6f1f98bd038717175404f);
+            
+        
+
+        circle_marker_77b34d32ed70aae91ae8dc7135fd49a0.bindPopup(popup_cdad3b1fd75090b9d26ba1721e9a0900)
+        ;
+
+        
+    
+    
+            circle_marker_77b34d32ed70aae91ae8dc7135fd49a0.bindTooltip(
+                `<div>
+                     <b>Arrêt #10</b> : Carrefour market Label'vie
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6794b8f7b04893626fd5f13c8a2bdf18 = L.circleMarker(
+                [30.426318, -9.592434],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_453fd2f5300d014ff3a04e4b41cff54b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1841bf358402993d81ffb8ee08e78110 = $(`<div id="html_1841bf358402993d81ffb8ee08e78110" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #11                  </div>                 <h4 style="margin: 6px 0 3px 0;">Aswak Assalam</h4>                 <b>Point ID :</b> #9<br>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Commerce & Magasin<br>                 <b>Étape précédente :</b> 36 m (0.04 km)<br>                 <b>Distance cumulée :</b> <b>2.02 km</b>             </div>             </div>`)[0];
+                popup_453fd2f5300d014ff3a04e4b41cff54b.setContent(html_1841bf358402993d81ffb8ee08e78110);
+            
+        
+
+        circle_marker_6794b8f7b04893626fd5f13c8a2bdf18.bindPopup(popup_453fd2f5300d014ff3a04e4b41cff54b)
+        ;
+
+        
+    
+    
+            circle_marker_6794b8f7b04893626fd5f13c8a2bdf18.bindTooltip(
+                `<div>
+                     <b>Arrêt #11</b> : Aswak Assalam
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b187e5da49f36ae176ef29eea30fc253 = L.circleMarker(
+                [30.426531, -9.593438],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_c1a3a3fec09ef3a5254571442a9147a4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_857c65d2198509302da3135c5ac55560 = $(`<div id="html_857c65d2198509302da3135c5ac55560" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #12                  </div>                 <h4 style="margin: 6px 0 3px 0;">Sophia Imbert Architecte</h4>                 <b>Point ID :</b> #38<br>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Bureaux & Tertiaire<br>                 <b>Étape précédente :</b> 125 m (0.12 km)<br>                 <b>Distance cumulée :</b> <b>2.15 km</b>             </div>             </div>`)[0];
+                popup_c1a3a3fec09ef3a5254571442a9147a4.setContent(html_857c65d2198509302da3135c5ac55560);
+            
+        
+
+        circle_marker_b187e5da49f36ae176ef29eea30fc253.bindPopup(popup_c1a3a3fec09ef3a5254571442a9147a4)
+        ;
+
+        
+    
+    
+            circle_marker_b187e5da49f36ae176ef29eea30fc253.bindTooltip(
+                `<div>
+                     <b>Arrêt #12</b> : Sophia Imbert Architecte
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1028fb2d57d05f01830729fa08ac023d = L.circleMarker(
+                [30.427201, -9.592766],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_46d36a9131682653c212c4bebded485f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_24bf45fee9fe28f597c6b983b8d56db9 = $(`<div id="html_24bf45fee9fe28f597c6b983b8d56db9" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #13                  </div>                 <h4 style="margin: 6px 0 3px 0;">Pharmacie Al Menzah صيدلية المنزه</h4>                 <b>Point ID :</b> #3<br>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Santé & Pharmacie<br>                 <b>Étape précédente :</b> 123 m (0.12 km)<br>                 <b>Distance cumulée :</b> <b>2.27 km</b>             </div>             </div>`)[0];
+                popup_46d36a9131682653c212c4bebded485f.setContent(html_24bf45fee9fe28f597c6b983b8d56db9);
+            
+        
+
+        circle_marker_1028fb2d57d05f01830729fa08ac023d.bindPopup(popup_46d36a9131682653c212c4bebded485f)
+        ;
+
+        
+    
+    
+            circle_marker_1028fb2d57d05f01830729fa08ac023d.bindTooltip(
+                `<div>
+                     <b>Arrêt #13</b> : Pharmacie Al Menzah صيدلية المنزه
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_32853e3a44ccc16cb10c3e754a958b79 = L.circleMarker(
+                [30.425968, -9.591872],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_026e5269587ab739f73e0cb7611c84ac = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a20f310141d3684fe4970702f51595e3 = $(`<div id="html_a20f310141d3684fe4970702f51595e3" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #14                  </div>                 <h4 style="margin: 6px 0 3px 0;">Lynx</h4>                 <b>Point ID :</b> #10<br>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Commerce & Magasin<br>                 <b>Étape précédente :</b> 245 m (0.24 km)<br>                 <b>Distance cumulée :</b> <b>2.51 km</b>             </div>             </div>`)[0];
+                popup_026e5269587ab739f73e0cb7611c84ac.setContent(html_a20f310141d3684fe4970702f51595e3);
+            
+        
+
+        circle_marker_32853e3a44ccc16cb10c3e754a958b79.bindPopup(popup_026e5269587ab739f73e0cb7611c84ac)
+        ;
+
+        
+    
+    
+            circle_marker_32853e3a44ccc16cb10c3e754a958b79.bindTooltip(
+                `<div>
+                     <b>Arrêt #14</b> : Lynx
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6d6d7914287c553e355452bf798fe1d0 = L.circleMarker(
+                [30.42592, -9.591852],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_6cedd92c578592957766c7983c2e0842 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_689a2161af1f11b492de48587d47bc49 = $(`<div id="html_689a2161af1f11b492de48587d47bc49" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #15                  </div>                 <h4 style="margin: 6px 0 3px 0;">La Grande Récré</h4>                 <b>Point ID :</b> #11<br>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Commerce & Magasin<br>                 <b>Étape précédente :</b> 4 m (0.00 km)<br>                 <b>Distance cumulée :</b> <b>2.52 km</b>             </div>             </div>`)[0];
+                popup_6cedd92c578592957766c7983c2e0842.setContent(html_689a2161af1f11b492de48587d47bc49);
+            
+        
+
+        circle_marker_6d6d7914287c553e355452bf798fe1d0.bindPopup(popup_6cedd92c578592957766c7983c2e0842)
+        ;
+
+        
+    
+    
+            circle_marker_6d6d7914287c553e355452bf798fe1d0.bindTooltip(
+                `<div>
+                     <b>Arrêt #15</b> : La Grande Récré
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5fd1cf70b6bcf90192ae2cdeedba0d60 = L.circleMarker(
+                [30.424452, -9.590298],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_92cd3be6a6536618185580efb0cea1b4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_dedc786df1ece08a00014719558c3198 = $(`<div id="html_dedc786df1ece08a00014719558c3198" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #16                  </div>                 <h4 style="margin: 6px 0 3px 0;">Crédit du Maroc</h4>                 <b>Point ID :</b> #17<br>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Banque & Finance<br>                 <b>Étape précédente :</b> 347 m (0.35 km)<br>                 <b>Distance cumulée :</b> <b>2.86 km</b>             </div>             </div>`)[0];
+                popup_92cd3be6a6536618185580efb0cea1b4.setContent(html_dedc786df1ece08a00014719558c3198);
+            
+        
+
+        circle_marker_5fd1cf70b6bcf90192ae2cdeedba0d60.bindPopup(popup_92cd3be6a6536618185580efb0cea1b4)
+        ;
+
+        
+    
+    
+            circle_marker_5fd1cf70b6bcf90192ae2cdeedba0d60.bindTooltip(
+                `<div>
+                     <b>Arrêt #16</b> : Crédit du Maroc
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_522e0e857a0dee5d14ee5d7dcb5e50a7 = L.circleMarker(
+                [30.427299, -9.587889],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_2eafca4965a7ed76a002710ef2fe82ed = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0d7cf6898bbec18ed48b080b52242390 = $(`<div id="html_0d7cf6898bbec18ed48b080b52242390" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #17                  </div>                 <h4 style="margin: 6px 0 3px 0;">شواية النهضة</h4>                 <b>Point ID :</b> #28<br>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Restauration & Cafés<br>                 <b>Étape précédente :</b> 906 m (0.91 km)<br>                 <b>Distance cumulée :</b> <b>3.77 km</b>             </div>             </div>`)[0];
+                popup_2eafca4965a7ed76a002710ef2fe82ed.setContent(html_0d7cf6898bbec18ed48b080b52242390);
+            
+        
+
+        circle_marker_522e0e857a0dee5d14ee5d7dcb5e50a7.bindPopup(popup_2eafca4965a7ed76a002710ef2fe82ed)
+        ;
+
+        
+    
+    
+            circle_marker_522e0e857a0dee5d14ee5d7dcb5e50a7.bindTooltip(
+                `<div>
+                     <b>Arrêt #17</b> : شواية النهضة
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_18a317c4d124007b545d12162e806c83 = L.circleMarker(
+                [30.427802, -9.587331],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_e132fa93b6b89d05ffad7b9645c9cbbc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_497aef2353b9bcdb9f583b5f1241927e = $(`<div id="html_497aef2353b9bcdb9f583b5f1241927e" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #18                  </div>                 <h4 style="margin: 6px 0 3px 0;">الأكاديمية الجهوية للتربية والتكوين لجهة سوس ماسة</h4>                 <b>Point ID :</b> #37<br>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Bureaux & Tertiaire<br>                 <b>Étape précédente :</b> 67 m (0.07 km)<br>                 <b>Distance cumulée :</b> <b>3.84 km</b>             </div>             </div>`)[0];
+                popup_e132fa93b6b89d05ffad7b9645c9cbbc.setContent(html_497aef2353b9bcdb9f583b5f1241927e);
+            
+        
+
+        circle_marker_18a317c4d124007b545d12162e806c83.bindPopup(popup_e132fa93b6b89d05ffad7b9645c9cbbc)
+        ;
+
+        
+    
+    
+            circle_marker_18a317c4d124007b545d12162e806c83.bindTooltip(
+                `<div>
+                     <b>Arrêt #18</b> : الأكاديمية الجهوية للتربية والتكوين لجهة سوس ماسة
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4f015dc026d40684aed69f95aef5ec9e = L.circleMarker(
+                [30.423833, -9.584771],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_97588c27e5c204f896e1483a1d3e1796 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c59d077f0af3f6d2fdb1acaa451a08ee = $(`<div id="html_c59d077f0af3f6d2fdb1acaa451a08ee" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #19                  </div>                 <h4 style="margin: 6px 0 3px 0;">Pharmacie Ihchach صيدلية احشاش</h4>                 <b>Point ID :</b> #2<br>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Santé & Pharmacie<br>                 <b>Étape précédente :</b> 587 m (0.59 km)<br>                 <b>Distance cumulée :</b> <b>4.42 km</b>             </div>             </div>`)[0];
+                popup_97588c27e5c204f896e1483a1d3e1796.setContent(html_c59d077f0af3f6d2fdb1acaa451a08ee);
+            
+        
+
+        circle_marker_4f015dc026d40684aed69f95aef5ec9e.bindPopup(popup_97588c27e5c204f896e1483a1d3e1796)
+        ;
+
+        
+    
+    
+            circle_marker_4f015dc026d40684aed69f95aef5ec9e.bindTooltip(
+                `<div>
+                     <b>Arrêt #19</b> : Pharmacie Ihchach صيدلية احشاش
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_930196ffe24a86344318ef6c139da0ac = L.circleMarker(
+                [30.416228, -9.58937],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_79c2760f9afaa2543d8bc5d1fc727aae = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7a07e4bfa08211ac9113d4724efea867 = $(`<div id="html_7a07e4bfa08211ac9113d4724efea867" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #20                  </div>                 <h4 style="margin: 6px 0 3px 0;">Out-Phone</h4>                 <b>Point ID :</b> #14<br>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Commerce & Magasin<br>                 <b>Étape précédente :</b> 1292 m (1.29 km)<br>                 <b>Distance cumulée :</b> <b>5.72 km</b>             </div>             </div>`)[0];
+                popup_79c2760f9afaa2543d8bc5d1fc727aae.setContent(html_7a07e4bfa08211ac9113d4724efea867);
+            
+        
+
+        circle_marker_930196ffe24a86344318ef6c139da0ac.bindPopup(popup_79c2760f9afaa2543d8bc5d1fc727aae)
+        ;
+
+        
+    
+    
+            circle_marker_930196ffe24a86344318ef6c139da0ac.bindTooltip(
+                `<div>
+                     <b>Arrêt #20</b> : Out-Phone
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2e58a793fe8c53266bbb06b503797c55 = L.circleMarker(
+                [30.417808, -9.595184],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_80262a0212dd118d52b1e4c3436d0508 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_79aa107747136e8c587de74904740872 = $(`<div id="html_79aa107747136e8c587de74904740872" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #21                  </div>                 <h4 style="margin: 6px 0 3px 0;">Alimentation Generale</h4>                 <b>Point ID :</b> #12<br>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Commerce & Magasin<br>                 <b>Étape précédente :</b> 1159 m (1.16 km)<br>                 <b>Distance cumulée :</b> <b>6.88 km</b>             </div>             </div>`)[0];
+                popup_80262a0212dd118d52b1e4c3436d0508.setContent(html_79aa107747136e8c587de74904740872);
+            
+        
+
+        circle_marker_2e58a793fe8c53266bbb06b503797c55.bindPopup(popup_80262a0212dd118d52b1e4c3436d0508)
+        ;
+
+        
+    
+    
+            circle_marker_2e58a793fe8c53266bbb06b503797c55.bindTooltip(
+                `<div>
+                     <b>Arrêt #21</b> : Alimentation Generale
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_17befcbd4fa48593f22162801b296984 = L.circleMarker(
+                [30.41756, -9.596466],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_2bd408135595b602b79006cce7cb86e6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_67c215d0db37b834e65f6101821a1ed2 = $(`<div id="html_67c215d0db37b834e65f6101821a1ed2" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #22                  </div>                 <h4 style="margin: 6px 0 3px 0;">Pharmacie Du Founty صيدلية فونتي</h4>                 <b>Point ID :</b> #5<br>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Santé & Pharmacie<br>                 <b>Étape précédente :</b> 203 m (0.20 km)<br>                 <b>Distance cumulée :</b> <b>7.08 km</b>             </div>             </div>`)[0];
+                popup_2bd408135595b602b79006cce7cb86e6.setContent(html_67c215d0db37b834e65f6101821a1ed2);
+            
+        
+
+        circle_marker_17befcbd4fa48593f22162801b296984.bindPopup(popup_2bd408135595b602b79006cce7cb86e6)
+        ;
+
+        
+    
+    
+            circle_marker_17befcbd4fa48593f22162801b296984.bindTooltip(
+                `<div>
+                     <b>Arrêt #22</b> : Pharmacie Du Founty صيدلية فونتي
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_057d0464e8e2a3ac2e52c90c8ab48632 = L.circleMarker(
+                [30.418171, -9.596571],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_5eaa1235fed12b5d60512e64241eb277 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_aa05cee1da880aed4e048c3c851f2baf = $(`<div id="html_aa05cee1da880aed4e048c3c851f2baf" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #23                  </div>                 <h4 style="margin: 6px 0 3px 0;">TotalEnergies</h4>                 <b>Point ID :</b> #35<br>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Services & Logistique<br>                 <b>Étape précédente :</b> 102 m (0.10 km)<br>                 <b>Distance cumulée :</b> <b>7.18 km</b>             </div>             </div>`)[0];
+                popup_5eaa1235fed12b5d60512e64241eb277.setContent(html_aa05cee1da880aed4e048c3c851f2baf);
+            
+        
+
+        circle_marker_057d0464e8e2a3ac2e52c90c8ab48632.bindPopup(popup_5eaa1235fed12b5d60512e64241eb277)
+        ;
+
+        
+    
+    
+            circle_marker_057d0464e8e2a3ac2e52c90c8ab48632.bindTooltip(
+                `<div>
+                     <b>Arrêt #23</b> : TotalEnergies
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_eedd3f42e3efc898d6de002183625ff0 = L.circleMarker(
+                [30.421525, -9.600491],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_e91d86592782811e3d327dc7f881419b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b5d4bfa33857d4c4d8c3ce79ce688093 = $(`<div id="html_b5d4bfa33857d4c4d8c3ce79ce688093" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #24                  </div>                 <h4 style="margin: 6px 0 3px 0;">Maroc Telecom اتصالات المغرب</h4>                 <b>Point ID :</b> #16<br>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Commerce & Magasin<br>                 <b>Étape précédente :</b> 564 m (0.56 km)<br>                 <b>Distance cumulée :</b> <b>7.75 km</b>             </div>             </div>`)[0];
+                popup_e91d86592782811e3d327dc7f881419b.setContent(html_b5d4bfa33857d4c4d8c3ce79ce688093);
+            
+        
+
+        circle_marker_eedd3f42e3efc898d6de002183625ff0.bindPopup(popup_e91d86592782811e3d327dc7f881419b)
+        ;
+
+        
+    
+    
+            circle_marker_eedd3f42e3efc898d6de002183625ff0.bindTooltip(
+                `<div>
+                     <b>Arrêt #24</b> : Maroc Telecom اتصالات المغرب
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_44627b715866364541c66310ac5d9825 = L.circleMarker(
+                [30.420268, -9.603453],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_7bc2c3e017983d83d199093c0ec5943a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_44b2ca105347a81b9ee7eb25eb6105a7 = $(`<div id="html_44b2ca105347a81b9ee7eb25eb6105a7" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #25                  </div>                 <h4 style="margin: 6px 0 3px 0;">Bank Al-Maghrib بنك المغرب</h4>                 <b>Point ID :</b> #22<br>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Banque & Finance<br>                 <b>Étape précédente :</b> 388 m (0.39 km)<br>                 <b>Distance cumulée :</b> <b>8.13 km</b>             </div>             </div>`)[0];
+                popup_7bc2c3e017983d83d199093c0ec5943a.setContent(html_44b2ca105347a81b9ee7eb25eb6105a7);
+            
+        
+
+        circle_marker_44627b715866364541c66310ac5d9825.bindPopup(popup_7bc2c3e017983d83d199093c0ec5943a)
+        ;
+
+        
+    
+    
+            circle_marker_44627b715866364541c66310ac5d9825.bindTooltip(
+                `<div>
+                     <b>Arrêt #25</b> : Bank Al-Maghrib بنك المغرب
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_849967b0b58f27b8af0867ca31b6c7d5 = L.circleMarker(
+                [30.420949, -9.60443],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_d4b4a7c67ae5434151f51522abc77d9c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b3c010ee21860a1e0a6049ea89905529 = $(`<div id="html_b3c010ee21860a1e0a6049ea89905529" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #26                  </div>                 <h4 style="margin: 6px 0 3px 0;">Wilaya de la région Souss Massa / Préfecture d'Agadir - Ida ou Tanane</h4>                 <b>Point ID :</b> #39<br>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Bureaux & Tertiaire<br>                 <b>Étape précédente :</b> 121 m (0.12 km)<br>                 <b>Distance cumulée :</b> <b>8.26 km</b>             </div>             </div>`)[0];
+                popup_d4b4a7c67ae5434151f51522abc77d9c.setContent(html_b3c010ee21860a1e0a6049ea89905529);
+            
+        
+
+        circle_marker_849967b0b58f27b8af0867ca31b6c7d5.bindPopup(popup_d4b4a7c67ae5434151f51522abc77d9c)
+        ;
+
+        
+    
+    
+            circle_marker_849967b0b58f27b8af0867ca31b6c7d5.bindTooltip(
+                `<div>
+                     <b>Arrêt #26</b> : Wilaya de la région Souss Massa / Préfecture d'Agadir - Ida ou Tanane
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8e36bd8dfee4f53c6836f2ca5890c008 = L.circleMarker(
+                [30.422241, -9.60656],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_3fa1fb93781453ce6256294044bd2cfb = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e032bd8fa2f5385b41d81e2a31207756 = $(`<div id="html_e032bd8fa2f5385b41d81e2a31207756" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #27                  </div>                 <h4 style="margin: 6px 0 3px 0;">Kiosk</h4>                 <b>Point ID :</b> #8<br>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Commerce & Magasin<br>                 <b>Étape précédente :</b> 263 m (0.26 km)<br>                 <b>Distance cumulée :</b> <b>8.52 km</b>             </div>             </div>`)[0];
+                popup_3fa1fb93781453ce6256294044bd2cfb.setContent(html_e032bd8fa2f5385b41d81e2a31207756);
+            
+        
+
+        circle_marker_8e36bd8dfee4f53c6836f2ca5890c008.bindPopup(popup_3fa1fb93781453ce6256294044bd2cfb)
+        ;
+
+        
+    
+    
+            circle_marker_8e36bd8dfee4f53c6836f2ca5890c008.bindTooltip(
+                `<div>
+                     <b>Arrêt #27</b> : Kiosk
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_68b4ef2b1d2ba81cd8548898e6d8cfb4 = L.circleMarker(
+                [30.423521, -9.605329],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_433614aaa0dd9e497227898a82ac630e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c8b93870e236fd52da814fbd365c4163 = $(`<div id="html_c8b93870e236fd52da814fbd365c4163" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #28                  </div>                 <h4 style="margin: 6px 0 3px 0;">Pharmacie Anbary صيدلية عنبري</h4>                 <b>Point ID :</b> #1<br>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Santé & Pharmacie<br>                 <b>Étape précédente :</b> 304 m (0.30 km)<br>                 <b>Distance cumulée :</b> <b>8.82 km</b>             </div>             </div>`)[0];
+                popup_433614aaa0dd9e497227898a82ac630e.setContent(html_c8b93870e236fd52da814fbd365c4163);
+            
+        
+
+        circle_marker_68b4ef2b1d2ba81cd8548898e6d8cfb4.bindPopup(popup_433614aaa0dd9e497227898a82ac630e)
+        ;
+
+        
+    
+    
+            circle_marker_68b4ef2b1d2ba81cd8548898e6d8cfb4.bindTooltip(
+                `<div>
+                     <b>Arrêt #28</b> : Pharmacie Anbary صيدلية عنبري
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6d1a675b82ac9965a12d8565d72c0bb7 = L.circleMarker(
+                [30.422951, -9.604042],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_829edd75381587484fe7f66fc34a49d6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_88141c4a10ba1683930cb88dc02cf57a = $(`<div id="html_88141c4a10ba1683930cb88dc02cf57a" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #29                  </div>                 <h4 style="margin: 6px 0 3px 0;">Crédit Agricole du Maroc القرض الفلاحي للمغرب</h4>                 <b>Point ID :</b> #19<br>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Banque & Finance<br>                 <b>Étape précédente :</b> 145 m (0.14 km)<br>                 <b>Distance cumulée :</b> <b>8.97 km</b>             </div>             </div>`)[0];
+                popup_829edd75381587484fe7f66fc34a49d6.setContent(html_88141c4a10ba1683930cb88dc02cf57a);
+            
+        
+
+        circle_marker_6d1a675b82ac9965a12d8565d72c0bb7.bindPopup(popup_829edd75381587484fe7f66fc34a49d6)
+        ;
+
+        
+    
+    
+            circle_marker_6d1a675b82ac9965a12d8565d72c0bb7.bindTooltip(
+                `<div>
+                     <b>Arrêt #29</b> : Crédit Agricole du Maroc القرض الفلاحي للمغرب
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_385e53882e2e4cf74d53745bb628f6bd = L.circleMarker(
+                [30.422224, -9.604897],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_d0468fe7d86ced68b7181401e3f106ca = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_bc8efa986085dd66a50cb44669a11f40 = $(`<div id="html_bc8efa986085dd66a50cb44669a11f40" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #30                  </div>                 <h4 style="margin: 6px 0 3px 0;">Bank of Africa ⵍⴱⴰⵏⴽ ⵏ ⴰⴼⵔⵉⵇⵢⴰ بنك أفريقيا</h4>                 <b>Point ID :</b> #20<br>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Banque & Finance<br>                 <b>Étape précédente :</b> 333 m (0.33 km)<br>                 <b>Distance cumulée :</b> <b>9.30 km</b>             </div>             </div>`)[0];
+                popup_d0468fe7d86ced68b7181401e3f106ca.setContent(html_bc8efa986085dd66a50cb44669a11f40);
+            
+        
+
+        circle_marker_385e53882e2e4cf74d53745bb628f6bd.bindPopup(popup_d0468fe7d86ced68b7181401e3f106ca)
+        ;
+
+        
+    
+    
+            circle_marker_385e53882e2e4cf74d53745bb628f6bd.bindTooltip(
+                `<div>
+                     <b>Arrêt #30</b> : Bank of Africa ⵍⴱⴰⵏⴽ ⵏ ⴰⴼⵔⵉⵇⵢⴰ بنك أفريقيا
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0c47793ed624fa4084e20510426490ba = L.circleMarker(
+                [30.417994, -9.605967],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_096e8f6d9eab2eb027ed7533eeed8456 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3f3342a4219878ed62046f9e0e1f9e03 = $(`<div id="html_3f3342a4219878ed62046f9e0e1f9e03" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #31                  </div>                 <h4 style="margin: 6px 0 3px 0;">Le Nil</h4>                 <b>Point ID :</b> #32<br>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Restauration & Cafés<br>                 <b>Étape précédente :</b> 873 m (0.87 km)<br>                 <b>Distance cumulée :</b> <b>10.17 km</b>             </div>             </div>`)[0];
+                popup_096e8f6d9eab2eb027ed7533eeed8456.setContent(html_3f3342a4219878ed62046f9e0e1f9e03);
+            
+        
+
+        circle_marker_0c47793ed624fa4084e20510426490ba.bindPopup(popup_096e8f6d9eab2eb027ed7533eeed8456)
+        ;
+
+        
+    
+    
+            circle_marker_0c47793ed624fa4084e20510426490ba.bindTooltip(
+                `<div>
+                     <b>Arrêt #31</b> : Le Nil
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_78035a02423ba12b13d651f476bbed98 = L.circleMarker(
+                [30.423998, -9.615366],
+                {"bubblingMouseEvents": true, "color": "#008080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00ffff", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 3}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+            var marker_8da6b87278a6d41820a44d11e06fe2d4 = L.marker(
+                [30.423998, -9.615366],
+                {
+}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+            var icon_5f0564298c07a458af848220439b7041 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkblue",
+  "iconColor": "white",
+  "icon": "anchor",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_77e62cc62aba26b77c085e18874a2738 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4ca9c749f93d824cb8075769c2089d7c = $(`<div id="html_4ca9c749f93d824cb8075769c2089d7c" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #008080; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #32 [LITTORAL]                 </div>                 <h4 style="margin: 6px 0 3px 0;">Restaurant Les Blancs — Corniche / Marina</h4>                 <b>Point ID :</b> #40<br>                 <b>Quartier :</b> Corniche / Marina<br>                 <b>Catégorie :</b> Destination Littorale<br>                 <b>Étape précédente :</b> 1576 m (1.57 km)<br>                 <b>Distance cumulée :</b> <b>11.75 km</b>             </div>             </div>`)[0];
+                popup_77e62cc62aba26b77c085e18874a2738.setContent(html_4ca9c749f93d824cb8075769c2089d7c);
+            
+        
+
+        marker_8da6b87278a6d41820a44d11e06fe2d4.bindPopup(popup_77e62cc62aba26b77c085e18874a2738)
+        ;
+
+        
+    
+    
+            marker_8da6b87278a6d41820a44d11e06fe2d4.bindTooltip(
+                `<div>
+                     <b>Arrêt #32 [LITTORAL]</b> : Restaurant Les Blancs — Corniche / Marina
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_8da6b87278a6d41820a44d11e06fe2d4.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_8da6b87278a6d41820a44d11e06fe2d4.setIcon(icon_5f0564298c07a458af848220439b7041);
+            
+    
+            var circle_marker_8ac6c97b8621dab8e40622ad096aa2c6 = L.circleMarker(
+                [30.422427, -9.607787],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_a0761723cedb0843e8a84b74cb43c097 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_96f576422253e635b0695d0bade493d9 = $(`<div id="html_96f576422253e635b0695d0bade493d9" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #33                  </div>                 <h4 style="margin: 6px 0 3px 0;">Etoile Du Sud</h4>                 <b>Point ID :</b> #24<br>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Restauration & Cafés<br>                 <b>Étape précédente :</b> 1783 m (1.78 km)<br>                 <b>Distance cumulée :</b> <b>13.53 km</b>             </div>             </div>`)[0];
+                popup_a0761723cedb0843e8a84b74cb43c097.setContent(html_96f576422253e635b0695d0bade493d9);
+            
+        
+
+        circle_marker_8ac6c97b8621dab8e40622ad096aa2c6.bindPopup(popup_a0761723cedb0843e8a84b74cb43c097)
+        ;
+
+        
+    
+    
+            circle_marker_8ac6c97b8621dab8e40622ad096aa2c6.bindTooltip(
+                `<div>
+                     <b>Arrêt #33</b> : Etoile Du Sud
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2079527a4a33b1d4ad978273fa6894b6 = L.circleMarker(
+                [30.417386, -9.600135],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_5e4255ac2f4843ba3ca5217b779c4e65 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_aca0f47d9e83a30cb45a75996fb364ae = $(`<div id="html_aca0f47d9e83a30cb45a75996fb364ae" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #34                  </div>                 <h4 style="margin: 6px 0 3px 0;">InBarbecue</h4>                 <b>Point ID :</b> #29<br>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Restauration & Cafés<br>                 <b>Étape précédente :</b> 963 m (0.96 km)<br>                 <b>Distance cumulée :</b> <b>14.49 km</b>             </div>             </div>`)[0];
+                popup_5e4255ac2f4843ba3ca5217b779c4e65.setContent(html_aca0f47d9e83a30cb45a75996fb364ae);
+            
+        
+
+        circle_marker_2079527a4a33b1d4ad978273fa6894b6.bindPopup(popup_5e4255ac2f4843ba3ca5217b779c4e65)
+        ;
+
+        
+    
+    
+            circle_marker_2079527a4a33b1d4ad978273fa6894b6.bindTooltip(
+                `<div>
+                     <b>Arrêt #34</b> : InBarbecue
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6efe987280cafd35a1756177d555e12c = L.circleMarker(
+                [30.417109, -9.600315],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_ed459cf2398b404b218c8417a17da84c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_149d66d959f422bfdb73088c0dd43bed = $(`<div id="html_149d66d959f422bfdb73088c0dd43bed" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #35                  </div>                 <h4 style="margin: 6px 0 3px 0;">Pharmacie Anezi صيدلية أنزي</h4>                 <b>Point ID :</b> #4<br>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Santé & Pharmacie<br>                 <b>Étape précédente :</b> 21 m (0.02 km)<br>                 <b>Distance cumulée :</b> <b>14.52 km</b>             </div>             </div>`)[0];
+                popup_ed459cf2398b404b218c8417a17da84c.setContent(html_149d66d959f422bfdb73088c0dd43bed);
+            
+        
+
+        circle_marker_6efe987280cafd35a1756177d555e12c.bindPopup(popup_ed459cf2398b404b218c8417a17da84c)
+        ;
+
+        
+    
+    
+            circle_marker_6efe987280cafd35a1756177d555e12c.bindTooltip(
+                `<div>
+                     <b>Arrêt #35</b> : Pharmacie Anezi صيدلية أنزي
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5efa0c409662fca70d62c172f9d5dde9 = L.circleMarker(
+                [30.415039, -9.598995],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_9f17c028366a8e1638b816c0ba53ab2d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e67f9f7ad21767495549b8f73d7581ce = $(`<div id="html_e67f9f7ad21767495549b8f73d7581ce" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #36                  </div>                 <h4 style="margin: 6px 0 3px 0;">CIH Bank القرض العقاري والسياحي</h4>                 <b>Point ID :</b> #23<br>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Banque & Finance<br>                 <b>Étape précédente :</b> 378 m (0.38 km)<br>                 <b>Distance cumulée :</b> <b>14.89 km</b>             </div>             </div>`)[0];
+                popup_9f17c028366a8e1638b816c0ba53ab2d.setContent(html_e67f9f7ad21767495549b8f73d7581ce);
+            
+        
+
+        circle_marker_5efa0c409662fca70d62c172f9d5dde9.bindPopup(popup_9f17c028366a8e1638b816c0ba53ab2d)
+        ;
+
+        
+    
+    
+            circle_marker_5efa0c409662fca70d62c172f9d5dde9.bindTooltip(
+                `<div>
+                     <b>Arrêt #36</b> : CIH Bank القرض العقاري والسياحي
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e570cd7bb2aee2b8f38f0ef1e4b205cb = L.circleMarker(
+                [30.41509, -9.59745],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_4289351b414e796c09d0bc80fc211f62 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2ec8b0858e92719fb731311e1de17be2 = $(`<div id="html_2ec8b0858e92719fb731311e1de17be2" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #37                  </div>                 <h4 style="margin: 6px 0 3px 0;">Pizza Hut</h4>                 <b>Point ID :</b> #31<br>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Restauration & Cafés<br>                 <b>Étape précédente :</b> 1518 m (1.52 km)<br>                 <b>Distance cumulée :</b> <b>16.41 km</b>             </div>             </div>`)[0];
+                popup_4289351b414e796c09d0bc80fc211f62.setContent(html_2ec8b0858e92719fb731311e1de17be2);
+            
+        
+
+        circle_marker_e570cd7bb2aee2b8f38f0ef1e4b205cb.bindPopup(popup_4289351b414e796c09d0bc80fc211f62)
+        ;
+
+        
+    
+    
+            circle_marker_e570cd7bb2aee2b8f38f0ef1e4b205cb.bindTooltip(
+                `<div>
+                     <b>Arrêt #37</b> : Pizza Hut
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e0c65921874be04e71dd78cb894a5610 = L.circleMarker(
+                [30.421379, -9.599539],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_52532aa3881b7b9ddc82da0ecb57c24a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6586f4049b2fe03bd9e6c2cfb602c79f = $(`<div id="html_6586f4049b2fe03bd9e6c2cfb602c79f" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #38                  </div>                 <h4 style="margin: 6px 0 3px 0;">Epicerie du marché</h4>                 <b>Point ID :</b> #15<br>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Commerce & Magasin<br>                 <b>Étape précédente :</b> 1186 m (1.19 km)<br>                 <b>Distance cumulée :</b> <b>17.60 km</b>             </div>             </div>`)[0];
+                popup_52532aa3881b7b9ddc82da0ecb57c24a.setContent(html_6586f4049b2fe03bd9e6c2cfb602c79f);
+            
+        
+
+        circle_marker_e0c65921874be04e71dd78cb894a5610.bindPopup(popup_52532aa3881b7b9ddc82da0ecb57c24a)
+        ;
+
+        
+    
+    
+            circle_marker_e0c65921874be04e71dd78cb894a5610.bindTooltip(
+                `<div>
+                     <b>Arrêt #38</b> : Epicerie du marché
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8eb1e9bda85652010a3afc9e22ddc9eb = L.circleMarker(
+                [30.422604, -9.600317],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_25f244f5a1f883dcdde3fd7b2b837146 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_02cc18ac8121d6c9108ae6f197ff4951 = $(`<div id="html_02cc18ac8121d6c9108ae6f197ff4951" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #39                  </div>                 <h4 style="margin: 6px 0 3px 0;">Credit Du Maroc</h4>                 <b>Point ID :</b> #18<br>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Banque & Finance<br>                 <b>Étape précédente :</b> 230 m (0.23 km)<br>                 <b>Distance cumulée :</b> <b>17.83 km</b>             </div>             </div>`)[0];
+                popup_25f244f5a1f883dcdde3fd7b2b837146.setContent(html_02cc18ac8121d6c9108ae6f197ff4951);
+            
+        
+
+        circle_marker_8eb1e9bda85652010a3afc9e22ddc9eb.bindPopup(popup_25f244f5a1f883dcdde3fd7b2b837146)
+        ;
+
+        
+    
+    
+            circle_marker_8eb1e9bda85652010a3afc9e22ddc9eb.bindTooltip(
+                `<div>
+                     <b>Arrêt #39</b> : Credit Du Maroc
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_055a57d5e389097ea2f44ba97ca47570 = L.circleMarker(
+                [30.425629, -9.599421],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_0a8a2a6c2a164746f3c7fc979e420da3);
+        
+    
+        var popup_5a9ab5142441c8a90b7dfaebdc3f2dfd = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5cf79bc20fb1e6b17054eab213ac2027 = $(`<div id="html_5cf79bc20fb1e6b17054eab213ac2027" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 220px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px; border-radius: 3px; font-weight: bold;">                     Arrêt #40                  </div>                 <h4 style="margin: 6px 0 3px 0;">Winxo</h4>                 <b>Point ID :</b> #34<br>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Services & Logistique<br>                 <b>Étape précédente :</b> 477 m (0.48 km)<br>                 <b>Distance cumulée :</b> <b>18.30 km</b>             </div>             </div>`)[0];
+                popup_5a9ab5142441c8a90b7dfaebdc3f2dfd.setContent(html_5cf79bc20fb1e6b17054eab213ac2027);
+            
+        
+
+        circle_marker_055a57d5e389097ea2f44ba97ca47570.bindPopup(popup_5a9ab5142441c8a90b7dfaebdc3f2dfd)
+        ;
+
+        
+    
+    
+            circle_marker_055a57d5e389097ea2f44ba97ca47570.bindTooltip(
+                `<div>
+                     <b>Arrêt #40</b> : Winxo
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_0a8a2a6c2a164746f3c7fc979e420da3.addTo(map_ef42010d7267a66ec72e8c166ebf584f);
+        
+    
+            var layer_control_0e701f7cdc74b88e0f54082b63fec662_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_925565192a2a97f4f30842239f4a85b7,
+                    "Vue Satellite (Esri)" : tile_layer_50ab8197628ae42f615f137ed39cd707,
+                },
+                overlays :  {
+                    "Trajet de la Tourn\u00e9e TSP" : feature_group_b244c027a8237944bbdebcd01d87f065,
+                    "\u00c9tapes de livraison (Ordre de visite)" : feature_group_0a8a2a6c2a164746f3c7fc979e420da3,
+                },
+            };
+            let layer_control_0e701f7cdc74b88e0f54082b63fec662 = L.control.layers(
+                layer_control_0e701f7cdc74b88e0f54082b63fec662_layers.base_layers,
+                layer_control_0e701f7cdc74b88e0f54082b63fec662_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": false,
+  "autoZIndex": true,
+}
+            ).addTo(map_ef42010d7267a66ec72e8c166ebf584f);
+
+        
+    
+            var tile_layer_b3591df82e7a60986ee0db7f184f4086 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detect_retina": false, "max_native_zoom": 19, "max_zoom": 19, "min_zoom": 0, "no_wrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+            var mini_map_c019402aceb0bd93339d953a763e341f = new L.Control.MiniMap(
+                tile_layer_b3591df82e7a60986ee0db7f184f4086,
+                {
+  "position": "bottomright",
+  "width": 150,
+  "height": 150,
+  "collapsedWidth": 25,
+  "collapsedHeight": 25,
+  "zoomLevelOffset": -5,
+  "centerFixed": false,
+  "zoomAnimation": false,
+  "toggleDisplay": true,
+  "autoToggleDisplay": false,
+  "minimized": false,
+}
+            );
+            map_ef42010d7267a66ec72e8c166ebf584f.addControl(mini_map_c019402aceb0bd93339d953a763e341f);
+        
+    
+            L.control.fullscreen(
+                {
+  "position": "topleft",
+  "title": "Full Screen",
+  "titleCancel": "Exit Full Screen",
+  "forceSeparateButton": false,
+}
+            ).addTo(map_ef42010d7267a66ec72e8c166ebf584f);
+        
+</script>
+</html>

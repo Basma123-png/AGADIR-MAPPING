@@ -1,0 +1,29 @@
+# ==============================================================================
+# AGADIR MAPPING — LAST MILE TSP OPTIMIZATION
+# Python Dependencies
+# ==============================================================================
+
+# SIG, Géospatial et Réseau
+geopandas>=1.0.0
+shapely>=2.0.0
+pyproj>=3.6.0
+folium>=0.17.0
+requests>=2.31.0
+
+# Calcul numérique et Optimisation
+numpy>=2.0.0
+pandas>=2.2.0
+scipy>=1.13.0
+optuna>=4.0.0
+
+# Visualisation & Graphiques
+matplotlib>=3.9.0
+
+# Intelligence Artificielle & Multi-Agents
+google-genai>=0.8.0
+python-dotenv>=1.0.0
+pydantic>=2.8.0
+
+# Qualité & Tests
+pytest>=8.0.0
+pytest-cov>=5.0.0

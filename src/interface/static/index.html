@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AGADIR MAPPING — Tableau de Bord à Quatre Cadrans (Phase 7)</title>
+  
+  <!-- Leaflet 1.9.4 Cartography CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- Chart.js 4.4.2 Moteur Graphique Scientifique CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+
+  <!-- Feuille de style personnalisée -->
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+  <!-- =========================================================================
+       1. EN-TÊTE PRINCIPAL (HEADER)
+       ========================================================================= -->
+  <header class="dashboard-header">
+    <div class="header-brand">
+      <div class="brand-logo">AM</div>
+      <div class="brand-info">
+        <h1>AGADIR MAPPING</h1>
+        <div class="brand-subtitle">Système Décisionnel & Optimisation Last-Mile — Dashboard 4 Cadrans (Phase 7)</div>
+      </div>
+    </div>
+
+    <div class="header-status">
+      <span class="status-pill active" title="Tous les modules de données et services sont opérationnels">
+        <span class="pulse-dot"></span> Système Opérationnel
+      </span>
+      <span class="status-pill readonly" title="Garantie de non-altération des fichiers certifiés">
+        Lecture Seule Certifiée
+      </span>
+      <span id="header-timestamp" style="font-size: 11px; color: var(--text-muted);">
+        Actualisé : --
+      </span>
+    </div>
+
+    <div class="header-actions">
+      <button id="btn-sync" class="btn" title="Réinitialiser les sélections et synchroniser les cadrans">
+        🔄 Réinitialiser
+      </button>
+      <select id="select-layout" class="btn" title="Modifier la disposition des cadrans">
+        <option value="grid">Grille 2 × 2</option>
+        <option value="max-1">Cadran 1 : Carte</option>
+        <option value="max-2">Cadran 2 : Tournée</option>
+        <option value="max-3">Cadran 3 : Multi-Agents</option>
+        <option value="max-4">Cadran 4 : Indicateurs</option>
+      </select>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       2. CONTENEUR PRINCIPAL & GRILLE 2 × 2
+       ========================================================================= -->
+  <main class="dashboard-container">
+    <div id="dashboard-grid" class="dashboard-grid">
+
+      <!-- ---------------------------------------------------------------------
+           CADRAN 1 : CARTOGRAPHIE GÉOGRAPHIQUE D'AGADIR
+           --------------------------------------------------------------------- -->
+      <section id="quadrant-1" class="quadrant">
+        <div class="quadrant-header">
+          <div class="quadrant-title-group">
+            <span class="quadrant-badge">CADRAN 1</span>
+            <h2 class="quadrant-title">📍 Cartographie Géographique d'Agadir</h2>
+          </div>
+          <div class="quadrant-tools">
+            <button id="btn-recenter-depot" class="btn" title="Recentrer la carte sur le Dépôt #0 Place Al Amal">
+              🎯 Dépôt #0
+            </button>
+            <button id="btn-fit-bounds" class="btn" title="Ajuster la vue pour afficher les 41 points">
+              🗺️ Vue Globale
+            </button>
+          </div>
+        </div>
+
+        <div class="map-filter-bar">
+          <input type="text" id="map-search" class="map-search-input" placeholder="🔍 Rechercher point (#id, nom, rue)...">
+          <select id="map-category-filter" class="map-select">
+            <option value="ALL">Toutes catégories (41)</option>
+            <option value="Dépôt Central">Dépôt Central (#0)</option>
+            <option value="Destination Littorale">Littoral / Corniche (#40)</option>
+            <option value="Santé & Pharmacie">Santé & Pharmacie</option>
+            <option value="Commerce & Magasin">Commerce & Magasin</option>
+            <option value="Banque & Finance">Banque & Finance</option>
+            <option value="Restauration & Cafés">Restauration & Cafés</option>
+            <option value="Services & Logistique">Services & Logistique</option>
+            <option value="Bureaux & Tertiaire">Bureaux & Tertiaire</option>
+          </select>
+          <span id="map-points-count" style="font-size: 11px; color: var(--text-muted); font-weight: 600;">
+            41 points
+          </span>
+        </div>
+
+        <div class="quadrant-body">
+          <div id="leaflet-map"></div>
+
+          <!-- Fiche dynamique du point sélectionné -->
+          <div id="map-selected-point-card" class="map-point-card" style="display: none;">
+            <div>
+              <div style="font-size: 11px; color: var(--accent-blue); font-weight: 700;" id="card-point-badge">POINT #--</div>
+              <div style="font-size: 13px; font-weight: 700; color: var(--text-primary);" id="card-point-name">--</div>
+              <div style="font-size: 11px; color: var(--text-secondary);" id="card-point-desc">--</div>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button id="card-btn-view-in-tour" class="btn btn-primary" style="font-size: 11px;">
+                Voir dans la tournée ➔
+              </button>
+              <button id="card-btn-close" class="btn" style="padding: 4px 8px;">✕</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------------------------------------------------------------------
+           CADRAN 2 : VISUALISATION DE LA TOURNÉE OPTIMISÉE
+           --------------------------------------------------------------------- -->
+      <section id="quadrant-2" class="quadrant">
+        <div class="quadrant-header">
+          <div class="quadrant-title-group">
+            <span class="quadrant-badge">CADRAN 2</span>
+            <h2 class="quadrant-title">🚚 Tournée Officielle Certifiée</h2>
+          </div>
+          <div class="quadrant-tools">
+            <button id="btn-toggle-tour-path" class="btn" title="Afficher ou masquer le tracé sur la carte">
+              👁️ Tracé On/Off
+            </button>
+          </div>
+        </div>
+
+        <div class="tour-control-bar">
+          <div class="tour-summary-stats">
+            <span class="stat-item">Distance : <strong id="tour-dist-stat">18 933,1 m</strong></span>
+            <span class="stat-item">Arrêts : <strong id="tour-stops-stat">42</strong></span>
+            <span class="stat-item">Gain : <strong id="tour-gain-stat" style="color: var(--accent-emerald);">-9,90%</strong></span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <button id="btn-prev-step" class="btn" title="Étape précédente">◀</button>
+            <span id="tour-step-indicator" style="font-size: 11px; font-weight: 700; color: var(--accent-blue); min-width: 80px; text-align: center;">
+              Étape -- / 41
+            </span>
+            <button id="btn-next-step" class="btn" title="Étape suivante">▶</button>
+            <button id="btn-autoplay-tour" class="btn" title="Lecture automatique">⏯️ Lecture</button>
+          </div>
+        </div>
+
+        <div class="quadrant-body">
+          <div id="tour-steps-list" class="tour-steps-scrollable">
+            <!-- Liste des 41 étapes générée dynamiquement -->
+            <div style="text-align: center; color: var(--text-muted); padding: 20px;">Chargement de la tournée...</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------------------------------------------------------------------
+           CADRAN 3 : INTELLIGENCE ARTIFICIELLE & MULTI-AGENTS
+           --------------------------------------------------------------------- -->
+      <section id="quadrant-3" class="quadrant">
+        <div class="quadrant-header">
+          <div class="quadrant-title-group">
+            <span class="quadrant-badge">CADRAN 3</span>
+            <h2 class="quadrant-title">🤖 Système Multi-Agents & Gouvernance IA</h2>
+          </div>
+          <div class="quadrant-tools">
+            <span class="status-pill active" style="font-size: 10px;" id="multi-agent-mission-badge">
+              PILOTE : 001
+            </span>
+          </div>
+        </div>
+
+        <!-- Visualisation interactive du pipeline de décision -->
+        <div class="pipeline-flow">
+          <div class="pipeline-node success" data-target-tab="web" title="Collecte d'extraits d'urbanisme sur Agadir">
+            🌐 Web Research (3)
+          </div>
+          <span class="pipeline-arrow">➔</span>
+          <div class="pipeline-node success" data-target-tab="scholar" title="Acquisition d'articles scientifiques (ATSP/Or-opt)">
+            📚 Scholar (3)
+          </div>
+          <span class="pipeline-arrow">➔</span>
+          <div class="pipeline-node success" data-target-tab="analyst" title="Synthèse cognitive & formulation de thèses">
+            🧠 Gemini Analyst
+          </div>
+          <span class="pipeline-arrow">➔</span>
+          <div class="pipeline-node success" data-target-tab="judge" title="Arbitrage contradictoire à 5 critères">
+            ⚖️ Judge Agent (0.934)
+          </div>
+          <span class="pipeline-arrow">➔</span>
+          <div class="pipeline-node success" data-target-tab="judge" title="Veto mathématique déterministe Python">
+            🛡️ Veto Python (6/6)
+          </div>
+        </div>
+
+        <!-- Onglets des agents -->
+        <div class="agent-tabs">
+          <button class="agent-tab-btn active" data-tab="judge">⚖️ Judge & Veto Python</button>
+          <button class="agent-tab-btn" data-tab="analyst">🧠 Gemini Analyst</button>
+          <button class="agent-tab-btn" data-tab="web">🌐 Web Research</button>
+          <button class="agent-tab-btn" data-tab="scholar">📚 Semantic Scholar</button>
+          <button class="agent-tab-btn" data-tab="audit">🔗 Audit SHA-256</button>
+        </div>
+
+        <div class="quadrant-body">
+          <div id="agent-tab-content" class="agent-panel-content">
+            <!-- Contenu dynamique de l'onglet actif -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------------------------------------------------------------------
+           CADRAN 4 : INDICATEURS & PERFORMANCES SCIENTIFIQUES
+           --------------------------------------------------------------------- -->
+      <section id="quadrant-4" class="quadrant">
+        <div class="quadrant-header">
+          <div class="quadrant-title-group">
+            <span class="quadrant-badge">CADRAN 4</span>
+            <h2 class="quadrant-title">📊 Indicateurs & Performance Scientifique</h2>
+          </div>
+          <div class="quadrant-tools">
+            <span style="font-size: 11px; color: var(--text-muted); font-weight: 600;">
+              Phases 1 à 6 Certifiées
+            </span>
+          </div>
+        </div>
+
+        <div class="quadrant-body">
+          <div class="metrics-scrollable">
+
+            <!-- 1. Six Cartes KPI Synthétiques -->
+            <div class="metrics-summary-grid">
+              <div class="metric-card">
+                <div class="metric-label">Distance Totale Certifiée</div>
+                <div class="metric-val" id="metric-dist-val">18 933,1 m</div>
+                <div class="metric-sub">42 arrêts (40 clients + 2 dépôt)</div>
+              </div>
+
+              <div class="metric-card">
+                <div class="metric-label">Gain Algorithmique (GA + Optuna)</div>
+                <div class="metric-val gain" id="metric-gain-val">-2 081,2 m</div>
+                <div class="metric-sub">-9,90% vs Phase 4 (21 014,3 m)</div>
+              </div>
+
+              <div class="metric-card">
+                <div class="metric-label">Score Contradictoire Judge</div>
+                <div class="metric-val" id="metric-judge-val" style="color: var(--accent-secondary);">0,9340 / 1,0000</div>
+                <div class="metric-sub">Accepté sous réserve du Veto Python</div>
+              </div>
+
+              <div class="metric-card">
+                <div class="metric-label">Contrôle Déterministe Python</div>
+                <div class="metric-val gain">6 / 6 Règles</div>
+                <div class="metric-sub">Veto mathématique inviolable (OSRM)</div>
+              </div>
+
+              <div class="metric-card">
+                <div class="metric-label">Budget Mission Pilote</div>
+                <div class="metric-val" style="color: var(--accent-emerald);">0,00619 $</div>
+                <div class="metric-sub">Plafond : 0,50 $ (utilisé : 1,24%)</div>
+              </div>
+
+              <div class="metric-card">
+                <div class="metric-label">Assurance Qualité & Tests</div>
+                <div class="metric-val" style="color: var(--accent-blue);">194 / 194</div>
+                <div class="metric-sub">100% succès (0 régression, 91,5% couv.)</div>
+              </div>
+            </div>
+
+            <!-- 2. Barre de Navigation des Graphiques Scientifiques -->
+            <div class="charts-nav-bar">
+              <span class="charts-nav-label">📊 Visualisations Scientifiques :</span>
+              <div class="charts-filter-pills">
+                <button class="chart-pill active" data-chart-filter="all">Tous (6)</button>
+                <button class="chart-pill" data-chart-filter="chart-a">A. Tournée</button>
+                <button class="chart-pill" data-chart-filter="chart-b">B. Optimisation</button>
+                <button class="chart-pill" data-chart-filter="chart-c">C. Arbitrage Judge</button>
+                <button class="chart-pill" data-chart-filter="chart-d">D. Tests & Qualité</button>
+                <button class="chart-pill" data-chart-filter="chart-e">E. Profil Distances</button>
+                <button class="chart-pill" data-chart-filter="chart-f">F. Budget LLM</button>
+              </div>
+            </div>
+
+            <!-- 3. Grille des 6 Graphiques Scientifiques Réels -->
+            <div class="scientific-charts-grid">
+
+              <!-- Graphique A : Performance & Répartition de la Tournée -->
+              <div class="chart-box" id="box-chart-a">
+                <div class="chart-box-header">
+                  <div>
+                    <h3 class="chart-title">Graphique A — Structure & Typologie des Arrêts de la Tournée</h3>
+                    <div class="chart-subtitle">Répartition des 42 arrêts (40 clients uniques + 2 passages au Dépôt Central #0)</div>
+                  </div>
+                  <span class="chart-badge">ATSP Tour</span>
+                </div>
+                <div class="chart-canvas-wrapper">
+                  <canvas id="chart-a-canvas"></canvas>
+                </div>
+                <div class="chart-footer-caption">
+                  <span>📍 40 clients (Commerce, Santé, Banque, Services)</span>
+                  <span>🌊 Cul-de-sac littoral #40 : Restaurant Les Blancs</span>
+                  <span>🏁 Départ & Arrivée stricts : Dépôt #0 Place Al Amal</span>
+                </div>
+              </div>
+
+              <!-- Graphique B : Optimisation Algorithmique Comparée -->
+              <div class="chart-box" id="box-chart-b">
+                <div class="chart-box-header">
+                  <div>
+                    <h3 class="chart-title">Graphique B — Optimisation : GA Standard (Phase 4) vs GA + Optuna (Phase 5)</h3>
+                    <div class="chart-subtitle">Comparaison directe des distances routières OSRM et gain d'optimisation certifié</div>
+                  </div>
+                  <span class="chart-badge gain-badge">-9,90% (-2 081,2 m)</span>
+                </div>
+                <div class="chart-canvas-wrapper">
+                  <canvas id="chart-b-canvas"></canvas>
+                </div>
+                <div class="chart-footer-caption">
+                  <span>🔴 Phase 4 (GA Standard) : <strong>21 014,3 m</strong></span>
+                  <span>🟢 Phase 5 (GA Hybride + Optuna TPE) : <strong>18 933,1 m</strong></span>
+                  <span style="color: var(--accent-emerald); font-weight: 700;">Économie certifiée : 2 081,2 m</span>
+                </div>
+              </div>
+
+              <!-- Graphique C : Arbitrage Multi-Agents du Judge -->
+              <div class="chart-box" id="box-chart-c">
+                <div class="chart-box-header">
+                  <div>
+                    <h3 class="chart-title">Graphique C — Arbitrage Contradictoire : Grille des 5 Critères du Judge</h3>
+                    <div class="chart-subtitle">Pondérations officielles, notes attribuées et contribution au score global de 0,9340</div>
+                  </div>
+                  <span class="chart-badge judge-badge">Score : 0,9340 / 1,0000</span>
+                </div>
+                <div class="chart-canvas-wrapper">
+                  <canvas id="chart-c-canvas"></canvas>
+                </div>
+                <div class="chart-footer-caption">
+                  <span>⚖️ Fiabilité (0,95 / 25%) • Cohérence (0,94 / 25%) • Preuves (0,92 / 20%)</span>
+                  <span>🤝 Concordance (0,95 / 15%) • Incertitudes (0,90 / 15%)</span>
+                  <span style="color: var(--accent-emerald);">Seuil : 0,8000 ➔ <strong>ACCEPTÉ</strong></span>
+                </div>
+              </div>
+
+              <!-- Graphique D : Validation Expérimentale & Qualité Logicielle -->
+              <div class="chart-box" id="box-chart-d">
+                <div class="chart-box-header">
+                  <div>
+                    <h3 class="chart-title">Graphique D — Validation Expérimentale & Intégrité du Système</h3>
+                    <div class="chart-subtitle">Indicateurs de robustesse logicielle, couverture des tests et vérifications cryptographiques</div>
+                  </div>
+                  <span class="chart-badge success-badge">100% SUCCÈS</span>
+                </div>
+                <div class="chart-canvas-wrapper">
+                  <canvas id="chart-d-canvas"></canvas>
+                </div>
+                <div class="chart-footer-caption">
+                  <span>🧪 194/194 Tests réussis (0 échec)</span>
+                  <span>🛡️ Veto Python : 6/6 règles validées</span>
+                  <span>🔒 SHA-256 : 4/4 fichiers conformes</span>
+                  <span>📊 Couverture code : 91,5%</span>
+                </div>
+              </div>
+
+              <!-- Graphique E : Profil Kilométrique des 41 Étapes de la Tournée -->
+              <div class="chart-box" id="box-chart-e">
+                <div class="chart-box-header">
+                  <div>
+                    <h3 class="chart-title">Graphique E — Profil Kilométrique & Distribution des 41 Étapes (OSRM)</h3>
+                    <div class="chart-subtitle">Distance de chaque transition successive de la tournée le long du circuit optimal</div>
+                  </div>
+                  <span class="chart-badge">41 Transitions</span>
+                </div>
+                <div class="chart-canvas-wrapper">
+                  <canvas id="chart-e-canvas"></canvas>
+                </div>
+                <div class="chart-footer-caption">
+                  <span>Min : 67,2 m (étape #8) • Moyenne : 461,8 m • Max : 1 820,4 m (#32 ➔ #40 littoral)</span>
+                  <span>Cul-de-sac littoral #40 : contrainte d'aller-retour côtier intégrée</span>
+                </div>
+              </div>
+
+              <!-- Graphique F : Sécurité Budgétaire & Consommation LLM -->
+              <div class="chart-box" id="box-chart-f">
+                <div class="chart-box-header">
+                  <div>
+                    <h3 class="chart-title">Graphique F — Consommation Budgétaire vs Plafonds Financiers</h3>
+                    <div class="chart-subtitle">Suivi du budget engagé pour l'orchestration multi-agents Gemini Flash</div>
+                  </div>
+                  <span class="chart-badge budget-badge">1,24% du Plafond</span>
+                </div>
+                <div class="chart-canvas-wrapper">
+                  <canvas id="chart-f-canvas"></canvas>
+                </div>
+                <div class="chart-footer-caption">
+                  <span>Dépensé : <strong>0,00619 $</strong></span>
+                  <span>Alerte : 0,10000 $ (marge : 93,8%)</span>
+                  <span>Kill-Switch : 0,50000 $ (marge : 98,8%)</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- 4. Traçabilité & Provenance des Données Certifiées -->
+            <div class="comparison-container provenance-container">
+              <div class="comparison-header">
+                <span>🔒 Registre d'Intégrité Cryptographique SHA-256 des 4 Fichiers Protégés</span>
+                <span class="status-pill active" style="font-size: 10px;">100% CONFORME</span>
+              </div>
+              <div class="provenance-grid">
+                <div class="provenance-item">
+                  <div class="provenance-file">📄 <code>delivery_points_40.csv</code></div>
+                  <div class="provenance-hash">SHA-256 : <code>03590423ea8a69eb97fc8ee62735777fbe12d8cb95e3aaca8d35a20051d1b200</code></div>
+                </div>
+                <div class="provenance-item">
+                  <div class="provenance-file">📄 <code>distance_matrix.csv</code></div>
+                  <div class="provenance-hash">SHA-256 : <code>35a6dafdb3525e208bce807b10c6bf314c4b612b154a170fd98fe3f69612a34a</code></div>
+                </div>
+                <div class="provenance-item">
+                  <div class="provenance-file">📄 <code>duration_matrix.csv</code></div>
+                  <div class="provenance-hash">SHA-256 : <code>891a3af33e8c35211200adadd1f1cc8c304e2207d850ea5e43ec05aa2c726426</code></div>
+                </div>
+                <div class="provenance-item">
+                  <div class="provenance-file">📄 <code>tsp_optimized_route.json</code></div>
+                  <div class="provenance-hash">SHA-256 : <code>6bf918b8d69998d9063790714437f10edadf7ebf1fc1289973516527cc906933</code></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- =========================================================================
+       3. PIED DE PAGE (FOOTER)
+       ========================================================================= -->
+  <footer class="dashboard-footer">
+    <div>
+      <strong>AGADIR MAPPING</strong> — Système d'Optimisation ATSP Last-Mile | Version 7.0.0
+    </div>
+    <div class="footer-hashes">
+      <span>Intégrité SHA-256 : <span class="hash-badge">100% CONFORME (4/4 fichiers)</span></span>
+      <span>Base de Données OSRM : <span style="color: var(--text-primary);">41 × 41 Asymétrique</span></span>
+    </div>
+  </footer>
+
+  <!-- =========================================================================
+       4. MODULES JAVASCRIPT DU DASHBOARD
+       ========================================================================= -->
+  <script src="js/quadrant1_map.js"></script>
+  <script src="js/quadrant2_tour.js"></script>
+  <script src="js/quadrant3_agents.js"></script>
+  <script src="js/quadrant4_metrics.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

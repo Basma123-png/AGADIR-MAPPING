@@ -1,0 +1,2547 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_bc1fefaedd35a2e4658af5ad9035ce8f {
+                    position: relative;
+                    width: 100.0vw;
+                    height: 100.0vh;
+
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>/*
+ * Glyphicons Halflings -- the icon font used by folium's default Awesome Markers
+ * (Icon(prefix="glyphicon")). Extracted from Bootstrap 3's glyphicon rules only.
+ *
+ * folium previously loaded netdna's bootstrap-glyphicons.css, which despite its
+ * name ships a full Bootstrap-3 base stylesheet (normalize reset + global `body`
+ * rules) that leaked onto the host page (GH-1820). This file provides just the
+ * @font-face and .glyphicon/.glyphicon-* rules needed for the markers, with no
+ * page-wide side effects. Font files are served from jsDelivr.
+ */
+@font-face{font-family:'Glyphicons Halflings';src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot');src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.woff') format('woff'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.ttf') format('truetype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');}.glyphicon{position:relative;top:1px;display:inline-block;font-family:'Glyphicons Halflings';font-style:normal;font-weight:normal;line-height:1;-webkit-font-smoothing:antialiased;}
+.glyphicon-asterisk:before{content:"\2a";}
+.glyphicon-plus:before{content:"\2b";}
+.glyphicon-euro:before{content:"\20ac";}
+.glyphicon-minus:before{content:"\2212";}
+.glyphicon-cloud:before{content:"\2601";}
+.glyphicon-envelope:before{content:"\2709";}
+.glyphicon-pencil:before{content:"\270f";}
+.glyphicon-glass:before{content:"\e001";}
+.glyphicon-music:before{content:"\e002";}
+.glyphicon-search:before{content:"\e003";}
+.glyphicon-heart:before{content:"\e005";}
+.glyphicon-star:before{content:"\e006";}
+.glyphicon-star-empty:before{content:"\e007";}
+.glyphicon-user:before{content:"\e008";}
+.glyphicon-film:before{content:"\e009";}
+.glyphicon-th-large:before{content:"\e010";}
+.glyphicon-th:before{content:"\e011";}
+.glyphicon-th-list:before{content:"\e012";}
+.glyphicon-ok:before{content:"\e013";}
+.glyphicon-remove:before{content:"\e014";}
+.glyphicon-zoom-in:before{content:"\e015";}
+.glyphicon-zoom-out:before{content:"\e016";}
+.glyphicon-off:before{content:"\e017";}
+.glyphicon-signal:before{content:"\e018";}
+.glyphicon-cog:before{content:"\e019";}
+.glyphicon-trash:before{content:"\e020";}
+.glyphicon-home:before{content:"\e021";}
+.glyphicon-file:before{content:"\e022";}
+.glyphicon-time:before{content:"\e023";}
+.glyphicon-road:before{content:"\e024";}
+.glyphicon-download-alt:before{content:"\e025";}
+.glyphicon-download:before{content:"\e026";}
+.glyphicon-upload:before{content:"\e027";}
+.glyphicon-inbox:before{content:"\e028";}
+.glyphicon-play-circle:before{content:"\e029";}
+.glyphicon-repeat:before{content:"\e030";}
+.glyphicon-refresh:before{content:"\e031";}
+.glyphicon-list-alt:before{content:"\e032";}
+.glyphicon-flag:before{content:"\e034";}
+.glyphicon-headphones:before{content:"\e035";}
+.glyphicon-volume-off:before{content:"\e036";}
+.glyphicon-volume-down:before{content:"\e037";}
+.glyphicon-volume-up:before{content:"\e038";}
+.glyphicon-qrcode:before{content:"\e039";}
+.glyphicon-barcode:before{content:"\e040";}
+.glyphicon-tag:before{content:"\e041";}
+.glyphicon-tags:before{content:"\e042";}
+.glyphicon-book:before{content:"\e043";}
+.glyphicon-print:before{content:"\e045";}
+.glyphicon-font:before{content:"\e047";}
+.glyphicon-bold:before{content:"\e048";}
+.glyphicon-italic:before{content:"\e049";}
+.glyphicon-text-height:before{content:"\e050";}
+.glyphicon-text-width:before{content:"\e051";}
+.glyphicon-align-left:before{content:"\e052";}
+.glyphicon-align-center:before{content:"\e053";}
+.glyphicon-align-right:before{content:"\e054";}
+.glyphicon-align-justify:before{content:"\e055";}
+.glyphicon-list:before{content:"\e056";}
+.glyphicon-indent-left:before{content:"\e057";}
+.glyphicon-indent-right:before{content:"\e058";}
+.glyphicon-facetime-video:before{content:"\e059";}
+.glyphicon-picture:before{content:"\e060";}
+.glyphicon-map-marker:before{content:"\e062";}
+.glyphicon-adjust:before{content:"\e063";}
+.glyphicon-tint:before{content:"\e064";}
+.glyphicon-edit:before{content:"\e065";}
+.glyphicon-share:before{content:"\e066";}
+.glyphicon-check:before{content:"\e067";}
+.glyphicon-move:before{content:"\e068";}
+.glyphicon-step-backward:before{content:"\e069";}
+.glyphicon-fast-backward:before{content:"\e070";}
+.glyphicon-backward:before{content:"\e071";}
+.glyphicon-play:before{content:"\e072";}
+.glyphicon-pause:before{content:"\e073";}
+.glyphicon-stop:before{content:"\e074";}
+.glyphicon-forward:before{content:"\e075";}
+.glyphicon-fast-forward:before{content:"\e076";}
+.glyphicon-step-forward:before{content:"\e077";}
+.glyphicon-eject:before{content:"\e078";}
+.glyphicon-chevron-left:before{content:"\e079";}
+.glyphicon-chevron-right:before{content:"\e080";}
+.glyphicon-plus-sign:before{content:"\e081";}
+.glyphicon-minus-sign:before{content:"\e082";}
+.glyphicon-remove-sign:before{content:"\e083";}
+.glyphicon-ok-sign:before{content:"\e084";}
+.glyphicon-question-sign:before{content:"\e085";}
+.glyphicon-info-sign:before{content:"\e086";}
+.glyphicon-screenshot:before{content:"\e087";}
+.glyphicon-remove-circle:before{content:"\e088";}
+.glyphicon-ok-circle:before{content:"\e089";}
+.glyphicon-ban-circle:before{content:"\e090";}
+.glyphicon-arrow-left:before{content:"\e091";}
+.glyphicon-arrow-right:before{content:"\e092";}
+.glyphicon-arrow-up:before{content:"\e093";}
+.glyphicon-arrow-down:before{content:"\e094";}
+.glyphicon-share-alt:before{content:"\e095";}
+.glyphicon-resize-full:before{content:"\e096";}
+.glyphicon-resize-small:before{content:"\e097";}
+.glyphicon-exclamation-sign:before{content:"\e101";}
+.glyphicon-gift:before{content:"\e102";}
+.glyphicon-leaf:before{content:"\e103";}
+.glyphicon-eye-open:before{content:"\e105";}
+.glyphicon-eye-close:before{content:"\e106";}
+.glyphicon-warning-sign:before{content:"\e107";}
+.glyphicon-plane:before{content:"\e108";}
+.glyphicon-random:before{content:"\e110";}
+.glyphicon-comment:before{content:"\e111";}
+.glyphicon-magnet:before{content:"\e112";}
+.glyphicon-chevron-up:before{content:"\e113";}
+.glyphicon-chevron-down:before{content:"\e114";}
+.glyphicon-retweet:before{content:"\e115";}
+.glyphicon-shopping-cart:before{content:"\e116";}
+.glyphicon-folder-close:before{content:"\e117";}
+.glyphicon-folder-open:before{content:"\e118";}
+.glyphicon-resize-vertical:before{content:"\e119";}
+.glyphicon-resize-horizontal:before{content:"\e120";}
+.glyphicon-hdd:before{content:"\e121";}
+.glyphicon-bullhorn:before{content:"\e122";}
+.glyphicon-certificate:before{content:"\e124";}
+.glyphicon-thumbs-up:before{content:"\e125";}
+.glyphicon-thumbs-down:before{content:"\e126";}
+.glyphicon-hand-right:before{content:"\e127";}
+.glyphicon-hand-left:before{content:"\e128";}
+.glyphicon-hand-up:before{content:"\e129";}
+.glyphicon-hand-down:before{content:"\e130";}
+.glyphicon-circle-arrow-right:before{content:"\e131";}
+.glyphicon-circle-arrow-left:before{content:"\e132";}
+.glyphicon-circle-arrow-up:before{content:"\e133";}
+.glyphicon-circle-arrow-down:before{content:"\e134";}
+.glyphicon-globe:before{content:"\e135";}
+.glyphicon-tasks:before{content:"\e137";}
+.glyphicon-filter:before{content:"\e138";}
+.glyphicon-fullscreen:before{content:"\e140";}
+.glyphicon-dashboard:before{content:"\e141";}
+.glyphicon-heart-empty:before{content:"\e143";}
+.glyphicon-link:before{content:"\e144";}
+.glyphicon-phone:before{content:"\e145";}
+.glyphicon-usd:before{content:"\e148";}
+.glyphicon-gbp:before{content:"\e149";}
+.glyphicon-sort:before{content:"\e150";}
+.glyphicon-sort-by-alphabet:before{content:"\e151";}
+.glyphicon-sort-by-alphabet-alt:before{content:"\e152";}
+.glyphicon-sort-by-order:before{content:"\e153";}
+.glyphicon-sort-by-order-alt:before{content:"\e154";}
+.glyphicon-sort-by-attributes:before{content:"\e155";}
+.glyphicon-sort-by-attributes-alt:before{content:"\e156";}
+.glyphicon-unchecked:before{content:"\e157";}
+.glyphicon-expand:before{content:"\e158";}
+.glyphicon-collapse-down:before{content:"\e159";}
+.glyphicon-collapse-up:before{content:"\e160";}
+.glyphicon-log-in:before{content:"\e161";}
+.glyphicon-flash:before{content:"\e162";}
+.glyphicon-log-out:before{content:"\e163";}
+.glyphicon-new-window:before{content:"\e164";}
+.glyphicon-record:before{content:"\e165";}
+.glyphicon-save:before{content:"\e166";}
+.glyphicon-open:before{content:"\e167";}
+.glyphicon-saved:before{content:"\e168";}
+.glyphicon-import:before{content:"\e169";}
+.glyphicon-export:before{content:"\e170";}
+.glyphicon-send:before{content:"\e171";}
+.glyphicon-floppy-disk:before{content:"\e172";}
+.glyphicon-floppy-saved:before{content:"\e173";}
+.glyphicon-floppy-remove:before{content:"\e174";}
+.glyphicon-floppy-save:before{content:"\e175";}
+.glyphicon-floppy-open:before{content:"\e176";}
+.glyphicon-credit-card:before{content:"\e177";}
+.glyphicon-transfer:before{content:"\e178";}
+.glyphicon-cutlery:before{content:"\e179";}
+.glyphicon-header:before{content:"\e180";}
+.glyphicon-compressed:before{content:"\e181";}
+.glyphicon-earphone:before{content:"\e182";}
+.glyphicon-phone-alt:before{content:"\e183";}
+.glyphicon-tower:before{content:"\e184";}
+.glyphicon-stats:before{content:"\e185";}
+.glyphicon-sd-video:before{content:"\e186";}
+.glyphicon-hd-video:before{content:"\e187";}
+.glyphicon-subtitles:before{content:"\e188";}
+.glyphicon-sound-stereo:before{content:"\e189";}
+.glyphicon-sound-dolby:before{content:"\e190";}
+.glyphicon-sound-5-1:before{content:"\e191";}
+.glyphicon-sound-6-1:before{content:"\e192";}
+.glyphicon-sound-7-1:before{content:"\e193";}
+.glyphicon-copyright-mark:before{content:"\e194";}
+.glyphicon-registration-mark:before{content:"\e195";}
+.glyphicon-cloud-download:before{content:"\e197";}
+.glyphicon-cloud-upload:before{content:"\e198";}
+.glyphicon-tree-conifer:before{content:"\e199";}
+.glyphicon-tree-deciduous:before{content:"\e200";}
+.glyphicon-briefcase:before{content:"\1f4bc";}
+.glyphicon-calendar:before{content:"\1f4c5";}
+.glyphicon-pushpin:before{content:"\1f4cc";}
+.glyphicon-paperclip:before{content:"\1f4ce";}
+.glyphicon-camera:before{content:"\1f4f7";}
+.glyphicon-lock:before{content:"\1f512";}
+.glyphicon-bell:before{content:"\1f514";}
+.glyphicon-bookmark:before{content:"\1f516";}
+.glyphicon-fire:before{content:"\1f525";}
+.glyphicon-wrench:before{content:"\1f527";}
+</style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    
+            
+        
+    
+            
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.css"/>
+    <script src="https://cdn.jsdelivr.net/gh/ljagis/leaflet-measure@2.1.7/dist/leaflet-measure.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ljagis/leaflet-measure@2.1.7/dist/leaflet-measure.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.css"/>
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_bc1fefaedd35a2e4658af5ad9035ce8f" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_bc1fefaedd35a2e4658af5ad9035ce8f = L.map(
+                "map_bc1fefaedd35a2e4658af5ad9035ce8f",
+                {
+                    center: [30.424999999999997, -9.600999999999999],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 14,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+            L.control.scale().addTo(map_bc1fefaedd35a2e4658af5ad9035ce8f);
+
+            
+
+        
+    
+            var tile_layer_fa2974fab8fd39a438b1abf36906df94 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_fa2974fab8fd39a438b1abf36906df94.addTo(map_bc1fefaedd35a2e4658af5ad9035ce8f);
+        
+    
+            var tile_layer_893384fcf7fa53bbb669a8c2023ea33e = L.tileLayer(
+                "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "Esri",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_893384fcf7fa53bbb669a8c2023ea33e.addTo(map_bc1fefaedd35a2e4658af5ad9035ce8f);
+        
+    
+            var feature_group_563f7d2b8fc6aba967a40228828eeae0 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var rectangle_3015ffa5b3c5ad7efe4096aed8e047b1 = L.rectangle(
+                [[30.415, -9.618], [30.435, -9.584]],
+                {"bubblingMouseEvents": true, "color": "#d9534f", "dashArray": "5, 5", "dashOffset": null, "fill": true, "fillColor": "#f0ad4e", "fillOpacity": 0.06, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 3}
+            ).addTo(feature_group_563f7d2b8fc6aba967a40228828eeae0);
+        
+    
+            rectangle_3015ffa5b3c5ad7efe4096aed8e047b1.bindTooltip(
+                `<div>
+                     <b>Périmètre global d'étude</b><br>Ouest: -9.618°W (Marina incluse)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_563f7d2b8fc6aba967a40228828eeae0.addTo(map_bc1fefaedd35a2e4658af5ad9035ce8f);
+        
+    
+            var feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var poly_line_fa4e1b20ae743fbec293a837702051ad = L.polyline(
+                [[30.4215, -9.5985], [30.421657, -9.598336]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_fa4e1b20ae743fbec293a837702051ad.bindTooltip(
+                `<div>
+                     Snap OSRM : 23.48 m vers Avenue Prince Moulay Abdellah
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_019b084eb451d81ba6cb6706f787e5ce = L.polyline(
+                [[30.423521, -9.605329], [30.423629, -9.605212]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_019b084eb451d81ba6cb6706f787e5ce.bindTooltip(
+                `<div>
+                     Snap OSRM : 16.42 m vers Avenue Hassan II شارع الحسن الثاني
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_50d79a7d4759f4307ba7efe0aa5d2c17 = L.polyline(
+                [[30.423833, -9.584771], [30.423749, -9.584826]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_50d79a7d4759f4307ba7efe0aa5d2c17.bindTooltip(
+                `<div>
+                     Snap OSRM : 10.71 m vers Rue Lahoussine Bijaouane
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_b296faa4b7e363a8ef39945218997b6c = L.polyline(
+                [[30.427201, -9.592766], [30.427328, -9.592879]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_b296faa4b7e363a8ef39945218997b6c.bindTooltip(
+                `<div>
+                     Snap OSRM : 17.78 m vers Avenue des Forces Armées Royales شارع الجيش الملكي
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_ab1371dd3f9dafb9a1db7348d81adfec = L.polyline(
+                [[30.417109, -9.600315], [30.417231, -9.600005]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_ab1371dd3f9dafb9a1db7348d81adfec.bindTooltip(
+                `<div>
+                     Snap OSRM : 32.71 m vers Voie urbaine (non nommée)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_6b1b669fc6e2f90e19ac2136bd272819 = L.polyline(
+                [[30.41756, -9.596466], [30.417554, -9.596474]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_6b1b669fc6e2f90e19ac2136bd272819.bindTooltip(
+                `<div>
+                     Snap OSRM : 1.02 m vers Avenue Hassan II شارع الحسن الثاني
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_d753c5dae69d01bdaab9d841d8c382ee = L.polyline(
+                [[30.421365, -9.592763], [30.421441, -9.592596]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_d753c5dae69d01bdaab9d841d8c382ee.bindTooltip(
+                `<div>
+                     Snap OSRM : 18.12 m vers Avenue Président Kennedy
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_da75d00bc0db174d5ba195f92d6dda68 = L.polyline(
+                [[30.425983, -9.592505], [30.426025, -9.59266]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_da75d00bc0db174d5ba195f92d6dda68.bindTooltip(
+                `<div>
+                     Snap OSRM : 15.6 m vers Voie urbaine (non nommée)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_c09a9e00667040716b50cc116e438ec1 = L.polyline(
+                [[30.422241, -9.60656], [30.422182, -9.606622]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_c09a9e00667040716b50cc116e438ec1.bindTooltip(
+                `<div>
+                     Snap OSRM : 8.85 m vers Avenue Mohammed V شارع محمد الخامس
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_1a78d3addbe923119bc5865ab7ed1e28 = L.polyline(
+                [[30.426318, -9.592434], [30.42635, -9.592613]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_1a78d3addbe923119bc5865ab7ed1e28.bindTooltip(
+                `<div>
+                     Snap OSRM : 17.56 m vers Voie urbaine (non nommée)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_b7a9c4e7efbaaa98ba483692fca750d3 = L.polyline(
+                [[30.425968, -9.591872], [30.426011, -9.591771]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_b7a9c4e7efbaaa98ba483692fca750d3.bindTooltip(
+                `<div>
+                     Snap OSRM : 10.81 m vers Voie urbaine (non nommée)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_e5a489665df61b662b24f371409546bd = L.polyline(
+                [[30.42592, -9.591852], [30.425982, -9.591753]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_e5a489665df61b662b24f371409546bd.bindTooltip(
+                `<div>
+                     Snap OSRM : 11.73 m vers Voie urbaine (non nommée)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_14293a549a062d2887831671c29ed286 = L.polyline(
+                [[30.417808, -9.595184], [30.417781, -9.59515]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_14293a549a062d2887831671c29ed286.bindTooltip(
+                `<div>
+                     Snap OSRM : 4.43 m vers Voie urbaine (non nommée)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_bf20f119134e58f9e1863d283b60d10d = L.polyline(
+                [[30.42048, -9.595103], [30.420395, -9.594993]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_bf20f119134e58f9e1863d283b60d10d.bindTooltip(
+                `<div>
+                     Snap OSRM : 14.16 m vers Avenue du 29 Février
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_802c6eb1f653df34db0db26f89e0db7c = L.polyline(
+                [[30.416228, -9.58937], [30.41624, -9.589345]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_802c6eb1f653df34db0db26f89e0db7c.bindTooltip(
+                `<div>
+                     Snap OSRM : 2.75 m vers Rue de Marrakech
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_3afbd9a51fae23d6db5dbc9d8c9db59d = L.polyline(
+                [[30.421379, -9.599539], [30.421461, -9.599656]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_3afbd9a51fae23d6db5dbc9d8c9db59d.bindTooltip(
+                `<div>
+                     Snap OSRM : 14.46 m vers Voie urbaine (non nommée)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_39292ce6c2cfbd99945d0eb8aa315d02 = L.polyline(
+                [[30.421525, -9.600491], [30.421411, -9.60061]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_39292ce6c2cfbd99945d0eb8aa315d02.bindTooltip(
+                `<div>
+                     Snap OSRM : 17.04 m vers Boulevard Hassan II شارع الحسن الثاني
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_67811723d647bd338ba4ee85a1fea096 = L.polyline(
+                [[30.424452, -9.590298], [30.424385, -9.590369]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_67811723d647bd338ba4ee85a1fea096.bindTooltip(
+                `<div>
+                     Snap OSRM : 10.08 m vers Rue Amhand Ait Ettaleb
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_598e70890802fa5d73db7dc337516784 = L.polyline(
+                [[30.422604, -9.600317], [30.422671, -9.600526]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_598e70890802fa5d73db7dc337516784.bindTooltip(
+                `<div>
+                     Snap OSRM : 21.41 m vers Voie urbaine (non nommée)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_3100dfc0b64ab7163ec4a9e5638c3d6d = L.polyline(
+                [[30.422951, -9.604042], [30.423066, -9.603997]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_3100dfc0b64ab7163ec4a9e5638c3d6d.bindTooltip(
+                `<div>
+                     Snap OSRM : 13.46 m vers Voie urbaine (non nommée)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_993f2af22a0771af71dfd1e975209a0a = L.polyline(
+                [[30.422224, -9.604897], [30.42222, -9.605134]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_993f2af22a0771af71dfd1e975209a0a.bindTooltip(
+                `<div>
+                     Snap OSRM : 22.77 m vers Voie urbaine (non nommée)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_5c480d094f568b3c7f65bb735ab893b1 = L.polyline(
+                [[30.421659, -9.593499], [30.421735, -9.593467]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_5c480d094f568b3c7f65bb735ab893b1.bindTooltip(
+                `<div>
+                     Snap OSRM : 8.97 m vers Voie urbaine (non nommée)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_b4637062c2a0d16dc13c838cb65b00b6 = L.polyline(
+                [[30.420268, -9.603453], [30.420057, -9.603589]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_b4637062c2a0d16dc13c838cb65b00b6.bindTooltip(
+                `<div>
+                     Snap OSRM : 26.79 m vers Avenue Mohammed V شارع محمد الخامس
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_e45decb278530f21ac4feb8e7f2f9ab8 = L.polyline(
+                [[30.415039, -9.598995], [30.415061, -9.59895]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_e45decb278530f21ac4feb8e7f2f9ab8.bindTooltip(
+                `<div>
+                     Snap OSRM : 4.96 m vers Voie urbaine (non nommée)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_310b05ab570100a8dad5aa3bfe51da96 = L.polyline(
+                [[30.422427, -9.607787], [30.422608, -9.607683]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_310b05ab570100a8dad5aa3bfe51da96.bindTooltip(
+                `<div>
+                     Snap OSRM : 22.42 m vers Avenue Mohammed V شارع محمد الخامس
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_4ecdebd37e01aec72cb8178ed5c8582c = L.polyline(
+                [[30.424403, -9.593281], [30.424277, -9.593408]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_4ecdebd37e01aec72cb8178ed5c8582c.bindTooltip(
+                `<div>
+                     Snap OSRM : 18.55 m vers Rue El Mahdi Ibn Toumert
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_a0b1ab537ef83f7c883130fe66a2c55b = L.polyline(
+                [[30.424319, -9.593367], [30.424278, -9.593409]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_a0b1ab537ef83f7c883130fe66a2c55b.bindTooltip(
+                `<div>
+                     Snap OSRM : 6.08 m vers Rue El Mahdi Ibn Toumert
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_992930ac34de4c398cd1377f863fc3ed = L.polyline(
+                [[30.424476, -9.593195], [30.424272, -9.593401]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_992930ac34de4c398cd1377f863fc3ed.bindTooltip(
+                `<div>
+                     Snap OSRM : 30.05 m vers Rue El Mahdi Ibn Toumert
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_ca3f9d991a65bd97a5292ef84ba36fc6 = L.polyline(
+                [[30.427299, -9.587889], [30.42729, -9.587888]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_ca3f9d991a65bd97a5292ef84ba36fc6.bindTooltip(
+                `<div>
+                     Snap OSRM : 1.0 m vers Avenue Moulay Youssef شارع مولاي يوسف
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_8a0bdb4886f48c90a33432dbb10d2614 = L.polyline(
+                [[30.417386, -9.600135], [30.417402, -9.600102]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_8a0bdb4886f48c90a33432dbb10d2614.bindTooltip(
+                `<div>
+                     Snap OSRM : 3.63 m vers Voie urbaine (non nommée)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_c4ff8a73496705c4a245d4ccfef0c56e = L.polyline(
+                [[30.4209, -9.59478], [30.420929, -9.594816]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_c4ff8a73496705c4a245d4ccfef0c56e.bindTooltip(
+                `<div>
+                     Snap OSRM : 4.72 m vers Rue du Souvenir
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_7c7de4f082c114fb6a96bcdc9ec3fb49 = L.polyline(
+                [[30.41509, -9.59745], [30.414945, -9.597551]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_7c7de4f082c114fb6a96bcdc9ec3fb49.bindTooltip(
+                `<div>
+                     Snap OSRM : 18.78 m vers Voie urbaine (non nommée)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_a73f729dd0ea5ed6d27b5bbbf302bd0b = L.polyline(
+                [[30.417994, -9.605967], [30.418225, -9.60572]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_a73f729dd0ea5ed6d27b5bbbf302bd0b.bindTooltip(
+                `<div>
+                     Snap OSRM : 34.91 m vers Voie urbaine (non nommée)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_d45bf5595b31679835486f37dd6c6db5 = L.polyline(
+                [[30.423, -9.591], [30.423062, -9.59115]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_d45bf5595b31679835486f37dd6c6db5.bindTooltip(
+                `<div>
+                     Snap OSRM : 15.97 m vers Voie urbaine (non nommée)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_a0a81ec46d5acb57dc05a730d5a52f26 = L.polyline(
+                [[30.425629, -9.599421], [30.425637, -9.59943]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_a0a81ec46d5acb57dc05a730d5a52f26.bindTooltip(
+                `<div>
+                     Snap OSRM : 1.24 m vers Voie urbaine (non nommée)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_d5817a048975795f4114acca2628d409 = L.polyline(
+                [[30.418171, -9.596571], [30.418238, -9.59656]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_d5817a048975795f4114acca2628d409.bindTooltip(
+                `<div>
+                     Snap OSRM : 7.5 m vers Voie urbaine (non nommée)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_1bb772f8555cd2be3f8d4495e6158d0b = L.polyline(
+                [[30.420548, -9.597507], [30.420489, -9.59743]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_1bb772f8555cd2be3f8d4495e6158d0b.bindTooltip(
+                `<div>
+                     Snap OSRM : 9.87 m vers Voie urbaine (non nommée)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_5ba74868a1f1c13be59a21085d8559bd = L.polyline(
+                [[30.427802, -9.587331], [30.427649, -9.587772]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_5ba74868a1f1c13be59a21085d8559bd.bindTooltip(
+                `<div>
+                     Snap OSRM : 45.64 m vers Voie urbaine (non nommée)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_15c304372d128e4b9bc40b10a801a5ac = L.polyline(
+                [[30.426531, -9.593438], [30.426545, -9.593491]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_15c304372d128e4b9bc40b10a801a5ac.bindTooltip(
+                `<div>
+                     Snap OSRM : 5.32 m vers Rue Taha Hossein
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_adbaaeb14b8e48af0c0cf06123ec7de7 = L.polyline(
+                [[30.420949, -9.60443], [30.420584, -9.604691]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_adbaaeb14b8e48af0c0cf06123ec7de7.bindTooltip(
+                `<div>
+                     Snap OSRM : 47.6 m vers Avenue Mohammed V شارع محمد الخامس
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_e68ed3efd620133bc422fd30df01fb57 = L.polyline(
+                [[30.423998, -9.615366], [30.424123, -9.61561]],
+                {"bubblingMouseEvents": true, "color": "#555555", "dashArray": "3, 3", "dashOffset": null, "fill": false, "fillColor": "#555555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18);
+        
+    
+            poly_line_e68ed3efd620133bc422fd30df01fb57.bindTooltip(
+                `<div>
+                     Snap OSRM : 27.23 m vers Rue Tawada
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18.addTo(map_bc1fefaedd35a2e4658af5ad9035ce8f);
+        
+    
+            var feature_group_a18e40b927ca83c03dc661f0d7141b35 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_db06a7164031329c7f8b439c6cf0395c = L.marker(
+                [30.4215, -9.5985],
+                {
+}
+            ).addTo(feature_group_a18e40b927ca83c03dc661f0d7141b35);
+        
+    
+            var icon_a11bcf19098e2e3279e37367d373e000 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_006c1dbde69a478d2391d98ed8e863d0 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_677429d8f8b4c7d489660ba5443472f1 = $(`<div id="html_677429d8f8b4c7d489660ba5443472f1" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #d9534f; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #0 — Dépôt                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Dépôt Central — Place Al Amal</h4>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Dépôt Central (logistics_hub)<br>                 <b>OSM ID :</b> #9999999999<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.4215°N | Lon: -9.5985°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 442521.05 m | Y: 3365644.48 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Avenue Prince Moulay Abdellah</i><br>                 Distance à la route: <b>23.48 m</b><br>                              </div>             </div>`)[0];
+                popup_006c1dbde69a478d2391d98ed8e863d0.setContent(html_677429d8f8b4c7d489660ba5443472f1);
+            
+        
+
+        marker_db06a7164031329c7f8b439c6cf0395c.bindPopup(popup_006c1dbde69a478d2391d98ed8e863d0)
+        ;
+
+        
+    
+    
+            marker_db06a7164031329c7f8b439c6cf0395c.bindTooltip(
+                `<div>
+                     <b>POINT #0 (DÉPÔT)</b> : Dépôt Central — Place Al Amal
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_db06a7164031329c7f8b439c6cf0395c.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_db06a7164031329c7f8b439c6cf0395c.setIcon(icon_a11bcf19098e2e3279e37367d373e000);
+            
+    
+            feature_group_a18e40b927ca83c03dc661f0d7141b35.addTo(map_bc1fefaedd35a2e4658af5ad9035ce8f);
+        
+    
+            var feature_group_b99ca10c948aad5b106f6b50c77792c4 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_c89c837a727bdb9d59ef7d9be49da7fd = L.circleMarker(
+                [30.423998, -9.615366],
+                {"bubblingMouseEvents": true, "color": "#008080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00ffff", "fillOpacity": 0.4, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b99ca10c948aad5b106f6b50c77792c4);
+        
+    
+            var marker_6f71697aa2bc451a3b83cbeffbd78135 = L.marker(
+                [30.423998, -9.615366],
+                {
+}
+            ).addTo(feature_group_b99ca10c948aad5b106f6b50c77792c4);
+        
+    
+            var icon_167eb4c3bf3b03775b9edfb4abedb619 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkblue",
+  "iconColor": "white",
+  "icon": "anchor",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_be2532540bca32a1f5876c110d7bd39c = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_85f9b6feb53ae1db5adf91e42ef4a6d3 = $(`<div id="html_85f9b6feb53ae1db5adf91e42ef4a6d3" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #008080; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #40 — Littoral                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Restaurant Les Blancs — Corniche / Marina</h4>                 <b>Quartier :</b> Corniche / Marina<br>                 <b>Catégorie :</b> Destination Littorale (restaurant_corniche)<br>                 <b>OSM ID :</b> #5525615990<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.423998°N | Lon: -9.615366°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 440902.74 m | Y: 3365930.0 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Rue Tawada</i><br>                 Distance à la route: <b>27.23 m</b><br>                 <b>Trajet depuis le dépôt :</b> 2.27 km (4.68 min)<br>             </div>             </div>`)[0];
+                popup_be2532540bca32a1f5876c110d7bd39c.setContent(html_85f9b6feb53ae1db5adf91e42ef4a6d3);
+            
+        
+
+        marker_6f71697aa2bc451a3b83cbeffbd78135.bindPopup(popup_be2532540bca32a1f5876c110d7bd39c)
+        ;
+
+        
+    
+    
+            marker_6f71697aa2bc451a3b83cbeffbd78135.bindTooltip(
+                `<div>
+                     <b>POINT #40 [LITTORAL]</b> : Restaurant Les Blancs — Corniche / Marina
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_6f71697aa2bc451a3b83cbeffbd78135.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_6f71697aa2bc451a3b83cbeffbd78135.setIcon(icon_167eb4c3bf3b03775b9edfb4abedb619);
+            
+    
+            feature_group_b99ca10c948aad5b106f6b50c77792c4.addTo(map_bc1fefaedd35a2e4658af5ad9035ce8f);
+        
+    
+            var feature_group_46e63a34c1d54094e18c83e34a71827c = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_fc107421df5f8fee7500aa5314126f95 = L.circleMarker(
+                [30.423521, -9.605329],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ca02c", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_3aaaa74405cfd87f26151705be828418 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_56a2782daad917afca93575592da330f = $(`<div id="html_56a2782daad917afca93575592da330f" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #2ca02c; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #1 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Pharmacie Anbary صيدلية عنبري</h4>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Santé & Pharmacie (pharmacy)<br>                 <b>OSM ID :</b> #6121146885<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.423521°N | Lon: -9.605329°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 441866.43 m | Y: 3365871.96 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Avenue Hassan II شارع الحسن الثاني</i><br>                 Distance à la route: <b>16.42 m</b><br>                 <b>Trajet depuis le dépôt :</b> 0.87 km (1.69 min)<br>             </div>             </div>`)[0];
+                popup_3aaaa74405cfd87f26151705be828418.setContent(html_56a2782daad917afca93575592da330f);
+            
+        
+
+        circle_marker_fc107421df5f8fee7500aa5314126f95.bindPopup(popup_3aaaa74405cfd87f26151705be828418)
+        ;
+
+        
+    
+    
+            circle_marker_fc107421df5f8fee7500aa5314126f95.bindTooltip(
+                `<div>
+                     <b>#1</b> : Pharmacie Anbary صيدلية عنبري (Santé & Pharmacie)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fcf8544757eb07787e962fe39244161a = L.circleMarker(
+                [30.423833, -9.584771],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ca02c", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_535d2f30fd8ba581082e7747bd2a5bd0 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_919ab853d1a1d5f1831a9e4d8779bf6d = $(`<div id="html_919ab853d1a1d5f1831a9e4d8779bf6d" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #2ca02c; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #2 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Pharmacie Ihchach صيدلية احشاش</h4>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Santé & Pharmacie (pharmacy)<br>                 <b>OSM ID :</b> #6183332886<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.423833°N | Lon: -9.584771°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 443840.89 m | Y: 3365896.15 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Rue Lahoussine Bijaouane</i><br>                 Distance à la route: <b>10.71 m</b><br>                 <b>Trajet depuis le dépôt :</b> 1.9 km (3.31 min)<br>             </div>             </div>`)[0];
+                popup_535d2f30fd8ba581082e7747bd2a5bd0.setContent(html_919ab853d1a1d5f1831a9e4d8779bf6d);
+            
+        
+
+        circle_marker_fcf8544757eb07787e962fe39244161a.bindPopup(popup_535d2f30fd8ba581082e7747bd2a5bd0)
+        ;
+
+        
+    
+    
+            circle_marker_fcf8544757eb07787e962fe39244161a.bindTooltip(
+                `<div>
+                     <b>#2</b> : Pharmacie Ihchach صيدلية احشاش (Santé & Pharmacie)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2ebf5404dc0989942e7e9908531fb342 = L.circleMarker(
+                [30.427201, -9.592766],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ca02c", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_6cfbba3bc7fe6b7d5e4184e6daed645f = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_16b80b933d6d5517d35ef5b24e12a378 = $(`<div id="html_16b80b933d6d5517d35ef5b24e12a378" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #2ca02c; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #3 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Pharmacie Al Menzah صيدلية المنزه</h4>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Santé & Pharmacie (pharmacy)<br>                 <b>OSM ID :</b> #6183332887<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.427201°N | Lon: -9.592766°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 443075.04 m | Y: 3366273.37 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Avenue des Forces Armées Royales شارع الجيش الملكي</i><br>                 Distance à la route: <b>17.78 m</b><br>                 <b>Trajet depuis le dépôt :</b> 1.14 km (1.78 min)<br>             </div>             </div>`)[0];
+                popup_6cfbba3bc7fe6b7d5e4184e6daed645f.setContent(html_16b80b933d6d5517d35ef5b24e12a378);
+            
+        
+
+        circle_marker_2ebf5404dc0989942e7e9908531fb342.bindPopup(popup_6cfbba3bc7fe6b7d5e4184e6daed645f)
+        ;
+
+        
+    
+    
+            circle_marker_2ebf5404dc0989942e7e9908531fb342.bindTooltip(
+                `<div>
+                     <b>#3</b> : Pharmacie Al Menzah صيدلية المنزه (Santé & Pharmacie)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_99a8da7036d7937f03ccc79bc358151d = L.circleMarker(
+                [30.417109, -9.600315],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ca02c", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_b4f7bdcce1f2bf6f6423b1a9992f428b = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_1a5c4ae6a1c9ab4c981e7f2692a8b039 = $(`<div id="html_1a5c4ae6a1c9ab4c981e7f2692a8b039" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #2ca02c; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #4 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Pharmacie Anezi صيدلية أنزي</h4>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Santé & Pharmacie (pharmacy)<br>                 <b>OSM ID :</b> #2080858909<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.417109°N | Lon: -9.600315°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 442344.17 m | Y: 3365158.8 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Voie urbaine (non nommée)</i><br>                 Distance à la route: <b>32.71 m</b><br>                 <b>Trajet depuis le dépôt :</b> 0.66 km (1.6 min)<br>             </div>             </div>`)[0];
+                popup_b4f7bdcce1f2bf6f6423b1a9992f428b.setContent(html_1a5c4ae6a1c9ab4c981e7f2692a8b039);
+            
+        
+
+        circle_marker_99a8da7036d7937f03ccc79bc358151d.bindPopup(popup_b4f7bdcce1f2bf6f6423b1a9992f428b)
+        ;
+
+        
+    
+    
+            circle_marker_99a8da7036d7937f03ccc79bc358151d.bindTooltip(
+                `<div>
+                     <b>#4</b> : Pharmacie Anezi صيدلية أنزي (Santé & Pharmacie)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b2ecd899a1a30c757da6ce1796bd8b85 = L.circleMarker(
+                [30.41756, -9.596466],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ca02c", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_523174889dd9140e08fb79a031792e2b = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_267ecd4ea9a85956ecd44dee98d4a4ee = $(`<div id="html_267ecd4ea9a85956ecd44dee98d4a4ee" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #2ca02c; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #5 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Pharmacie Du Founty صيدلية فونتي</h4>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Santé & Pharmacie (pharmacy)<br>                 <b>OSM ID :</b> #3167285132<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.41756°N | Lon: -9.596466°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 442714.09 m | Y: 3365206.86 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Avenue Hassan II شارع الحسن الثاني</i><br>                 Distance à la route: <b>1.02 m</b><br>                 <b>Trajet depuis le dépôt :</b> 0.74 km (1.4 min)<br>             </div>             </div>`)[0];
+                popup_523174889dd9140e08fb79a031792e2b.setContent(html_267ecd4ea9a85956ecd44dee98d4a4ee);
+            
+        
+
+        circle_marker_b2ecd899a1a30c757da6ce1796bd8b85.bindPopup(popup_523174889dd9140e08fb79a031792e2b)
+        ;
+
+        
+    
+    
+            circle_marker_b2ecd899a1a30c757da6ce1796bd8b85.bindTooltip(
+                `<div>
+                     <b>#5</b> : Pharmacie Du Founty صيدلية فونتي (Santé & Pharmacie)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9c1b30865aaf0f017d2cdc0242dcb667 = L.circleMarker(
+                [30.421365, -9.592763],
+                {"bubblingMouseEvents": true, "color": "#2ca02c", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ca02c", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_16aa920e94cbc1111033827d34233b3b = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_50176eee9e7d9c88a3150f9a66890496 = $(`<div id="html_50176eee9e7d9c88a3150f9a66890496" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #2ca02c; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #6 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Pharmacie Du Soleil صيدلية الشمس</h4>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Santé & Pharmacie (pharmacy)<br>                 <b>OSM ID :</b> #5173620321<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.421365°N | Lon: -9.592763°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 443071.97 m | Y: 3365626.61 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Avenue Président Kennedy</i><br>                 Distance à la route: <b>18.12 m</b><br>                 <b>Trajet depuis le dépôt :</b> 0.77 km (1.23 min)<br>             </div>             </div>`)[0];
+                popup_16aa920e94cbc1111033827d34233b3b.setContent(html_50176eee9e7d9c88a3150f9a66890496);
+            
+        
+
+        circle_marker_9c1b30865aaf0f017d2cdc0242dcb667.bindPopup(popup_16aa920e94cbc1111033827d34233b3b)
+        ;
+
+        
+    
+    
+            circle_marker_9c1b30865aaf0f017d2cdc0242dcb667.bindTooltip(
+                `<div>
+                     <b>#6</b> : Pharmacie Du Soleil صيدلية الشمس (Santé & Pharmacie)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_775be8c6e0a57062ba01711634aa5611 = L.circleMarker(
+                [30.425983, -9.592505],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_e54823854f8d26da9a7f22416610c9a0 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_3ceade175e29d91ea4f28262f8b5caa9 = $(`<div id="html_3ceade175e29d91ea4f28262f8b5caa9" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #7 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Carrefour market Label'vie</h4>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Commerce & Magasin (supermarket)<br>                 <b>OSM ID :</b> #1871529514<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.425983°N | Lon: -9.592505°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 443099.44 m | Y: 3366138.21 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Voie urbaine (non nommée)</i><br>                 Distance à la route: <b>15.6 m</b><br>                 <b>Trajet depuis le dépôt :</b> 1.22 km (2.26 min)<br>             </div>             </div>`)[0];
+                popup_e54823854f8d26da9a7f22416610c9a0.setContent(html_3ceade175e29d91ea4f28262f8b5caa9);
+            
+        
+
+        circle_marker_775be8c6e0a57062ba01711634aa5611.bindPopup(popup_e54823854f8d26da9a7f22416610c9a0)
+        ;
+
+        
+    
+    
+            circle_marker_775be8c6e0a57062ba01711634aa5611.bindTooltip(
+                `<div>
+                     <b>#7</b> : Carrefour market Label'vie (Commerce & Magasin)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d87192403f60a0a0727cab97c2e4b516 = L.circleMarker(
+                [30.422241, -9.60656],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_1d4ad961a4700b88780123026ff7ca49 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_e0925e17283ea573a4fe0ab8b80c2cc6 = $(`<div id="html_e0925e17283ea573a4fe0ab8b80c2cc6" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #8 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Kiosk</h4>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Commerce & Magasin (convenience)<br>                 <b>OSM ID :</b> #4583630043<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.422241°N | Lon: -9.60656°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 441747.39 m | Y: 3365730.72 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Avenue Mohammed V شارع محمد الخامس</i><br>                 Distance à la route: <b>8.85 m</b><br>                 <b>Trajet depuis le dépôt :</b> 1.16 km (1.78 min)<br>             </div>             </div>`)[0];
+                popup_1d4ad961a4700b88780123026ff7ca49.setContent(html_e0925e17283ea573a4fe0ab8b80c2cc6);
+            
+        
+
+        circle_marker_d87192403f60a0a0727cab97c2e4b516.bindPopup(popup_1d4ad961a4700b88780123026ff7ca49)
+        ;
+
+        
+    
+    
+            circle_marker_d87192403f60a0a0727cab97c2e4b516.bindTooltip(
+                `<div>
+                     <b>#8</b> : Kiosk (Commerce & Magasin)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0ea63794a9df5593e6589a8f95775806 = L.circleMarker(
+                [30.426318, -9.592434],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_b7c37817029900b9bd570594bf365aaa = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_9398f06ebe98c3ac65b2a59afd8e7097 = $(`<div id="html_9398f06ebe98c3ac65b2a59afd8e7097" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #9 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Aswak Assalam</h4>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Commerce & Magasin (supermarket)<br>                 <b>OSM ID :</b> #5525115039<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.426318°N | Lon: -9.592434°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 443106.47 m | Y: 3366175.29 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Voie urbaine (non nommée)</i><br>                 Distance à la route: <b>17.56 m</b><br>                 <b>Trajet depuis le dépôt :</b> 1.19 km (2.12 min)<br>             </div>             </div>`)[0];
+                popup_b7c37817029900b9bd570594bf365aaa.setContent(html_9398f06ebe98c3ac65b2a59afd8e7097);
+            
+        
+
+        circle_marker_0ea63794a9df5593e6589a8f95775806.bindPopup(popup_b7c37817029900b9bd570594bf365aaa)
+        ;
+
+        
+    
+    
+            circle_marker_0ea63794a9df5593e6589a8f95775806.bindTooltip(
+                `<div>
+                     <b>#9</b> : Aswak Assalam (Commerce & Magasin)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d6113896d0535ddce3ee8c9628e7da76 = L.circleMarker(
+                [30.425968, -9.591872],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_d1e2c303249653939cb4d726c324507c = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_978d15bc4ed7933c65be0271864b943c = $(`<div id="html_978d15bc4ed7933c65be0271864b943c" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #10 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Lynx</h4>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Commerce & Magasin (optician)<br>                 <b>OSM ID :</b> #5525171015<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.425968°N | Lon: -9.591872°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 443160.15 m | Y: 3366136.26 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Voie urbaine (non nommée)</i><br>                 Distance à la route: <b>10.81 m</b><br>                 <b>Trajet depuis le dépôt :</b> 1.39 km (2.2 min)<br>             </div>             </div>`)[0];
+                popup_d1e2c303249653939cb4d726c324507c.setContent(html_978d15bc4ed7933c65be0271864b943c);
+            
+        
+
+        circle_marker_d6113896d0535ddce3ee8c9628e7da76.bindPopup(popup_d1e2c303249653939cb4d726c324507c)
+        ;
+
+        
+    
+    
+            circle_marker_d6113896d0535ddce3ee8c9628e7da76.bindTooltip(
+                `<div>
+                     <b>#10</b> : Lynx (Commerce & Magasin)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f762da06517e60cca30c61229dc43590 = L.circleMarker(
+                [30.42592, -9.591852],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_eb17213d2affe307dc47cbb5a2d9ca7f = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_8e950c4b5153f831581c3538afd1873e = $(`<div id="html_8e950c4b5153f831581c3538afd1873e" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #11 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">La Grande Récré</h4>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Commerce & Magasin (toys)<br>                 <b>OSM ID :</b> #5525171016<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.42592°N | Lon: -9.591852°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 443162.11 m | Y: 3366130.96 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Voie urbaine (non nommée)</i><br>                 Distance à la route: <b>11.73 m</b><br>                 <b>Trajet depuis le dépôt :</b> 1.39 km (2.22 min)<br>             </div>             </div>`)[0];
+                popup_eb17213d2affe307dc47cbb5a2d9ca7f.setContent(html_8e950c4b5153f831581c3538afd1873e);
+            
+        
+
+        circle_marker_f762da06517e60cca30c61229dc43590.bindPopup(popup_eb17213d2affe307dc47cbb5a2d9ca7f)
+        ;
+
+        
+    
+    
+            circle_marker_f762da06517e60cca30c61229dc43590.bindTooltip(
+                `<div>
+                     <b>#11</b> : La Grande Récré (Commerce & Magasin)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1834f4a8db7cc40f17b91eb24bf0c3cf = L.circleMarker(
+                [30.417808, -9.595184],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_f88fde4c114b1f4a8025c3e39893c563 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_8fd09de3b0219a7849680964bb79b572 = $(`<div id="html_8fd09de3b0219a7849680964bb79b572" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #12 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Alimentation Generale</h4>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Commerce & Magasin (convenience)<br>                 <b>OSM ID :</b> #3167124623<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.417808°N | Lon: -9.595184°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 442837.39 m | Y: 3365233.67 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Voie urbaine (non nommée)</i><br>                 Distance à la route: <b>4.43 m</b><br>                 <b>Trajet depuis le dépôt :</b> 1.28 km (2.77 min)<br>             </div>             </div>`)[0];
+                popup_f88fde4c114b1f4a8025c3e39893c563.setContent(html_8fd09de3b0219a7849680964bb79b572);
+            
+        
+
+        circle_marker_1834f4a8db7cc40f17b91eb24bf0c3cf.bindPopup(popup_f88fde4c114b1f4a8025c3e39893c563)
+        ;
+
+        
+    
+    
+            circle_marker_1834f4a8db7cc40f17b91eb24bf0c3cf.bindTooltip(
+                `<div>
+                     <b>#12</b> : Alimentation Generale (Commerce & Magasin)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_62c06d1070360243cedee9cd2d2823d5 = L.circleMarker(
+                [30.42048, -9.595103],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_be7241f0f89e982b7f6beb669f5ca578 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_f3853734456dfc4a18f04d1df0358433 = $(`<div id="html_f3853734456dfc4a18f04d1df0358433" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #13 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Alimentation Generale</h4>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Commerce & Magasin (convenience)<br>                 <b>OSM ID :</b> #3167124624<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.42048°N | Lon: -9.595103°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 442846.68 m | Y: 3365529.68 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Avenue du 29 Février</i><br>                 Distance à la route: <b>14.16 m</b><br>                 <b>Trajet depuis le dépôt :</b> 0.43 km (0.7 min)<br>             </div>             </div>`)[0];
+                popup_be7241f0f89e982b7f6beb669f5ca578.setContent(html_f3853734456dfc4a18f04d1df0358433);
+            
+        
+
+        circle_marker_62c06d1070360243cedee9cd2d2823d5.bindPopup(popup_be7241f0f89e982b7f6beb669f5ca578)
+        ;
+
+        
+    
+    
+            circle_marker_62c06d1070360243cedee9cd2d2823d5.bindTooltip(
+                `<div>
+                     <b>#13</b> : Alimentation Generale (Commerce & Magasin)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_af2237fe81ba02651e7cc0a45cda0601 = L.circleMarker(
+                [30.416228, -9.58937],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_08c626e3afeebe55eb6f2a5a69bc8b8b = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_d6d8fcebf33a53a18ceae54b1e53eb5c = $(`<div id="html_d6d8fcebf33a53a18ceae54b1e53eb5c" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #14 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Out-Phone</h4>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Commerce & Magasin (mobile_phone)<br>                 <b>OSM ID :</b> #4570052889<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.416228°N | Lon: -9.58937°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 443394.87 m | Y: 3365055.67 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Rue de Marrakech</i><br>                 Distance à la route: <b>2.75 m</b><br>                 <b>Trajet depuis le dépôt :</b> 1.2 km (2.15 min)<br>             </div>             </div>`)[0];
+                popup_08c626e3afeebe55eb6f2a5a69bc8b8b.setContent(html_d6d8fcebf33a53a18ceae54b1e53eb5c);
+            
+        
+
+        circle_marker_af2237fe81ba02651e7cc0a45cda0601.bindPopup(popup_08c626e3afeebe55eb6f2a5a69bc8b8b)
+        ;
+
+        
+    
+    
+            circle_marker_af2237fe81ba02651e7cc0a45cda0601.bindTooltip(
+                `<div>
+                     <b>#14</b> : Out-Phone (Commerce & Magasin)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c163cb54cf80967350e4800d09d8275b = L.circleMarker(
+                [30.421379, -9.599539],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_f6f7f57c0b280fd280ac4a2d518e8574 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_22ac57cc23ec1f119c297eab116270ed = $(`<div id="html_22ac57cc23ec1f119c297eab116270ed" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #15 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Epicerie du marché</h4>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Commerce & Magasin (deli)<br>                 <b>OSM ID :</b> #5525589203<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.421379°N | Lon: -9.599539°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 442421.23 m | Y: 3365631.57 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Voie urbaine (non nommée)</i><br>                 Distance à la route: <b>14.46 m</b><br>                 <b>Trajet depuis le dépôt :</b> 0.5 km (1.29 min)<br>             </div>             </div>`)[0];
+                popup_f6f7f57c0b280fd280ac4a2d518e8574.setContent(html_22ac57cc23ec1f119c297eab116270ed);
+            
+        
+
+        circle_marker_c163cb54cf80967350e4800d09d8275b.bindPopup(popup_f6f7f57c0b280fd280ac4a2d518e8574)
+        ;
+
+        
+    
+    
+            circle_marker_c163cb54cf80967350e4800d09d8275b.bindTooltip(
+                `<div>
+                     <b>#15</b> : Epicerie du marché (Commerce & Magasin)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fca88a7f3bb828ffe6ca78573eec1baf = L.circleMarker(
+                [30.421525, -9.600491],
+                {"bubblingMouseEvents": true, "color": "#1f77b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f77b4", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_2c882c85c3d09bc01a3dcf6d40bd98ff = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_b4041151c34d9ec62fc4deefc77654bf = $(`<div id="html_b4041151c34d9ec62fc4deefc77654bf" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #1f77b4; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #16 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Maroc Telecom اتصالات المغرب</h4>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Commerce & Magasin (telecommunication)<br>                 <b>OSM ID :</b> #5600220903<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.421525°N | Lon: -9.600491°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 442329.85 m | Y: 3365648.28 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Boulevard Hassan II شارع الحسن الثاني</i><br>                 Distance à la route: <b>17.04 m</b><br>                 <b>Trajet depuis le dépôt :</b> 0.42 km (0.85 min)<br>             </div>             </div>`)[0];
+                popup_2c882c85c3d09bc01a3dcf6d40bd98ff.setContent(html_b4041151c34d9ec62fc4deefc77654bf);
+            
+        
+
+        circle_marker_fca88a7f3bb828ffe6ca78573eec1baf.bindPopup(popup_2c882c85c3d09bc01a3dcf6d40bd98ff)
+        ;
+
+        
+    
+    
+            circle_marker_fca88a7f3bb828ffe6ca78573eec1baf.bindTooltip(
+                `<div>
+                     <b>#16</b> : Maroc Telecom اتصالات المغرب (Commerce & Magasin)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_500c7ef26b8ea1e3e611172152a5d236 = L.circleMarker(
+                [30.424452, -9.590298],
+                {"bubblingMouseEvents": true, "color": "#e377c2", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e377c2", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_63d118d766cdff669c0d5d32db86c71c = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_2f2877fdb9fca7a27f4b51f65b2e473c = $(`<div id="html_2f2877fdb9fca7a27f4b51f65b2e473c" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #e377c2; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #17 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Crédit du Maroc</h4>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Banque & Finance (bank)<br>                 <b>OSM ID :</b> #1871529517<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.424452°N | Lon: -9.590298°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 443310.5 m | Y: 3365967.46 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Rue Amhand Ait Ettaleb</i><br>                 Distance à la route: <b>10.08 m</b><br>                 <b>Trajet depuis le dépôt :</b> 1.08 km (2.18 min)<br>             </div>             </div>`)[0];
+                popup_63d118d766cdff669c0d5d32db86c71c.setContent(html_2f2877fdb9fca7a27f4b51f65b2e473c);
+            
+        
+
+        circle_marker_500c7ef26b8ea1e3e611172152a5d236.bindPopup(popup_63d118d766cdff669c0d5d32db86c71c)
+        ;
+
+        
+    
+    
+            circle_marker_500c7ef26b8ea1e3e611172152a5d236.bindTooltip(
+                `<div>
+                     <b>#17</b> : Crédit du Maroc (Banque & Finance)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_cc721b4b0701fc9db02e0edcc404e704 = L.circleMarker(
+                [30.422604, -9.600317],
+                {"bubblingMouseEvents": true, "color": "#e377c2", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e377c2", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_cc29bd1986f928092fd12a47b975faa6 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_a2184aec229f9f3b2f57456c4de79325 = $(`<div id="html_a2184aec229f9f3b2f57456c4de79325" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #e377c2; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #18 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Credit Du Maroc</h4>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Banque & Finance (bank)<br>                 <b>OSM ID :</b> #1871536162<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.422604°N | Lon: -9.600317°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 442347.14 m | Y: 3365767.7 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Voie urbaine (non nommée)</i><br>                 Distance à la route: <b>21.41 m</b><br>                 <b>Trajet depuis le dépôt :</b> 0.33 km (0.69 min)<br>             </div>             </div>`)[0];
+                popup_cc29bd1986f928092fd12a47b975faa6.setContent(html_a2184aec229f9f3b2f57456c4de79325);
+            
+        
+
+        circle_marker_cc721b4b0701fc9db02e0edcc404e704.bindPopup(popup_cc29bd1986f928092fd12a47b975faa6)
+        ;
+
+        
+    
+    
+            circle_marker_cc721b4b0701fc9db02e0edcc404e704.bindTooltip(
+                `<div>
+                     <b>#18</b> : Credit Du Maroc (Banque & Finance)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e8cddd0cb896d0abc60de130b950cd4b = L.circleMarker(
+                [30.422951, -9.604042],
+                {"bubblingMouseEvents": true, "color": "#e377c2", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e377c2", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_0866332506fcf5785aa2512d2c8b0001 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_57be535d991d74738d1f24b750935009 = $(`<div id="html_57be535d991d74738d1f24b750935009" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #e377c2; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #19 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Crédit Agricole du Maroc القرض الفلاحي للمغرب</h4>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Banque & Finance (bank)<br>                 <b>OSM ID :</b> #4284185280<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.422951°N | Lon: -9.604042°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 441989.62 m | Y: 3365808.08 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Voie urbaine (non nommée)</i><br>                 Distance à la route: <b>13.46 m</b><br>                 <b>Trajet depuis le dépôt :</b> 0.79 km (1.72 min)<br>             </div>             </div>`)[0];
+                popup_0866332506fcf5785aa2512d2c8b0001.setContent(html_57be535d991d74738d1f24b750935009);
+            
+        
+
+        circle_marker_e8cddd0cb896d0abc60de130b950cd4b.bindPopup(popup_0866332506fcf5785aa2512d2c8b0001)
+        ;
+
+        
+    
+    
+            circle_marker_e8cddd0cb896d0abc60de130b950cd4b.bindTooltip(
+                `<div>
+                     <b>#19</b> : Crédit Agricole du Maroc القرض الفلاحي للمغرب (Banque & Finance)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c8ac0e8da1bf836fe04c8dd84ea3b28b = L.circleMarker(
+                [30.422224, -9.604897],
+                {"bubblingMouseEvents": true, "color": "#e377c2", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e377c2", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_74cc477a63dd7286491c58ca61f6cac7 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_79478c0531fa27d84ae6eb0a71e83f67 = $(`<div id="html_79478c0531fa27d84ae6eb0a71e83f67" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #e377c2; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #20 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Bank of Africa ⵍⴱⴰⵏⴽ ⵏ ⴰⴼⵔⵉⵇⵢⴰ بنك أفريقيا</h4>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Banque & Finance (bank)<br>                 <b>OSM ID :</b> #4284185282<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.422224°N | Lon: -9.604897°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 441907.14 m | Y: 3365728.04 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Voie urbaine (non nommée)</i><br>                 Distance à la route: <b>22.77 m</b><br>                 <b>Trajet depuis le dépôt :</b> 0.92 km (1.77 min)<br>             </div>             </div>`)[0];
+                popup_74cc477a63dd7286491c58ca61f6cac7.setContent(html_79478c0531fa27d84ae6eb0a71e83f67);
+            
+        
+
+        circle_marker_c8ac0e8da1bf836fe04c8dd84ea3b28b.bindPopup(popup_74cc477a63dd7286491c58ca61f6cac7)
+        ;
+
+        
+    
+    
+            circle_marker_c8ac0e8da1bf836fe04c8dd84ea3b28b.bindTooltip(
+                `<div>
+                     <b>#20</b> : Bank of Africa ⵍⴱⴰⵏⴽ ⵏ ⴰⴼⵔⵉⵇⵢⴰ بنك أفريقيا (Banque & Finance)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b848ab70265bd3744c5357b9dfc7a279 = L.circleMarker(
+                [30.421659, -9.593499],
+                {"bubblingMouseEvents": true, "color": "#e377c2", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e377c2", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_45e536217f07b4871007d406d3c23d7b = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_9575a0d9d1670076f232608267092413 = $(`<div id="html_9575a0d9d1670076f232608267092413" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #e377c2; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #21 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Attijariwafa</h4>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Banque & Finance (bank)<br>                 <b>OSM ID :</b> #1488955058<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.421659°N | Lon: -9.593499°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 443001.45 m | Y: 3365659.58 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Voie urbaine (non nommée)</i><br>                 Distance à la route: <b>8.97 m</b><br>                 <b>Trajet depuis le dépôt :</b> 0.65 km (1.06 min)<br>             </div>             </div>`)[0];
+                popup_45e536217f07b4871007d406d3c23d7b.setContent(html_9575a0d9d1670076f232608267092413);
+            
+        
+
+        circle_marker_b848ab70265bd3744c5357b9dfc7a279.bindPopup(popup_45e536217f07b4871007d406d3c23d7b)
+        ;
+
+        
+    
+    
+            circle_marker_b848ab70265bd3744c5357b9dfc7a279.bindTooltip(
+                `<div>
+                     <b>#21</b> : Attijariwafa (Banque & Finance)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_001a86e1b2e32436fb71f31c8d43518f = L.circleMarker(
+                [30.420268, -9.603453],
+                {"bubblingMouseEvents": true, "color": "#e377c2", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e377c2", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_1c96040d63f16a8f13959ad873964021 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_7a0017affc3158e56c25b75245741b61 = $(`<div id="html_7a0017affc3158e56c25b75245741b61" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #e377c2; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #22 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Bank Al-Maghrib بنك المغرب</h4>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Banque & Finance (bank)<br>                 <b>OSM ID :</b> #2676861016<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.420268°N | Lon: -9.603453°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 442044.62 m | Y: 3365510.44 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Avenue Mohammed V شارع محمد الخامس</i><br>                 Distance à la route: <b>26.79 m</b><br>                 <b>Trajet depuis le dépôt :</b> 0.78 km (1.42 min)<br>             </div>             </div>`)[0];
+                popup_1c96040d63f16a8f13959ad873964021.setContent(html_7a0017affc3158e56c25b75245741b61);
+            
+        
+
+        circle_marker_001a86e1b2e32436fb71f31c8d43518f.bindPopup(popup_1c96040d63f16a8f13959ad873964021)
+        ;
+
+        
+    
+    
+            circle_marker_001a86e1b2e32436fb71f31c8d43518f.bindTooltip(
+                `<div>
+                     <b>#22</b> : Bank Al-Maghrib بنك المغرب (Banque & Finance)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_92e2a31125d7dbed65dda9dec9ee2e43 = L.circleMarker(
+                [30.415039, -9.598995],
+                {"bubblingMouseEvents": true, "color": "#e377c2", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e377c2", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_9226f5375d594c1d20e3a968786b7627 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_bb3a169b4abf103558fa1a9a09638c6e = $(`<div id="html_bb3a169b4abf103558fa1a9a09638c6e" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #e377c2; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #23 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">CIH Bank القرض العقاري والسياحي</h4>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Banque & Finance (bank)<br>                 <b>OSM ID :</b> #3203404009<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.415039°N | Lon: -9.598995°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 442469.75 m | Y: 3364928.73 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Voie urbaine (non nommée)</i><br>                 Distance à la route: <b>4.96 m</b><br>                 <b>Trajet depuis le dépôt :</b> 1.02 km (1.91 min)<br>             </div>             </div>`)[0];
+                popup_9226f5375d594c1d20e3a968786b7627.setContent(html_bb3a169b4abf103558fa1a9a09638c6e);
+            
+        
+
+        circle_marker_92e2a31125d7dbed65dda9dec9ee2e43.bindPopup(popup_9226f5375d594c1d20e3a968786b7627)
+        ;
+
+        
+    
+    
+            circle_marker_92e2a31125d7dbed65dda9dec9ee2e43.bindTooltip(
+                `<div>
+                     <b>#23</b> : CIH Bank القرض العقاري والسياحي (Banque & Finance)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8e8c3fb61128fe54e886ad24dde279fe = L.circleMarker(
+                [30.422427, -9.607787],
+                {"bubblingMouseEvents": true, "color": "#ff7f0e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff7f0e", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_bc6d36a5f8e36a8ca1fbdb964e532ddd = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_e0ef50331f4b56defc0d97ec51ecbb06 = $(`<div id="html_e0ef50331f4b56defc0d97ec51ecbb06" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #ff7f0e; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #24 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Etoile Du Sud</h4>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Restauration & Cafés (restaurant)<br>                 <b>OSM ID :</b> #2015683007<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.422427°N | Lon: -9.607787°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 441629.64 m | Y: 3365751.98 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Avenue Mohammed V شارع محمد الخامس</i><br>                 Distance à la route: <b>22.42 m</b><br>                 <b>Trajet depuis le dépôt :</b> 1.69 km (2.29 min)<br>             </div>             </div>`)[0];
+                popup_bc6d36a5f8e36a8ca1fbdb964e532ddd.setContent(html_e0ef50331f4b56defc0d97ec51ecbb06);
+            
+        
+
+        circle_marker_8e8c3fb61128fe54e886ad24dde279fe.bindPopup(popup_bc6d36a5f8e36a8ca1fbdb964e532ddd)
+        ;
+
+        
+    
+    
+            circle_marker_8e8c3fb61128fe54e886ad24dde279fe.bindTooltip(
+                `<div>
+                     <b>#24</b> : Etoile Du Sud (Restauration & Cafés)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b9e9c9bdf98d1d7ba41d7ba48932289c = L.circleMarker(
+                [30.424403, -9.593281],
+                {"bubblingMouseEvents": true, "color": "#ff7f0e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff7f0e", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_b72cfd2c58db01cfc004752386a6ee82 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_95ed043a5c234024e7ec72b26ec1a61e = $(`<div id="html_95ed043a5c234024e7ec72b26ec1a61e" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #ff7f0e; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #25 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Etoile d'Agadir</h4>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Restauration & Cafés (restaurant)<br>                 <b>OSM ID :</b> #4489484290<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.424403°N | Lon: -9.593281°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 443023.96 m | Y: 3365963.55 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Rue El Mahdi Ibn Toumert</i><br>                 Distance à la route: <b>18.55 m</b><br>                 <b>Trajet depuis le dépôt :</b> 0.76 km (1.86 min)<br>             </div>             </div>`)[0];
+                popup_b72cfd2c58db01cfc004752386a6ee82.setContent(html_95ed043a5c234024e7ec72b26ec1a61e);
+            
+        
+
+        circle_marker_b9e9c9bdf98d1d7ba41d7ba48932289c.bindPopup(popup_b72cfd2c58db01cfc004752386a6ee82)
+        ;
+
+        
+    
+    
+            circle_marker_b9e9c9bdf98d1d7ba41d7ba48932289c.bindTooltip(
+                `<div>
+                     <b>#25</b> : Etoile d'Agadir (Restauration & Cafés)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_61c084b0d31dd177835503fd8826f20d = L.circleMarker(
+                [30.424319, -9.593367],
+                {"bubblingMouseEvents": true, "color": "#ff7f0e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff7f0e", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_13ca183d414f96fb298a244dc99fcee4 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_a91cb10d0b8f5934f7c152d8d193a08e = $(`<div id="html_a91cb10d0b8f5934f7c152d8d193a08e" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #ff7f0e; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #26 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Cremerie du sud</h4>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Restauration & Cafés (cafe)<br>                 <b>OSM ID :</b> #4489500889<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.424319°N | Lon: -9.593367°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 443015.71 m | Y: 3365954.28 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Rue El Mahdi Ibn Toumert</i><br>                 Distance à la route: <b>6.08 m</b><br>                 <b>Trajet depuis le dépôt :</b> 0.76 km (1.86 min)<br>             </div>             </div>`)[0];
+                popup_13ca183d414f96fb298a244dc99fcee4.setContent(html_a91cb10d0b8f5934f7c152d8d193a08e);
+            
+        
+
+        circle_marker_61c084b0d31dd177835503fd8826f20d.bindPopup(popup_13ca183d414f96fb298a244dc99fcee4)
+        ;
+
+        
+    
+    
+            circle_marker_61c084b0d31dd177835503fd8826f20d.bindTooltip(
+                `<div>
+                     <b>#26</b> : Cremerie du sud (Restauration & Cafés)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_02098fbfa5a8df8b742fd8bc6c018ee1 = L.circleMarker(
+                [30.424476, -9.593195],
+                {"bubblingMouseEvents": true, "color": "#ff7f0e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff7f0e", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_73db4ff6fb9375b7529e559f66e55117 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_5663fb28b9a2e7bc8fdc1a16d9e77c25 = $(`<div id="html_5663fb28b9a2e7bc8fdc1a16d9e77c25" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #ff7f0e; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #27 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Cafe Restaurant Ibtissam</h4>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Restauration & Cafés (restaurant)<br>                 <b>OSM ID :</b> #4489501089<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.424476°N | Lon: -9.593195°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 443032.28 m | Y: 3365971.55 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Rue El Mahdi Ibn Toumert</i><br>                 Distance à la route: <b>30.05 m</b><br>                 <b>Trajet depuis le dépôt :</b> 0.76 km (1.86 min)<br>             </div>             </div>`)[0];
+                popup_73db4ff6fb9375b7529e559f66e55117.setContent(html_5663fb28b9a2e7bc8fdc1a16d9e77c25);
+            
+        
+
+        circle_marker_02098fbfa5a8df8b742fd8bc6c018ee1.bindPopup(popup_73db4ff6fb9375b7529e559f66e55117)
+        ;
+
+        
+    
+    
+            circle_marker_02098fbfa5a8df8b742fd8bc6c018ee1.bindTooltip(
+                `<div>
+                     <b>#27</b> : Cafe Restaurant Ibtissam (Restauration & Cafés)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1a08b7cbcd2055e62c9e5c0c3cc202c5 = L.circleMarker(
+                [30.427299, -9.587889],
+                {"bubblingMouseEvents": true, "color": "#ff7f0e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff7f0e", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_01a80581a48d753d4cb41e9ad1ef9a21 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_06c110e0719162954d24acbaa9d4c119 = $(`<div id="html_06c110e0719162954d24acbaa9d4c119" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #ff7f0e; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #28 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">شواية النهضة</h4>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Restauration & Cafés (restaurant)<br>                 <b>OSM ID :</b> #4562094289<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.427299°N | Lon: -9.587889°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 443543.43 m | Y: 3366281.78 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Avenue Moulay Youssef شارع مولاي يوسف</i><br>                 Distance à la route: <b>1.0 m</b><br>                 <b>Trajet depuis le dépôt :</b> 1.7 km (2.96 min)<br>             </div>             </div>`)[0];
+                popup_01a80581a48d753d4cb41e9ad1ef9a21.setContent(html_06c110e0719162954d24acbaa9d4c119);
+            
+        
+
+        circle_marker_1a08b7cbcd2055e62c9e5c0c3cc202c5.bindPopup(popup_01a80581a48d753d4cb41e9ad1ef9a21)
+        ;
+
+        
+    
+    
+            circle_marker_1a08b7cbcd2055e62c9e5c0c3cc202c5.bindTooltip(
+                `<div>
+                     <b>#28</b> : شواية النهضة (Restauration & Cafés)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_def23cd93bd6b006b6ab1bf3311a0d33 = L.circleMarker(
+                [30.417386, -9.600135],
+                {"bubblingMouseEvents": true, "color": "#ff7f0e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff7f0e", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_3494c841fcbe8de6937874135dea2a70 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_8edd3bdbbcf4866b4ed8107962ec8e4f = $(`<div id="html_8edd3bdbbcf4866b4ed8107962ec8e4f" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #ff7f0e; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #29 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">InBarbecue</h4>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Restauration & Cafés (fast_food)<br>                 <b>OSM ID :</b> #893350262<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.417386°N | Lon: -9.600135°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 442361.63 m | Y: 3365189.39 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Voie urbaine (non nommée)</i><br>                 Distance à la route: <b>3.63 m</b><br>                 <b>Trajet depuis le dépôt :</b> 0.64 km (1.51 min)<br>             </div>             </div>`)[0];
+                popup_3494c841fcbe8de6937874135dea2a70.setContent(html_8edd3bdbbcf4866b4ed8107962ec8e4f);
+            
+        
+
+        circle_marker_def23cd93bd6b006b6ab1bf3311a0d33.bindPopup(popup_3494c841fcbe8de6937874135dea2a70)
+        ;
+
+        
+    
+    
+            circle_marker_def23cd93bd6b006b6ab1bf3311a0d33.bindTooltip(
+                `<div>
+                     <b>#29</b> : InBarbecue (Restauration & Cafés)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5f8c460dffd264835e7e0f76cd830fc1 = L.circleMarker(
+                [30.4209, -9.59478],
+                {"bubblingMouseEvents": true, "color": "#ff7f0e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff7f0e", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_120c7e59e9815c699d62a77d6b7b3301 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_4af062a1b3f0528f25f1607b726e0335 = $(`<div id="html_4af062a1b3f0528f25f1607b726e0335" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #ff7f0e; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #30 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Yacout</h4>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Restauration & Cafés (restaurant)<br>                 <b>OSM ID :</b> #1054617734<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.4209°N | Lon: -9.59478°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 442877.98 m | Y: 3365576.12 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Rue du Souvenir</i><br>                 Distance à la route: <b>4.72 m</b><br>                 <b>Trajet depuis le dépôt :</b> 0.54 km (1.07 min)<br>             </div>             </div>`)[0];
+                popup_120c7e59e9815c699d62a77d6b7b3301.setContent(html_4af062a1b3f0528f25f1607b726e0335);
+            
+        
+
+        circle_marker_5f8c460dffd264835e7e0f76cd830fc1.bindPopup(popup_120c7e59e9815c699d62a77d6b7b3301)
+        ;
+
+        
+    
+    
+            circle_marker_5f8c460dffd264835e7e0f76cd830fc1.bindTooltip(
+                `<div>
+                     <b>#30</b> : Yacout (Restauration & Cafés)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_eea6580e33054382a73cca11cb8cbcdb = L.circleMarker(
+                [30.41509, -9.59745],
+                {"bubblingMouseEvents": true, "color": "#ff7f0e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff7f0e", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_73f860d0fc2d62ef1350c4bafcba0479 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_54fdf9493c4c628190a706161009dfa2 = $(`<div id="html_54fdf9493c4c628190a706161009dfa2" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #ff7f0e; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #31 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Pizza Hut</h4>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Restauration & Cafés (restaurant)<br>                 <b>OSM ID :</b> #1834313774<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.41509°N | Lon: -9.59745°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 442618.1 m | Y: 3364933.65 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Voie urbaine (non nommée)</i><br>                 Distance à la route: <b>18.78 m</b><br>                 <b>Trajet depuis le dépôt :</b> 2.38 km (3.42 min)<br>             </div>             </div>`)[0];
+                popup_73f860d0fc2d62ef1350c4bafcba0479.setContent(html_54fdf9493c4c628190a706161009dfa2);
+            
+        
+
+        circle_marker_eea6580e33054382a73cca11cb8cbcdb.bindPopup(popup_73f860d0fc2d62ef1350c4bafcba0479)
+        ;
+
+        
+    
+    
+            circle_marker_eea6580e33054382a73cca11cb8cbcdb.bindTooltip(
+                `<div>
+                     <b>#31</b> : Pizza Hut (Restauration & Cafés)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e087ea41e5e3b82fa095725143fa63a3 = L.circleMarker(
+                [30.417994, -9.605967],
+                {"bubblingMouseEvents": true, "color": "#ff7f0e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ff7f0e", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_a4580a8442f506291217b3ef1d8ec6a5 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_1151329dd7b343f49db19f54716288cd = $(`<div id="html_1151329dd7b343f49db19f54716288cd" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #ff7f0e; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #32 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Le Nil</h4>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Restauration & Cafés (restaurant)<br>                 <b>OSM ID :</b> #1871529510<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.417994°N | Lon: -9.605967°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 441801.86 m | Y: 3365259.79 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Voie urbaine (non nommée)</i><br>                 Distance à la route: <b>34.91 m</b><br>                 <b>Trajet depuis le dépôt :</b> 1.74 km (3.0 min)<br>             </div>             </div>`)[0];
+                popup_a4580a8442f506291217b3ef1d8ec6a5.setContent(html_1151329dd7b343f49db19f54716288cd);
+            
+        
+
+        circle_marker_e087ea41e5e3b82fa095725143fa63a3.bindPopup(popup_a4580a8442f506291217b3ef1d8ec6a5)
+        ;
+
+        
+    
+    
+            circle_marker_e087ea41e5e3b82fa095725143fa63a3.bindTooltip(
+                `<div>
+                     <b>#32</b> : Le Nil (Restauration & Cafés)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1d691345778f6a091959b5df0f52686a = L.circleMarker(
+                [30.423, -9.591],
+                {"bubblingMouseEvents": true, "color": "#9467bd", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#9467bd", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_a6e86c04ecc8ad91bf120edbd0dc8ada = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_1300f9123584cedbadc2f8324c6d3ccb = $(`<div id="html_1300f9123584cedbadc2f8324c6d3ccb" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #9467bd; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #33 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Agadir Talborjt</h4>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Services & Logistique (post_office)<br>                 <b>OSM ID :</b> #2907751305<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.423°N | Lon: -9.591°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 443242.21 m | Y: 3365806.92 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Voie urbaine (non nommée)</i><br>                 Distance à la route: <b>15.97 m</b><br>                 <b>Trajet depuis le dépôt :</b> 0.97 km (1.9 min)<br>             </div>             </div>`)[0];
+                popup_a6e86c04ecc8ad91bf120edbd0dc8ada.setContent(html_1300f9123584cedbadc2f8324c6d3ccb);
+            
+        
+
+        circle_marker_1d691345778f6a091959b5df0f52686a.bindPopup(popup_a6e86c04ecc8ad91bf120edbd0dc8ada)
+        ;
+
+        
+    
+    
+            circle_marker_1d691345778f6a091959b5df0f52686a.bindTooltip(
+                `<div>
+                     <b>#33</b> : Agadir Talborjt (Services & Logistique)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_325f674208b25fa8163180f3ada3e986 = L.circleMarker(
+                [30.425629, -9.599421],
+                {"bubblingMouseEvents": true, "color": "#9467bd", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#9467bd", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_604e460136f8bb945e68a4acfdf58d0f = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_c439a1f16bae7881808c43aca7f091ca = $(`<div id="html_c439a1f16bae7881808c43aca7f091ca" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #9467bd; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #34 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Winxo</h4>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Services & Logistique (fuel)<br>                 <b>OSM ID :</b> #5525589226<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.425629°N | Lon: -9.599421°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 442435.01 m | Y: 3366102.48 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Voie urbaine (non nommée)</i><br>                 Distance à la route: <b>1.24 m</b><br>                 <b>Trajet depuis le dépôt :</b> 0.66 km (1.15 min)<br>             </div>             </div>`)[0];
+                popup_604e460136f8bb945e68a4acfdf58d0f.setContent(html_c439a1f16bae7881808c43aca7f091ca);
+            
+        
+
+        circle_marker_325f674208b25fa8163180f3ada3e986.bindPopup(popup_604e460136f8bb945e68a4acfdf58d0f)
+        ;
+
+        
+    
+    
+            circle_marker_325f674208b25fa8163180f3ada3e986.bindTooltip(
+                `<div>
+                     <b>#34</b> : Winxo (Services & Logistique)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3a050a888e8cb85555be6587b2d86b36 = L.circleMarker(
+                [30.418171, -9.596571],
+                {"bubblingMouseEvents": true, "color": "#9467bd", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#9467bd", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_827ad823eabbb146740ce2db53cf528c = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_1641433ff4c17aa3f76709ce61a38374 = $(`<div id="html_1641433ff4c17aa3f76709ce61a38374" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #9467bd; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #35 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">TotalEnergies</h4>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Services & Logistique (fuel)<br>                 <b>OSM ID :</b> #3167285133<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.418171°N | Lon: -9.596571°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 442704.4 m | Y: 3365274.58 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Voie urbaine (non nommée)</i><br>                 Distance à la route: <b>7.5 m</b><br>                 <b>Trajet depuis le dépôt :</b> 0.52 km (1.18 min)<br>             </div>             </div>`)[0];
+                popup_827ad823eabbb146740ce2db53cf528c.setContent(html_1641433ff4c17aa3f76709ce61a38374);
+            
+        
+
+        circle_marker_3a050a888e8cb85555be6587b2d86b36.bindPopup(popup_827ad823eabbb146740ce2db53cf528c)
+        ;
+
+        
+    
+    
+            circle_marker_3a050a888e8cb85555be6587b2d86b36.bindTooltip(
+                `<div>
+                     <b>#35</b> : TotalEnergies (Services & Logistique)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_355b33a19bf85c32a573fe32104a78a3 = L.circleMarker(
+                [30.420548, -9.597507],
+                {"bubblingMouseEvents": true, "color": "#9467bd", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#9467bd", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_c4d417619291efa1cbf8649191397544 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_7339d4996e92782ff066951ecdf1155b = $(`<div id="html_7339d4996e92782ff066951ecdf1155b" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #9467bd; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #36 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Barid Pro - Poste Maroc</h4>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Services & Logistique (post_office)<br>                 <b>OSM ID :</b> #14208019191<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.420548°N | Lon: -9.597507°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 442615.84 m | Y: 3365538.52 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Voie urbaine (non nommée)</i><br>                 Distance à la route: <b>9.87 m</b><br>                 <b>Trajet depuis le dépôt :</b> 0.19 km (0.35 min)<br>             </div>             </div>`)[0];
+                popup_c4d417619291efa1cbf8649191397544.setContent(html_7339d4996e92782ff066951ecdf1155b);
+            
+        
+
+        circle_marker_355b33a19bf85c32a573fe32104a78a3.bindPopup(popup_c4d417619291efa1cbf8649191397544)
+        ;
+
+        
+    
+    
+            circle_marker_355b33a19bf85c32a573fe32104a78a3.bindTooltip(
+                `<div>
+                     <b>#36</b> : Barid Pro - Poste Maroc (Services & Logistique)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e4b619d6fe5d9f80f36b003565024860 = L.circleMarker(
+                [30.427802, -9.587331],
+                {"bubblingMouseEvents": true, "color": "#8c564b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#8c564b", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_bae6d9d6b95b3ac64984d283a1dd8836 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_a24c93703e56bc88fa27aba66d812074 = $(`<div id="html_a24c93703e56bc88fa27aba66d812074" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #8c564b; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #37 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">الأكاديمية الجهوية للتربية والتكوين لجهة سوس ماسة</h4>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Bureaux & Tertiaire (government)<br>                 <b>OSM ID :</b> #4510706961<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.427802°N | Lon: -9.587331°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 443597.37 m | Y: 3366337.26 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Voie urbaine (non nommée)</i><br>                 Distance à la route: <b>45.64 m</b><br>                 <b>Trajet depuis le dépôt :</b> 1.77 km (3.38 min)<br>             </div>             </div>`)[0];
+                popup_bae6d9d6b95b3ac64984d283a1dd8836.setContent(html_a24c93703e56bc88fa27aba66d812074);
+            
+        
+
+        circle_marker_e4b619d6fe5d9f80f36b003565024860.bindPopup(popup_bae6d9d6b95b3ac64984d283a1dd8836)
+        ;
+
+        
+    
+    
+            circle_marker_e4b619d6fe5d9f80f36b003565024860.bindTooltip(
+                `<div>
+                     <b>#37</b> : الأكاديمية الجهوية للتربية والتكوين لجهة سوس ماسة (Bureaux & Tertiaire)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_35636e7d87fe8aa5d954dcab45536b00 = L.circleMarker(
+                [30.426531, -9.593438],
+                {"bubblingMouseEvents": true, "color": "#8c564b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#8c564b", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_b0062c4c6d0b90ee8af5adc1ff5af8d3 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_7c0a0465952ecdaddda065fa80473951 = $(`<div id="html_7c0a0465952ecdaddda065fa80473951" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #8c564b; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #38 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Sophia Imbert Architecte</h4>                 <b>Quartier :</b> Talborjt<br>                 <b>Catégorie :</b> Bureaux & Tertiaire (architect)<br>                 <b>OSM ID :</b> #5525422508<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.426531°N | Lon: -9.593438°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 443010.09 m | Y: 3366199.42 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Rue Taha Hossein</i><br>                 Distance à la route: <b>5.32 m</b><br>                 <b>Trajet depuis le dépôt :</b> 1.11 km (1.82 min)<br>             </div>             </div>`)[0];
+                popup_b0062c4c6d0b90ee8af5adc1ff5af8d3.setContent(html_7c0a0465952ecdaddda065fa80473951);
+            
+        
+
+        circle_marker_35636e7d87fe8aa5d954dcab45536b00.bindPopup(popup_b0062c4c6d0b90ee8af5adc1ff5af8d3)
+        ;
+
+        
+    
+    
+            circle_marker_35636e7d87fe8aa5d954dcab45536b00.bindTooltip(
+                `<div>
+                     <b>#38</b> : Sophia Imbert Architecte (Bureaux & Tertiaire)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6f47c84abaf6744deae3d7dd3f65352d = L.circleMarker(
+                [30.420949, -9.60443],
+                {"bubblingMouseEvents": true, "color": "#8c564b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#8c564b", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_46e63a34c1d54094e18c83e34a71827c);
+        
+    
+        var popup_d5d0c90106855620ba2f3d65380f405d = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_fecf0cb2955cbdcd3da50af938f079c2 = $(`<div id="html_fecf0cb2955cbdcd3da50af938f079c2" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; font-size: 12px; min-width: 240px;">                 <div style="background-color: #8c564b; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;">                     Point #39 — Urbain                 </div>                 <h4 style="margin: 6px 0 4px 0; color: #222;">Wilaya de la région Souss Massa / Préfecture d'Agadir - Ida ou Tanane</h4>                 <b>Quartier :</b> Centre-Ville<br>                 <b>Catégorie :</b> Bureaux & Tertiaire (government)<br>                 <b>OSM ID :</b> #3997320758<br>                 <hr style="margin: 5px 0;">                 <b>Coordonnées GPS (WGS84) :</b><br>                 Lat: 30.420949°N | Lon: -9.60443°W<br>                 <b>Coordonnées Métriques (UTM 29N) :</b><br>                 X: 441951.22 m | Y: 3365586.47 m<br>                 <hr style="margin: 5px 0;">                 <b>Rattachement routier OSRM :</b><br>                 Rue: <i>Avenue Mohammed V شارع محمد الخامس</i><br>                 Distance à la route: <b>47.6 m</b><br>                 <b>Trajet depuis le dépôt :</b> 0.9 km (1.53 min)<br>             </div>             </div>`)[0];
+                popup_d5d0c90106855620ba2f3d65380f405d.setContent(html_fecf0cb2955cbdcd3da50af938f079c2);
+            
+        
+
+        circle_marker_6f47c84abaf6744deae3d7dd3f65352d.bindPopup(popup_d5d0c90106855620ba2f3d65380f405d)
+        ;
+
+        
+    
+    
+            circle_marker_6f47c84abaf6744deae3d7dd3f65352d.bindTooltip(
+                `<div>
+                     <b>#39</b> : Wilaya de la région Souss Massa / Préfecture d'Agadir - Ida ou Tanane (Bureaux & Tertiaire)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_46e63a34c1d54094e18c83e34a71827c.addTo(map_bc1fefaedd35a2e4658af5ad9035ce8f);
+        
+    
+            var layer_control_ad7aeb5c061a2e01887eed7aed72683c_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_fa2974fab8fd39a438b1abf36906df94,
+                    "Vue Satellite (Esri)" : tile_layer_893384fcf7fa53bbb669a8c2023ea33e,
+                },
+                overlays :  {
+                    "P\u00e9rim\u00e8tre BBOX \u00c9largi (Corniche comprise)" : feature_group_563f7d2b8fc6aba967a40228828eeae0,
+                    "Rattachement au r\u00e9seau routier (OSRM)" : feature_group_662f3214f4cf2e4a6ce62ef29d8b4f18,
+                    "D\u00e9p\u00f4t Logistique (Place Al Amal)" : feature_group_a18e40b927ca83c03dc661f0d7141b35,
+                    "Destination Littorale (Corniche / Marina)" : feature_group_b99ca10c948aad5b106f6b50c77792c4,
+                    "Destinations Urbaines (Talborjt \u0026 Centre)" : feature_group_46e63a34c1d54094e18c83e34a71827c,
+                },
+            };
+            let layer_control_ad7aeb5c061a2e01887eed7aed72683c = L.control.layers(
+                layer_control_ad7aeb5c061a2e01887eed7aed72683c_layers.base_layers,
+                layer_control_ad7aeb5c061a2e01887eed7aed72683c_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": false,
+  "autoZIndex": true,
+}
+            ).addTo(map_bc1fefaedd35a2e4658af5ad9035ce8f);
+
+        
+    
+            var tile_layer_ecfa69f50f413d076f1ff94422a958d8 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detect_retina": false, "max_native_zoom": 19, "max_zoom": 19, "min_zoom": 0, "no_wrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+            var mini_map_d8bfe8e2319700609d0ba40ca7ce6ca3 = new L.Control.MiniMap(
+                tile_layer_ecfa69f50f413d076f1ff94422a958d8,
+                {
+  "position": "bottomright",
+  "width": 150,
+  "height": 150,
+  "collapsedWidth": 25,
+  "collapsedHeight": 25,
+  "zoomLevelOffset": -5,
+  "centerFixed": false,
+  "zoomAnimation": false,
+  "toggleDisplay": true,
+  "autoToggleDisplay": false,
+  "minimized": false,
+}
+            );
+            map_bc1fefaedd35a2e4658af5ad9035ce8f.addControl(mini_map_d8bfe8e2319700609d0ba40ca7ce6ca3);
+        
+    
+            var measure_control_35b38c61d1639f96e79a5cfcc3816709 = new L.Control.Measure(
+                {
+  "position": "topleft",
+  "primaryLengthUnit": "kilometers",
+  "secondaryLengthUnit": "miles",
+  "primaryAreaUnit": "sqmeters",
+  "secondaryAreaUnit": "acres",
+});
+            map_bc1fefaedd35a2e4658af5ad9035ce8f.addControl(measure_control_35b38c61d1639f96e79a5cfcc3816709);
+
+            // Workaround for using this plugin with Leaflet>=1.8.0
+            // https://github.com/ljagis/leaflet-measure/issues/171
+            L.Control.Measure.include({
+                _setCaptureMarkerIcon: function () {
+                    // disable autopan
+                    this._captureMarker.options.autoPanOnFocus = false;
+                    // default function
+                    this._captureMarker.setIcon(
+                        L.divIcon({
+                            iconSize: this._map.getSize().multiplyBy(2)
+                        })
+                    );
+                },
+            });
+
+        
+    
+            L.control.fullscreen(
+                {
+  "position": "topleft",
+  "title": "Full Screen",
+  "titleCancel": "Exit Full Screen",
+  "forceSeparateButton": false,
+}
+            ).addTo(map_bc1fefaedd35a2e4658af5ad9035ce8f);
+        
+</script>
+</html>
